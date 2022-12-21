@@ -2,18 +2,19 @@
 using UnityEngine;
 
 namespace Model.Equipment {
-    public abstract class BaseSensor<T> where T : SensorTemplate {
+    public abstract class BaseSensor {
         public const byte STATUS_REST = 0;
         public const byte STATUS_EQUIPPED = 1;
         public const byte STATUS_DROPPED = 2;
         public const byte STATUS_PICKED = 3;
-        
-        public abstract T template { get; set; }
+
+        public readonly SensorTemplate template;
         public byte status { get; set; }
         public readonly int id;
         
-        public BaseSensor(int id) {
+        public BaseSensor(int id, SensorTemplate template) {
             this.id = id;
+            this.template = template;
             this.status = STATUS_REST;
         }
 

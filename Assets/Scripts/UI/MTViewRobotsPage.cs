@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
 using Model.Equipment;
-using Photon.Pun;
 using UnityEngine;
 
 namespace UI {
@@ -14,7 +13,7 @@ namespace UI {
         private Vector2 scroll = Vector2.zero;
 
         private void OnGUI() {
-            if (Summary.localPlayerTeam == -1) return; // 游戏未开始
+            if (!Summary.isGameStarted) return; // 游戏未开始
             var dim = new Rect(
                 Screen.width * (1 - VIEW_ROBOTS_PAGE_WIDTH) / 2, Screen.height * (1 - VIEW_ROBOTS_PAGE_HEIGHT) / 2,
                 Screen.width * VIEW_ROBOTS_PAGE_WIDTH, Screen.height * VIEW_ROBOTS_PAGE_HEIGHT
@@ -23,9 +22,7 @@ namespace UI {
                 scroll = GUILayout.BeginScrollView(scroll, false, false,
                     GUILayout.Height(Screen.height * VIEW_ROBOTS_PAGE_HEIGHT));
 
-                foreach (var robot in Summary.teams[Summary.localPlayerTeam].robots
-                             .Select(robotId => Summary.robots[robotId])
-                             .Where(r => r.status == Robot.STATUS_ACTIVE)) {
+                foreach (var robot in Summary.team.robots.Values.Where(r => r.status == Robot.STATUS_ACTIVE)) {
                     // 先展示未失联的机器人
                     GUILayout.BeginHorizontal("Box"); // 单独的机器人条目
 
@@ -41,9 +38,7 @@ namespace UI {
                     GUILayout.EndHorizontal();
                 }
 
-                foreach (var robot in Summary.teams[Summary.localPlayerTeam].robots
-                             .Select(robotId => Summary.robots[robotId])
-                             .Where(r => r.status == Robot.STATUS_MISSING)) {
+                foreach (var robot in Summary.team.robots.Values.Where(r => r.status == Robot.STATUS_MISSING)) {
                     // 再展示已失联的机器人
                     GUILayout.BeginHorizontal("Box"); // 单独的机器人条目
 
