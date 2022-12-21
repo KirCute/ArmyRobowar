@@ -1,17 +1,11 @@
 ﻿using Model.Equipment.Template;
 
 namespace Model.Equipment {
-    public class Bag : BaseSensor<BagTemplate> {
-        private BagTemplate priTemplate;
-
-        public override BagTemplate template {
-            get => priTemplate;
-            set => priTemplate = value;
-        }
-
-
-        public Bag(int id, BagTemplate priTemplate) : base(id) {
-            this.priTemplate = priTemplate;
+    public class Bag : BaseSensor {
+        private readonly BagTemplate bagTemplate;
+        
+        public Bag(int id, BagTemplate template) : base(id, template) {
+            this.bagTemplate = template;
         }
 
         public override void EquipOn(int robotId) {
