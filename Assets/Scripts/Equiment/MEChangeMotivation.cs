@@ -9,9 +9,9 @@ namespace Equiment {
     /// 在接收到小车运动方式需要改变时，改变小车运动方式
     /// </summary>
     public class MEChangeMotivation : MonoBehaviourPun {
-        private int isVerticalPress;
+        private int isVerticalPress = 0;
         private int isForward;
-        private int isHorizontalPress;
+        private int isHorizontalPress = 0;
         private int isRightward;
         public float linearSpeed = 1.5f;
         public float degreesPerFrame = 1.0f;
@@ -25,7 +25,7 @@ namespace Equiment {
                     //按下w
                     transform.Translate(Vector3.forward*linearSpeed*Time.deltaTime,Space.Self);
                 }
-                
+
                 if (isForward == 0) {
                     //按下s
                     transform.Translate(Vector3.back*linearSpeed*Time.deltaTime,Space.Self);
@@ -58,6 +58,7 @@ namespace Equiment {
              isForward = ((char)args[0] >> 2) & 1;
              isHorizontalPress = ((char)args[0] >> 1) & 1;
              isRightward = ((char)args[0] >> 0) & 1;
+             Events.Invoke(Events.F_ROBOT_MOTIVATION_CHANGE, new object[] { args[0] });
         }
     }
 }
