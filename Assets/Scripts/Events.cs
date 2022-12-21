@@ -3,8 +3,9 @@ using Photon.Pun;
 using Photon.Realtime;
 
 public static class Events {
-    public const byte F_BASE_HEALTH_CHANGED = 0;
-    public const byte F_BASE_DESTROYED = 1;
+    public const byte F_GAME_START = 0;
+    public const byte F_BASE_HEALTH_CHANGED = 1;
+    public const byte F_BASE_DESTROYED = 2;
     private const int COUNT_OF_EVENTS = 20;
     public delegate void GameEvent(object[] args);
     private static readonly GameEvent[] EVENTS = new GameEvent[COUNT_OF_EVENTS];
