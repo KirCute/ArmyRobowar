@@ -3,7 +3,20 @@ using Photon.Pun;
 using Photon.Realtime;
 
 public static class Events {
-    private const int COUNT_OF_EVENTS = 20;
+    private const int COUNT_OF_EVENTS = 37;
+
+    public static byte F_COMPONENT_DAMAGE = 1;
+    public static byte F_COMPONENT_DESTROYED = 2;
+    public static byte F_COMPONENT_HEALTH_CHANGED = 3;
+    public static byte F_BODY_DESTROYED = 4;
+    public static byte F_BODY_HEALTH_CHANGED = 5;
+    public static byte M_ROBOT_FIRE = 8;
+    public static byte F_ROBOT_FIRED = 9;
+    public static byte F_TOWER_DESTROYED = 32;
+    public static byte F_TOWER_HEALTH_CHANGED = 33;
+    public static byte F_BASE_DESTROYED = 36;
+    public static byte F_BASE_HEALTH_CHANGED = 37;
+    
     public delegate void GameEvent(object[] args);
     private static readonly GameEvent[] EVENTS = new GameEvent[COUNT_OF_EVENTS];
 
