@@ -3,29 +3,27 @@ using Photon.Pun;
 using Photon.Realtime;
 
 public static class Events {
-//<<<<<<< HEAD
-    private const int COUNT_OF_EVENTS = 37;
-
-    public static byte F_COMPONENT_DAMAGE = 1;
-    public static byte F_COMPONENT_DESTROYED = 2;
-    public static byte F_COMPONENT_HEALTH_CHANGED = 3;
-    public static byte F_BODY_DESTROYED = 4;
-    public static byte F_BODY_HEALTH_CHANGED = 5;
-    public static byte M_ROBOT_FIRE = 8;
-    public static byte F_ROBOT_FIRED = 9;
-    public static byte F_TOWER_DESTROYED = 32;
-    public static byte F_TOWER_HEALTH_CHANGED = 33;
-    public static byte M_CREATE_ROBOT = 34;
-    public static byte F_ROBOT_CREATED = 18;
-    public static byte F_BASE_DESTROYED = 36;
-    public static byte F_BASE_HEALTH_CHANGED = 37;
+    private const int COUNT_OF_EVENTS = 18;
     
-//=======
     public const byte F_GAME_START = 0;
-    //public const byte F_BASE_HEALTH_CHANGED = 1;
-    //public const byte F_BASE_DESTROYED = 2;
-    //private const int COUNT_OF_EVENTS = 20;
-//>>>>>>> a5bbeb5a7d8053b90e6fc7408a22439e56939430
+    public const byte F_COMPONENT_DAMAGE = 1;
+    public const byte F_COMPONENT_DESTROYED = 2;
+    public const byte F_COMPONENT_HEALTH_CHANGED = 3;
+    public const byte F_BODY_DESTROYED = 4;
+    public const byte F_BODY_HEALTH_CHANGED = 5;
+    public const byte M_ROBOT_FIRE = 6;
+    public const byte F_ROBOT_FIRED = 7;
+    public const byte F_TOWER_DESTROYED = 8;
+    public const byte F_TOWER_HEALTH_CHANGED = 9;
+    public const byte M_CREATE_ROBOT = 10;
+    public const byte F_ROBOT_CREATED = 11;
+    public const byte F_BASE_DESTROYED = 12;
+    public const byte F_BASE_HEALTH_CHANGED = 13;
+    public const byte M_ROBOT_MOTIVATION_CHANGE = 14;
+    public const byte F_ROBOT_SEIZE_ENEMY = 15;
+    public const byte F_ROBOT_LOST_SEIZE_ENEMY = 16;
+    public const byte F_ROBOT_MOTIVATION_CHANGE = 17;
+    
     public delegate void GameEvent(object[] args);
     private static readonly GameEvent[] EVENTS = new GameEvent[COUNT_OF_EVENTS];
 
