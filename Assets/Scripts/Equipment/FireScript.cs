@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Model.Equipment;
 
 namespace Equipment
 {
@@ -12,8 +13,8 @@ namespace Equipment
         // Start is called before the first frame update
         void Start()
         {
-            layerMask = 1 << 6;
-            layerMask += 1 << 7 ; //增加允许检测第二层Layer。
+            layerMask = 1 << 6;     //body
+            layerMask += 1 << 7 ;   //增加允许检测第7层Layer（component）
         }
 
         private void OnEnable()
@@ -28,11 +29,14 @@ namespace Equipment
             {
                 if (hit.collider.gameObject.layer == 6)
                 {
+                    /*参数应该是ID与血量*/
                     Events.Invoke(Events.F_BODY_HEALTH_CHANGED, new object[] { hit.collider.gameObject.name });
                 }
                 if (hit.collider.gameObject.layer == 7)
                 {
+                    /*参数应该是ID与血量*/
                     Events.Invoke(Events.F_COMPONENT_HEALTH_CHANGED, new object[] { hit.collider.gameObject.name });
+                    /*参数应该是ID与血量*/
                     Events.Invoke(Events.F_COMPONENT_DAMAGE, new object[] { hit.collider.gameObject.name });
                 }
             }
