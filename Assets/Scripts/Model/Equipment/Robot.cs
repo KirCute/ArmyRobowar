@@ -1,4 +1,4 @@
-﻿using Model.Equipment.Template;
+using Model.Equipment.Template;
 using UnityEngine;
 
 namespace Model.Equipment {
