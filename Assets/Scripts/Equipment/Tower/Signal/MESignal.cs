@@ -2,7 +2,7 @@
 using UnityEngine;
 
 namespace Equipment.Tower.Signal {
-    public class METowerConnection : MonoBehaviourPun {
+    public class MESignal : MonoBehaviourPun {
         private METowerIdentifier identity;
         [SerializeField] private int strength;
         
