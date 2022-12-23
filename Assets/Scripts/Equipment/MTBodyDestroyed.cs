@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Equipment
 {
-    public class BodyDestroyedScript : MonoBehaviour
+    public class MTBodyDestroyed : MonoBehaviour
     {
         private void OnEnable()
         {

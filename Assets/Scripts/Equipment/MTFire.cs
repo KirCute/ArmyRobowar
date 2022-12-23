@@ -7,7 +7,7 @@ using Model.Equipment;
 namespace Equipment
 {
 
-    public class FireScript : MonoBehaviour
+    public class MTFire : MonoBehaviour
     {
         private int layerMask;
         // Start is called before the first frame update

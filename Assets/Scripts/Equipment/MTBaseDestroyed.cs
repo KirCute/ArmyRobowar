@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Equipment
 {
-    public class BaseDestroyedScript : MonoBehaviour
+    public class MTBaseDestroyed : MonoBehaviour
     {
         // Start is called before the first frame update
         void Start()
