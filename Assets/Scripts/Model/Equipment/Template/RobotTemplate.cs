@@ -10,9 +10,5 @@
             this.nameOnTechnologyTree = name;
             this.capacity = capacity;
         }
-
-        public Robot CreateOne(int id, string name) {
-            return new Robot(id, name, this);
-        }
     }
 }

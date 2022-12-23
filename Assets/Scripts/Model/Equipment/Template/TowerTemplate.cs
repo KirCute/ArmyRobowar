@@ -4,11 +4,13 @@
     /// </summary>
     public class TowerTemplate {
         public readonly string nameOnTechnologyTree;
-        public readonly float range; // 信号塔的照射距离
+        public readonly string pprefabName;
+        public readonly int maxHealth;
 
-        public TowerTemplate(string name, float range) {
+        public TowerTemplate(string name, string prefabName, int maxHealth) {
             this.nameOnTechnologyTree = name;
-            this.range = range;
+            this.pprefabName = prefabName;
+            this.maxHealth = maxHealth;
         }
     }
 }

@@ -28,7 +28,7 @@ namespace UI {
 
                     GUILayout.BeginVertical(); // 左侧名称和血条
                     GUILayout.Label(robot.name);
-                    GUILayout.Label(new string('❤', (int) Mathf.Ceil(robot.health)));
+                    GUILayout.Label(new string('❤', robot.health / 3));
                     GUILayout.EndVertical();
 
                     if (GUILayout.Button("查看画面")) {
