@@ -3,7 +3,7 @@ using Photon.Pun;
 using Photon.Realtime;
 
 public static class Events {
-    private const int COUNT_OF_EVENTS = 21;
+    private const int COUNT_OF_EVENTS = 25;
     
     public const byte F_GAME_START = 0;
     public const byte M_CREATE_ROBOT = 1;
@@ -16,17 +16,21 @@ public static class Events {
     public const byte M_ROBOT_FIRE = 7;
     public const byte F_ROBOT_FIRED = 8;
     public const byte M_ROBOT_MOTIVATION_CHANGE = 9;
-    public const byte F_ROBOT_MOTIVATION_CHANGE = 10;
+    public const byte F_ROBOT_MOTIVATION_CHANGED = 10;
     public const byte F_ROBOT_SEIZE_ENEMY = 11;
     public const byte F_ROBOT_LOST_SEIZE_ENEMY = 12;
-    public const byte F_TOWER_HEALTH_CHANGED = 13;
-    public const byte F_TOWER_DESTROYED = 14;
-    public const byte M_CAPTURE_BASE = 15;
-    public const byte F_BASE_DESTROYED = 16;  // 参数：基地id(int)
-    public const byte M_BASE_CHANGE_HEALTH = 17;  // 参数：基地id(int), 血量变化量(int)
-    public const byte F_BASE_HEALTH_CHANGED = 18;  // 参数：基地id(int), 当前血量(int)
-    public const byte F_TEAM_ACQUIRE_COMPONENT = 19;
-    public const byte F_TEAM_ACQUIRE_COINS = 20;
+    public const byte F_ROBOT_ACQUIRED_CONNECTION = 13;
+    public const byte F_ROBOT_WEAK_CONNECTION = 14;
+    public const byte F_ROBOT_LOST_CONNECTION = 15;
+    public const byte F_ROBOT_CONNECTION = 16;
+    public const byte F_TOWER_HEALTH_CHANGED = 17;
+    public const byte F_TOWER_DESTROYED = 18;
+    public const byte M_CAPTURE_BASE = 19;
+    public const byte F_BASE_DESTROYED = 20;  // 参数：基地id(int)
+    public const byte M_BASE_CHANGE_HEALTH = 21;  // 参数：基地id(int), 血量变化量(int)
+    public const byte F_BASE_HEALTH_CHANGED = 22;  // 参数：基地id(int), 当前血量(int)
+    public const byte F_TEAM_ACQUIRE_COMPONENT = 23;
+    public const byte F_TEAM_ACQUIRE_COINS = 24;
     
     public delegate void GameEvent(object[] args);
     private static readonly GameEvent[] EVENTS = new GameEvent[COUNT_OF_EVENTS];

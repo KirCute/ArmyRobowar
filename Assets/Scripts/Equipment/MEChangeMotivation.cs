@@ -58,7 +58,7 @@ namespace Equiment {
              isForward = ((char)args[0] >> 2) & 1;
              isHorizontalPress = ((char)args[0] >> 1) & 1;
              isRightward = ((char)args[0] >> 0) & 1;
-             Events.Invoke(Events.F_ROBOT_MOTIVATION_CHANGE, new object[] { args[0] });
+             Events.Invoke(Events.F_ROBOT_MOTIVATION_CHANGED, new object[] { args[0] });
         }
     }
 }
