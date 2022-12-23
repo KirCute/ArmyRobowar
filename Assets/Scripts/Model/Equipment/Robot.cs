@@ -12,8 +12,8 @@ namespace Model.Equipment {
 
         public GameObject gameObject { get; set; }
         public readonly string name;
-        public float maxHealth { get; set; }
-        public float health { get; set; }
+        public int maxHealth { get; set; }
+        public int health { get; set; }
 
         public byte status => connection > 0 ? STATUS_ACTIVE : STATUS_MISSING;
         public IReadOnlyList<Sensor> equippedComponents => components;

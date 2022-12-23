@@ -3,28 +3,30 @@ using Photon.Pun;
 using Photon.Realtime;
 
 public static class Events {
-    private const int COUNT_OF_EVENTS = 18;
+    private const int COUNT_OF_EVENTS = 21;
     
     public const byte F_GAME_START = 0;
-    public const byte F_COMPONENT_DAMAGE = 1;
-    public const byte F_COMPONENT_DESTROYED = 2;
-    public const byte F_COMPONENT_HEALTH_CHANGED = 3;
-    public const byte F_BODY_DESTROYED = 4;
-    public const byte F_BODY_HEALTH_CHANGED = 5;
-    public const byte M_ROBOT_FIRE = 6;
-    public const byte F_ROBOT_FIRED = 7;
-    public const byte F_TOWER_DESTROYED = 8;
-    public const byte F_TOWER_HEALTH_CHANGED = 9;
-    public const byte M_CREATE_ROBOT = 10;
-    public const byte F_ROBOT_CREATED = 11;
-    public const byte F_BASE_DESTROYED = 12;
-    public const byte F_BASE_HEALTH_CHANGED = 13;
-    public const byte M_ROBOT_MOTIVATION_CHANGE = 14;
-    public const byte F_ROBOT_SEIZE_ENEMY = 15;
-    public const byte F_ROBOT_LOST_SEIZE_ENEMY = 16;
-    public const byte F_ROBOT_MOTIVATION_CHANGE = 17;
-    public const byte F_TEAM_ACQUIRE_COMPONENT = 18;
-    public const byte F_TEAM_ACQUIRE_COINS = 19;
+    public const byte M_CREATE_ROBOT = 1;
+    public const byte F_ROBOT_CREATED = 2;
+    public const byte F_COMPONENT_DESTROYED = 3;
+    public const byte F_COMPONENT_DAMAGE = 4;  // FIXME: Why
+    public const byte F_COMPONENT_HEALTH_CHANGED = 4;
+    public const byte F_BODY_DESTROYED = 5;
+    public const byte F_BODY_HEALTH_CHANGED = 6;
+    public const byte M_ROBOT_FIRE = 7;
+    public const byte F_ROBOT_FIRED = 8;
+    public const byte M_ROBOT_MOTIVATION_CHANGE = 9;
+    public const byte F_ROBOT_MOTIVATION_CHANGE = 10;
+    public const byte F_ROBOT_SEIZE_ENEMY = 11;
+    public const byte F_ROBOT_LOST_SEIZE_ENEMY = 12;
+    public const byte F_TOWER_HEALTH_CHANGED = 13;
+    public const byte F_TOWER_DESTROYED = 14;
+    public const byte M_CAPTURE_BASE = 15;
+    public const byte F_BASE_DESTROYED = 16;  // 参数：基地id(int)
+    public const byte M_BASE_CHANGE_HEALTH = 17;  // 参数：基地id(int), 血量变化量(int)
+    public const byte F_BASE_HEALTH_CHANGED = 18;  // 参数：基地id(int), 当前血量(int)
+    public const byte F_TEAM_ACQUIRE_COMPONENT = 19;
+    public const byte F_TEAM_ACQUIRE_COINS = 20;
     
     public delegate void GameEvent(object[] args);
     private static readonly GameEvent[] EVENTS = new GameEvent[COUNT_OF_EVENTS];

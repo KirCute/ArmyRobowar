@@ -6,7 +6,7 @@ namespace Model.Equipment {
         public delegate bool EquipDelegate(Sensor self, GameObject robot, int robotId, int componentIndex);
         
         public readonly SensorTemplate template;
-        public float health { get; set; }
+        public int health { get; set; }
         
         public Sensor(SensorTemplate template) {
             this.template = template;

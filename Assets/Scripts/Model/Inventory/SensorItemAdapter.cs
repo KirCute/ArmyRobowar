@@ -5,9 +5,9 @@ using Model.Equipment.Template;
 namespace Model.Inventory {
     public class SensorItemAdapter : IItem {
         private readonly string name;
-        private readonly float health;
+        private readonly int health;
 
-        public SensorItemAdapter(string name, float health) {
+        public SensorItemAdapter(string name, int health) {
             this.name = name;
             this.health = health;
         }
