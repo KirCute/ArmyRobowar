@@ -27,6 +27,9 @@ public static class Events {
     public const byte F_ROBOT_WEAK_CONNECTION = 23;
     public const byte F_ROBOT_LOST_CONNECTION = 20;
     public const byte F_ROBOT_CONNECTION = 37;
+    public const byte F_TEAM_ACQUIRE_COMPONENT = 18;
+    public const byte F_TEAM_ACQUIRE_COINS = 19;
+
     
     public delegate void GameEvent(object[] args);
     private static readonly GameEvent[] EVENTS = new GameEvent[COUNT_OF_EVENTS];

@@ -12,9 +12,9 @@ namespace System {
         };
 
         public static readonly IReadOnlyDictionary<string, RobotTemplate> ROBOT_TEMPLATES = new Dictionary<string, RobotTemplate> {
-            {"iRobot", new RobotTemplate(2)},
-            {"iiRobot", new RobotTemplate(3)},
-            {"iiiRobot", new RobotTemplate(4)}
+            {"iRobot", new RobotTemplate("iRobot", 2)},
+            {"iiRobot", new RobotTemplate("iiRobot", 3)},
+            {"iiiRobot", new RobotTemplate("iiiRobot", 4)}
         };
 
         public static readonly IReadOnlyDictionary<string, SensorTemplate> SENSOR_TEMPLATES = new Dictionary<string, SensorTemplate> {
