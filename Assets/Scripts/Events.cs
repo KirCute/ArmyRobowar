@@ -23,8 +23,6 @@ public static class Events {
     public const byte F_ROBOT_SEIZE_ENEMY = 15;
     public const byte F_ROBOT_LOST_SEIZE_ENEMY = 16;
     public const byte F_ROBOT_MOTIVATION_CHANGE = 17;
-    public const byte F_TEAM_ACQUIRE_COMPONENT = 18;
-    public const byte F_TEAM_ACQUIRE_COINS = 19;
     
     public delegate void GameEvent(object[] args);
     private static readonly GameEvent[] EVENTS = new GameEvent[COUNT_OF_EVENTS];

@@ -5,7 +5,6 @@ using Model.Equipment;
 namespace System {
     public static class Summary {
         public static bool isGameStarted;
-        public static bool isTeamLeader;
         public static Team team { get; }
 
         static Summary() {

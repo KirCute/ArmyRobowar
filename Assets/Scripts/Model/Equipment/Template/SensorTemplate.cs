@@ -1,26 +1,13 @@
-﻿using System;
-
-namespace Model.Equipment.Template {
-    public class SensorTemplate {
-        public readonly string nameOnTechnologyTree;
+﻿namespace Model.Equipment.Template {
+    public abstract class SensorTemplate {
         public readonly string name;
         public readonly string description;
-        public readonly float maxHealth;
-        public readonly Sensor.EquipDelegate onEquipped;
-        public readonly Sensor.EquipDelegate onUnloaded;
-        
-        public SensorTemplate(string technic, string name, string description, float maxHealth,
-            Sensor.EquipDelegate onEquipped, Sensor.EquipDelegate onUnloaded) {
-            this.nameOnTechnologyTree = technic;
+
+        public SensorTemplate(string name, string description) {
             this.name = name;
             this.description = description;
-            this.maxHealth = maxHealth;
-            this.onEquipped = onEquipped;
-            this.onUnloaded = onUnloaded;
         }
-
-        public Sensor CreateOne() {
-            return new Sensor(this);
-        }
+        
+        public abstract BaseSensor CreateOne(int id);
     }
 }

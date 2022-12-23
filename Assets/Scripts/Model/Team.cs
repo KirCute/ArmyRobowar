@@ -16,7 +16,7 @@ namespace Model {
             this.teamColor = teamColor;
             this.members = members;
             this.robots = new Dictionary<int, Robot>();
-            this.components = new LinkedList<Sensor>();
+            this.components = new Dictionary<int, BaseSensor>();
             this.bases = new Dictionary<int, Basement>();  // TODO
             this.towers = new Dictionary<int, Tower>();
             this.availableRobotTemplates = new HashSet<string>();  // TODO
@@ -31,7 +31,7 @@ namespace Model {
         public int teamColor { get; }
         public ISet<int> members { get; }
         public Dictionary<int, Robot> robots { get; }
-        public LinkedList<Sensor> components { get; }
+        public Dictionary<int, BaseSensor> components { get; }
         public Dictionary<int, Basement> bases { get; }
         public Dictionary<int, Tower> towers { get; }
         public ISet<string> availableRobotTemplates { get; }
