@@ -10,7 +10,7 @@ namespace Equipment
         {
             if (gameObject.gameObject.CompareTag("outside"))
             {
-                //由于还没有ID和connection的文件会报错所以先注释掉
+                /*由于还没有ID和connection的文件会报错所以先注释掉*/
                 //other.gameObject.connection += 10;
                 //Events.Invoke(Events.F_ROBOT_CONNECTION, new object[] { other.gameObject.id,other.gameObject.connection });
             }
