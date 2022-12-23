@@ -6,8 +6,9 @@
             identity = GetComponentInParent<MEBaseFlag>();
         }
 
-        public override void Hurt(int damage) {
-            if (enabled) Events.Invoke(Events.M_BASE_CHANGE_HEALTH, new object[] {identity.baseId, -damage});
+        public override void Hurt(int damage, int team) {
+            if (identity.flagColor == team) return;
+            if (enabled) Events.Invoke(Events.M_BASE_DAMAGE, new object[] {identity.baseId, -damage});
         }
     }
 }

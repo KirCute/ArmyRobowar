@@ -11,11 +11,11 @@ namespace Equipment.Basement.Diamond {
         }
 
         private void OnEnable() {
-            Events.AddListener(Events.M_BASE_CHANGE_HEALTH, OnHealthChanging);
+            Events.AddListener(Events.M_BASE_DAMAGE, OnHealthChanging);
         }
 
         private void OnDisable() {
-            Events.RemoveListener(Events.M_BASE_CHANGE_HEALTH, OnHealthChanging);
+            Events.RemoveListener(Events.M_BASE_DAMAGE, OnHealthChanging);
         }
 
         private void OnHealthChanging(object[] args) {
