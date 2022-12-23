@@ -3,14 +3,12 @@
     /// 信号塔模板类
     /// </summary>
     public class TowerTemplate {
-        public float range { get; set; } // 信号塔的照射距离
+        public readonly string nameOnTechnologyTree;
+        public readonly float range; // 信号塔的照射距离
 
-        public TowerTemplate(float range) {
+        public TowerTemplate(string name, float range) {
+            this.nameOnTechnologyTree = name;
             this.range = range;
-        }
-
-        public TowerTemplate(TowerTemplate other) {
-            this.range = other.range;
         }
     }
 }

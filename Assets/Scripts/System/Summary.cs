@@ -1,20 +1,20 @@
 ﻿using System.Collections.Generic;
+using Model;
 using Model.Equipment;
 
 namespace System {
     public static class Summary {
-        public static List<Team> teams { get; }
-        public static Dictionary<int, Robot> robots { get; }
-        public static int localPlayerTeam { get; }
+        public static bool isGameStarted;
+        public static bool isTeamLeader;
+        public static Team team { get; }
 
         static Summary() {
-            teams = new List<Team>();
-            robots = new Dictionary<int, Robot>();
-            localPlayerTeam = -1;
             Events.AddListener(Events.F_GAME_START, OnGameStart);
         }
 
         private static void OnGameStart(object[] args) {
+            isGameStarted = true;
+            //team = new Team( );
             // TODO
         }
     }
