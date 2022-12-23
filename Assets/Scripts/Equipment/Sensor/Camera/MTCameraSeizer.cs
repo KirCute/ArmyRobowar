@@ -20,7 +20,7 @@ namespace Equiment {
         public void OnTriggerStay(Collider other) {
             //返回该碰撞体对应车辆的id
             if (photonView.IsMine && other.GetComponent<MTRobotHurt>() != null) {
-                var id = other.GetComponentInChildren<MERobotIdentifier>();
+                var id = other.GetComponentInParent<MERobotIdentifier>();
                 if (id.team != identity.team) {
                     Events.Invoke(Events.F_ROBOT_SEIZE_ENEMY, new object[] {
                         identity.team, id.id, other.transform.position, other.transform.rotation
@@ -31,7 +31,7 @@ namespace Equiment {
 
         public void OnTriggerExit(Collider other) {
             if (photonView.IsMine && other.GetComponent<MTRobotHurt>() != null) {
-                var id = other.GetComponentInChildren<MERobotIdentifier>();
+                var id = other.GetComponentInParent<MERobotIdentifier>();
                 if (id.team != identity.team) {
                     Events.Invoke(Events.F_ROBOT_LOST_SEIZE_ENEMY, new object[] {identity.team, id.id});
                 }
