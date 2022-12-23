@@ -3,19 +3,19 @@ using UnityEngine;
 
 namespace Equipment
 {
-    public class TowerDestroyedScript : MonoBehaviour
+    public class MTTowerDestroyed : MonoBehaviour
     {
         private void OnEnable()
         {
-            Events.AddListener(Events.F_TOWER_HEALTH_CHANGED, ComponentDestroyed);
+            Events.AddListener(Events.F_TOWER_HEALTH_CHANGED, TowerDestroyed);
         }
 
         private void OnDisable()
         {
-            Events.RemoveListener(Events.F_TOWER_HEALTH_CHANGED, ComponentDestroyed);
+            Events.RemoveListener(Events.F_TOWER_HEALTH_CHANGED, TowerDestroyed);
         }
 
-        public void ComponentDestroyed(object[] args)
+        public void TowerDestroyed(object[] args)
         {
             if (args[0] == gameObject.name && (byte)args[1] == 0)
             {
