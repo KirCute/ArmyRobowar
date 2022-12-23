@@ -3,7 +3,7 @@ using Photon.Pun;
 using Photon.Realtime;
 
 public static class Events {
-    private const int COUNT_OF_EVENTS = 18;
+    private const int COUNT_OF_EVENTS = 37;
     
     public const byte F_GAME_START = 0;
     public const byte F_COMPONENT_DAMAGE = 1;

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Equipment
 {
-    public class CreateRobotScript : MonoBehaviour
+    public class MECreateRobot : MonoBehaviour
     {
         private void OnEnable()
         {
