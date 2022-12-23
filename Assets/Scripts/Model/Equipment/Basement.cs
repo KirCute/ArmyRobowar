@@ -1,5 +1,13 @@
 ﻿namespace Model.Equipment {
     public class Basement {
+        private const int BASE_MAX_HEALTH = 20;
         
+        public readonly int id;
+        public int health { get; set; }
+
+        public Basement(int id) {
+            this.id = id;
+            this.health = BASE_MAX_HEALTH;
+        }
     }
 }
