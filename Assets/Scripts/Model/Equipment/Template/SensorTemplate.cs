@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Model.Equipment.Template {
+﻿namespace Model.Equipment.Template {
     public class SensorTemplate {
         public readonly string nameOnTechnologyTree;
         public readonly string name;
