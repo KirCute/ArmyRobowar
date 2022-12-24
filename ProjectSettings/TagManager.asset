@@ -10,14 +10,14 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Terrain
   - Water
   - UI
-  - body
-  - component
-  - 
-  - 
-  - 
+  - Body
+  - Component
+  - Pickable
+  - Diamond
+  - Tower
   - 
   - 
   - 
