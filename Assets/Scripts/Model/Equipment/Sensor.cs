@@ -4,14 +4,16 @@ using UnityEngine;
 namespace Model.Equipment {
     public class Sensor {
         public delegate bool EquipDelegate(Sensor self, GameObject robot, int robotId, int componentIndex);
-        
+
         public readonly SensorTemplate template;
         public int health { get; set; }
-        
-        public Sensor(SensorTemplate template) {
+
+        public Sensor(SensorTemplate template, int health) {
             this.template = template;
-            this.health = template.maxHealth;
+            this.health = health;
         }
+
+        public Sensor(SensorTemplate template) : this(template, template.maxHealth) { }
 
         public bool OnEquipped(GameObject robot, int robotId, int componentIndex) {
             return template.onEquipped(this, robot, robotId, componentIndex);
