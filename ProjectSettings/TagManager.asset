@@ -3,19 +3,21 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - outside
+  - inside
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Terrain
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Body
+  - Component
+  - Pickable
+  - Diamond
+  - Tower
   - 
   - 
   - 
