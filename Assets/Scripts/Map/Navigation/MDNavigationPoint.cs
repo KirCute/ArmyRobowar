@@ -13,26 +13,21 @@ namespace Map.Navigation {
 
         private void Update() {
             if (Application.isPlaying) return;
-            if (transform.position != lastPosition) {
-                Debug.Log(gameObject.name);
+            //if (transform.position != lastPosition) {
                 lastPosition = transform.position;
-                foreach (var close in closes) close.closes.Remove(this);
                 closes.Clear();
                 foreach (var point in transform.parent.gameObject.GetComponentsInChildren<MDNavigationPoint>()) {
                     if (point == this) continue;
                     if ((point.transform.position - transform.position).magnitude > acceptDistance) continue;
-                    point.closes.Add(this);
                     closes.Add(point);
                 }
-            }
+            //}
 
-            foreach (var neighbor in neighbors) neighbor.neighbors.Remove(this);
             neighbors.Clear();
             foreach (var point in closes.Where(
                          point => !Physics.Linecast(point.transform.position, transform.position, TERRAIN_LAYER_MASK)
                      )) {
                 neighbors.Add(point);
-                point.neighbors.Add(this);
             }
         }
 
