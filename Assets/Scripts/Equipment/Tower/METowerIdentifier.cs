@@ -1,7 +1,7 @@
 ﻿using Photon.Pun;
 
 namespace Equipment.Tower {
-    public class METowerIdentifier : MonoBehaviourPun, IPunObservable {
+    public class METowerIdentifier : AbstractMESignalIdentifier, IPunObservable {
         public int id { get; private set; }
         public int team { get; private set; }
         
@@ -13,6 +13,10 @@ namespace Equipment.Tower {
                 id = (int) stream.ReceiveNext();
                 team = (int) stream.ReceiveNext();
             }
+        }
+
+        public override int getTeamId() {
+            return team;
         }
     }
 }

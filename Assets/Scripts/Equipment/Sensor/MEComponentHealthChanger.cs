@@ -22,7 +22,7 @@ namespace Equipment.Sensor {
             if (identity.robotId == (int) args[0] && identity.index == (int) args[1] &&
                 identity.team == Summary.team.teamColor && photonView.IsMine) {
                 var health = Summary.team.robots[identity.robotId].equippedComponents[identity.index].health;
-                health = Mathf.Max(health + (int) args[1], 0);
+                health = Mathf.Max(health + (int) args[2], 0);
                 Summary.team.robots[identity.robotId].equippedComponents[identity.index].health = health;
                 Events.Invoke(Events.F_COMPONENT_HEALTH_CHANGED, new object[] {identity.robotId, identity.index, health});
                 if (health <= 0) {
