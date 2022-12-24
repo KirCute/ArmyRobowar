@@ -1,7 +1,7 @@
 using UnityEngine;
 
 namespace System.Judgement {
-    public class MEScoreboard : MonoBehaviour {
+    public class MTScoreboard : MonoBehaviour {
         private void OnEnable() {
             Events.AddListener(Events.F_BASE_DESTROYED, OnBaseDestroyed);
         }

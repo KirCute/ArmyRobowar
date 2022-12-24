@@ -9,19 +9,15 @@ namespace Map.Navigation {
         [SerializeField] private float acceptDistance = 10.0f;
         [SerializeField] private List<MDNavigationPoint> neighbors = new();
         private readonly List<MDNavigationPoint> closes = new();
-        private Vector3 lastPosition;
 
         private void Update() {
             if (Application.isPlaying) return;
-            //if (transform.position != lastPosition) {
-                lastPosition = transform.position;
-                closes.Clear();
-                foreach (var point in transform.parent.gameObject.GetComponentsInChildren<MDNavigationPoint>()) {
-                    if (point == this) continue;
-                    if ((point.transform.position - transform.position).magnitude > acceptDistance) continue;
-                    closes.Add(point);
-                }
-            //}
+            closes.Clear();
+            foreach (var point in transform.parent.gameObject.GetComponentsInChildren<MDNavigationPoint>()) {
+                if (point == this) continue;
+                if ((point.transform.position - transform.position).magnitude > acceptDistance) continue;
+                closes.Add(point);
+            }
 
             neighbors.Clear();
             foreach (var point in closes.Where(
