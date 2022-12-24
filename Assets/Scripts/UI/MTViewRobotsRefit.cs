@@ -11,7 +11,7 @@ namespace UI
 {
     public class MTViewRobotsRefit : MonoBehaviour
     {
-        private List<BaseSensor> Temp_Component_Self_Use = new List<BaseSensor>(); 
+        private List<Sensor> Temp_Component_Self_Use = new List<Sensor>(); 
 
         private const int VIEW_REFIT_PAGE_ID = 0;
         private const float VIEW_REFIT_PAGE_WIDTH = 0.8F;
@@ -55,7 +55,7 @@ namespace UI
                     GUILayout.BeginHorizontal("Box");
                     
                     GUILayout.BeginVertical();
-                    GUILayout.Label(component.template.name,GUILayout.ExpandWidth(true));
+                    GUILayout.Label(component.template.name,GUILayout.ExpandWidth(true));//配件名字（或者是贴图）未解决
                     if (GUILayout.Button("装配", GUILayout.ExpandWidth(false))) {
                         //TODO
                     }
