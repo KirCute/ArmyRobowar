@@ -3,7 +3,7 @@ using System.Numerics;
 using Photon.Pun;
 
 namespace Model.Inventory {
-    public class CoinPickUp : IItem,MonoBehaviourPun{
+    public class CoinPickUp : MonoBehaviourPun, IItem{
         private readonly int value;
 
         public CoinPickUp(int value) {
@@ -20,8 +20,7 @@ namespace Model.Inventory {
         /// <param name="position">产生金币的位置</param>
         /// <param name="totalAmount">该处生产金币总数</param>
         public void ProduceCoins(Vector3 position,int totalAmount) {
-            Events.Invoke(Events.M_PRODUCE_COINS, new object[] { position, totalAmount });
+            //Events.Invoke(Events.M_PRODUCE_COINS, new object[] { position, totalAmount });
         }
-
     }
 }
