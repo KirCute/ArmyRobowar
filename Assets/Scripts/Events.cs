@@ -3,7 +3,7 @@ using Photon.Pun;
 using Photon.Realtime;
 
 public static class Events {
-    private const int COUNT_OF_EVENTS = 39;
+    private const int COUNT_OF_EVENTS = 40;
     
     public const byte F_GAME_START = 0;
     public const byte M_CREATE_ROBOT = 1;  // 参数：队伍号(int), 底盘的科技树编号(string), 机器人的名称(string)
@@ -44,7 +44,9 @@ public static class Events {
     public const byte M_ROBOT_RELEASE_INVENTORY = 36;  // 参数：队伍号(int), 机器人id(int)
     public const byte M_ROBOT_INSTALL_COMPONENT = 37;  // 参数：队伍号(int), 机器人id(int), 安装位置(int), 要安装的传感器在仓库中的索引(int)
     public const byte M_ROBOT_UNINSTALL_COMPONENT = 38;  // 参数：队伍号(int), 机器人id(int), 安装位置(int)
-    
+    public const byte M_CREATE_PICKABLE_COMPONENT = 39;  // 参数：部件的科技树编号(string), 部件的血量(int), 位置(Vector3)
+    public const byte M_CREATE_PICKABLE_COINS = 40;  // 参数：生成金币的价值(int), 位置(Vector3)
+
     public delegate void GameEvent(object[] args);
     private static readonly GameEvent[] EVENTS = new GameEvent[COUNT_OF_EVENTS];
 

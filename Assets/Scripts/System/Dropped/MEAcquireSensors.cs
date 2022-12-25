@@ -11,7 +11,7 @@ namespace System {
         }
 
         public void AcquireComponent(object[] args) {
-            //TODO,在背包中添加，同时IsPickable变为false
+            //TODO,在背包中添加
         }
     }
 }
