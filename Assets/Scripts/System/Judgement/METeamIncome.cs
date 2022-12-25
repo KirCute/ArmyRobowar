@@ -21,7 +21,7 @@ namespace System.Judgement {
 
         private static void OnAcquireComponent(object[] args) {
             if (Summary.team.teamColor == (int) args[0]) {
-                Summary.team.components.AddLast(
+                Summary.team.components.Add(
                     new Sensor(Constants.SENSOR_TEMPLATES[(string) args[1]], (int) args[2])
                 );
             }

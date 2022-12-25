@@ -2,6 +2,6 @@
 
 namespace Equipment {
     public abstract class AbstractMESignalIdentifier : MonoBehaviourPun {
-        public abstract int getTeamId();
+        public abstract int GetTeamId();
     }
 }

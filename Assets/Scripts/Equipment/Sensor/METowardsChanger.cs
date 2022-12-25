@@ -20,7 +20,6 @@ namespace Equipment.Sensor {
         private void OnTowardsChanging(object[] args) {
             if (identity.robotId == (int) args[0] && photonView.IsMine) {
                 transform.forward = (Vector3) args[1];
-                Events.Invoke(Events.F_ROBOT_TOWARDS_CHANGED, args);
             }
         }
     }

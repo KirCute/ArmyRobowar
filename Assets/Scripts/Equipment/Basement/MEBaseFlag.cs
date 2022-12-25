@@ -61,7 +61,7 @@ namespace Equipment.Basement {
             }
         }
 
-        public override int getTeamId() {
+        public override int GetTeamId() {
             return flagColor;
         }
     }
