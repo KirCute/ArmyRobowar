@@ -39,6 +39,7 @@ public static class Events {
     public const byte F_TEAM_ACQUIRE_COINS = 31;  // 参数：队伍号(int), 资源数量(int)
     public const byte M_TEAM_BUY_COMPONENT = 32;  // 参数：队伍号(int), 部件的科技树编号(string)
     public const byte F_MAP_ROBOT_ENTER_AREA = 33;
+    public const byte M_TEAM_ACQUIRE_DROPPED = 34;
     
     public delegate void GameEvent(object[] args);
     private static readonly GameEvent[] EVENTS = new GameEvent[COUNT_OF_EVENTS];
