@@ -1,6 +1,6 @@
 ﻿using Photon.Pun;
 
-namespace Equipment.Basement.Updater {
+namespace System.TeamHelper {
     public class MERobotUpdater : MonoBehaviourPun {
         
     }

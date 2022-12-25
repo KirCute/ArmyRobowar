@@ -4,13 +4,15 @@
     /// </summary>
     public class TowerTemplate {
         public readonly string nameOnTechnologyTree;
-        public readonly string pprefabName;
+        public readonly string prefabName;
         public readonly int maxHealth;
+        public readonly int cost;
 
-        public TowerTemplate(string name, string prefabName, int maxHealth) {
+        public TowerTemplate(string name, string prefabName, int maxHealth, int cost) {
             this.nameOnTechnologyTree = name;
-            this.pprefabName = prefabName;
+            this.prefabName = prefabName;
             this.maxHealth = maxHealth;
+            this.cost = cost;
         }
     }
 }

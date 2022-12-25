@@ -19,5 +19,10 @@ namespace Model.Inventory {
                 Summary.team.teamColor, name, health
             });
         }
+
+        public bool isPickable {
+            get;
+            set;
+        } = false;
     }
 }
