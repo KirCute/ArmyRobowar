@@ -1,7 +1,7 @@
 ﻿namespace Model.Inventory {
     public interface IItem {
-        void StoreIn();
+        public string name { get; }
         
-        bool isPickable { get; set; } 
+        public void StoreIn();
     }
 }
