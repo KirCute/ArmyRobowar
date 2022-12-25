@@ -2,6 +2,5 @@
     public interface IItem {
         void StoreIn();
         
-        bool isPickable { get; set; } 
     }
 }

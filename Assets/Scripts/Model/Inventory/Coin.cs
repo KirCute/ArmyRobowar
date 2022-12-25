@@ -14,10 +14,5 @@ namespace Model.Inventory {
         public void StoreIn() {
             Events.Invoke(Events.F_TEAM_ACQUIRE_COINS, new object[] {Summary.team.teamColor, value});
         }
-
-        public bool isPickable {
-            get;
-            set;
-        } = true;
     }
 }
