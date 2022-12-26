@@ -63,7 +63,7 @@ namespace Equipment.Robot.Body {
                 isForward = ((char) args[1] >> 2) & 1;
                 isHorizontalPress = ((char) args[1] >> 1) & 1;
                 isRightward = ((char) args[1] >> 0) & 1;
-                Events.Invoke(Events.F_ROBOT_MOTIVATION_CHANGED, new object[] {args[0]});
+                Events.Invoke(Events.F_ROBOT_MOTIVATION_CHANGED, new object[] {args});
             }
         }
 

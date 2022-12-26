@@ -1,7 +1,7 @@
 using Photon.Pun;
 
-namespace System {
-    public class MEScoreboard : MonoBehaviourPun {
+namespace System.Judgement {
+    public class MTScoreboard : MonoBehaviourPun {
         private void OnEnable() {
             Events.AddListener(Events.F_BASE_DESTROYED, OnBaseDestroyed);
         }

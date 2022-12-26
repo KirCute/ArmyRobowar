@@ -27,6 +27,13 @@ namespace Equipment.Robot {
             if (Summary.team.teamColor == identity.team) {
                 Summary.team.robots[identity.id].connection = 0;
                 Summary.team.robots[identity.id].gameObject = null;
+                if (photonView.IsMine) {
+                    foreach (var sensor in Summary.team.robots[identity.id].equippedComponents) {
+                        Events.Invoke(Events.M_CREATE_PICKABLE_COMPONENT, new object[] {
+                            sensor.template.nameOnTechnologyTree, sensor.health, transform.position
+                        });
+                    }
+                }
             }
         }
     }

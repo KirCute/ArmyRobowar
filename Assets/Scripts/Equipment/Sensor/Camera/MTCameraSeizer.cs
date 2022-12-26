@@ -17,14 +17,12 @@ namespace Equiment {
             identity = GetComponentInParent<MEComponentIdentifier>();
         }
 
-        public void OnTriggerStay(Collider other) {
+        public void OnTriggerEnter(Collider other) {
             //返回该碰撞体对应车辆的id
             if (photonView.IsMine && other.GetComponent<MTRobotHurt>() != null) {
                 var id = other.GetComponentInParent<MERobotIdentifier>();
                 if (id.team != identity.team) {
-                    Events.Invoke(Events.F_ROBOT_SEIZE_ENEMY, new object[] {
-                        identity.team, id.id, other.transform.position, other.transform.rotation
-                    }, false);
+                    Events.Invoke(Events.F_ROBOT_SEIZE_ENEMY, new object[] {identity.team, id.id});
                 }
             }
         }

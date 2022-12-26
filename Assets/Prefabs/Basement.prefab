@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5352455212412659778}
+  - component: {fileID: 8050814677457659434}
   m_Layer: 2
   m_Name: Signal
   m_TagString: Untagged
@@ -33,6 +34,28 @@ Transform:
   m_Father: {fileID: 2778548803809046564}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8050814677457659434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1730097883975452426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 1
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &2063023479831244301
 GameObject:
   m_ObjectHideFlags: 0
@@ -44,7 +67,6 @@ GameObject:
   - component: {fileID: 8690211372416669785}
   - component: {fileID: 5000298505077960600}
   - component: {fileID: 5805384166540419647}
-  - component: {fileID: 5175372035096543359}
   - component: {fileID: 4781728965900766982}
   m_Layer: 2
   m_Name: RobotUpdater
@@ -97,24 +119,12 @@ MonoBehaviour:
   Group: 0
   prefixField: -1
   Synchronization: 3
-  OwnershipTransfer: 0
+  OwnershipTransfer: 1
   observableSearch: 2
   ObservedComponents: []
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &5175372035096543359
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2063023479831244301}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74827fb4535f4fd796cddfb8f8fb90a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &4781728965900766982
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -244,7 +254,7 @@ MonoBehaviour:
   Group: 0
   prefixField: -1
   Synchronization: 3
-  OwnershipTransfer: 0
+  OwnershipTransfer: 1
   observableSearch: 2
   ObservedComponents:
   - {fileID: 2477358535902565951}
@@ -287,6 +297,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c7718eb2d922bf4ba59cc969fe5776a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  neutralFlagMaterial: {fileID: 0}
+  flagMaterials: []
 --- !u!1 &2778548803809046563
 GameObject:
   m_ObjectHideFlags: 0
@@ -340,7 +352,7 @@ MonoBehaviour:
   Group: 0
   prefixField: -1
   Synchronization: 3
-  OwnershipTransfer: 0
+  OwnershipTransfer: 1
   observableSearch: 2
   ObservedComponents: []
   sceneViewId: 0
@@ -370,7 +382,7 @@ GameObject:
   - component: {fileID: 3946363266022407065}
   - component: {fileID: 8816026996008035562}
   - component: {fileID: 7485837381822025913}
-  - component: {fileID: 6466381527549229844}
+  - component: {fileID: 3032014295638344956}
   m_Layer: 2
   m_Name: Stronger
   m_TagString: Untagged
@@ -423,13 +435,13 @@ MonoBehaviour:
   Group: 0
   prefixField: -1
   Synchronization: 3
-  OwnershipTransfer: 0
+  OwnershipTransfer: 1
   observableSearch: 2
   ObservedComponents: []
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &6466381527549229844
+--- !u!114 &3032014295638344956
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -438,7 +450,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3518271501547148045}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7205c4d1158e4a708db8bc7d745d2673, type: 3}
+  m_Script: {fileID: 11500000, guid: 928e68af2e7a4954083043495974ec58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   strength: 10000
@@ -454,7 +466,6 @@ GameObject:
   - component: {fileID: 2626688551896821173}
   - component: {fileID: 3479303042787637189}
   - component: {fileID: 5870772729307704238}
-  - component: {fileID: 4066135192340130941}
   m_Layer: 2
   m_Name: RobotSpawner
   m_TagString: Untagged
@@ -506,7 +517,7 @@ MonoBehaviour:
   Group: 0
   prefixField: -1
   Synchronization: 3
-  OwnershipTransfer: 0
+  OwnershipTransfer: 1
   observableSearch: 2
   ObservedComponents: []
   sceneViewId: 0
@@ -524,18 +535,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50db47feaa694925957cfffdb0ca1af0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &4066135192340130941
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4168352681680249754}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c98c97da020a435488ee39ccf4265558, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &6120364945057314561
 GameObject:
   m_ObjectHideFlags: 0
@@ -547,7 +546,7 @@ GameObject:
   - component: {fileID: 4428197163670888954}
   - component: {fileID: 8971487631770094617}
   - component: {fileID: 5436066617167511660}
-  - component: {fileID: 2185961020708308832}
+  - component: {fileID: 502626056126552799}
   m_Layer: 2
   m_Name: Weaker
   m_TagString: Untagged
@@ -600,13 +599,13 @@ MonoBehaviour:
   Group: 0
   prefixField: -1
   Synchronization: 3
-  OwnershipTransfer: 0
+  OwnershipTransfer: 1
   observableSearch: 2
   ObservedComponents: []
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &2185961020708308832
+--- !u!114 &502626056126552799
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -615,7 +614,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6120364945057314561}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7205c4d1158e4a708db8bc7d745d2673, type: 3}
+  m_Script: {fileID: 11500000, guid: 928e68af2e7a4954083043495974ec58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   strength: 1

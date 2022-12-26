@@ -17,8 +17,8 @@ GameObject:
   - component: {fileID: 7204352378676629596}
   - component: {fileID: 4786345837128296900}
   - component: {fileID: 4175356215989677833}
-  - component: {fileID: 7359760071028504131}
-  m_Layer: 0
+  - component: {fileID: 2247252202567752547}
+  m_Layer: 7
   m_Name: BaseGun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -154,7 +154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1c076de520f47849f847da19c8b2402, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7359760071028504131
+--- !u!114 &2247252202567752547
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -163,7 +163,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 892925349879553371}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22bfc72833e5b2b4c8ca4086c56c8869, type: 3}
+  m_Script: {fileID: 11500000, guid: 3bb14a841dfe42b40a423cff861a8d30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 3

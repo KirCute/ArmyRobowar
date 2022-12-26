@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 1488634802843859812}
   - component: {fileID: 1133608780711012281}
   - component: {fileID: 4753848295006309654}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BaseLidar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
