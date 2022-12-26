@@ -1,5 +1,4 @@
 ﻿using Photon.Pun;
-using UnityEngine;
 
 namespace System.TeamHelper {
     public class MERobotUpdater : MonoBehaviourPun {
@@ -35,24 +34,21 @@ namespace System.TeamHelper {
                 var sensor = Summary.team.components[repoIndex];
                 Summary.team.components.RemoveAt(repoIndex);
                 Summary.team.robots[id].equippedComponents[instIndex] = sensor;
-                if (photonView.IsMine) {
-                    PhotonNetwork.Instantiate(sensor.template.prefabName, Vector3.zero, Quaternion.identity, 0,
-                        new object[] {id, instIndex, team}
-                    );
-                }
+                sensor.OnEquipped(id, instIndex, photonView.IsMine);
             }
         }
 
         private void OnUninstallingComponent(object[] args) {
             var team = (int) args[0];
-            if (Summary.team.teamColor == team && photonView.IsMine) {
+            if (Summary.team.teamColor == team) {
                 var id = (int) args[1];
                 var instIndex = (int) args[2];
                 var sensor = Summary.team.robots[id].equippedComponents[instIndex];
-                Events.Invoke(Events.F_TEAM_ACQUIRE_COMPONENT,
+                if (photonView.IsMine) Events.Invoke(Events.F_TEAM_ACQUIRE_COMPONENT,
                     new object[] {team, sensor.template.nameOnTechnologyTree, sensor.health}
                 );
-                Events.Invoke(Events.F_COMPONENT_DESTROYED, new object[] {id, instIndex});
+                sensor.OnUnloaded(id, instIndex, photonView.IsMine);
+                Summary.team.robots[id].equippedComponents[instIndex] = null;
             }
         }
     }

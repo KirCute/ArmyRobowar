@@ -9,6 +9,7 @@ namespace System.Pickable {
 
         private void Awake() {
             identity = GetComponentInParent<MEPickableIdentifier>();
+            value = (int) photonView.InstantiationData[0];
         }
 
         public override void Pickup(int team, int robotId) {

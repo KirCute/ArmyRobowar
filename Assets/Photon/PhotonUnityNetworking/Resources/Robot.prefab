@@ -86,8 +86,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa67df34dd2a45d58c2332b4de13370b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 3
-  loadingTime: 2
 --- !u!114 &2403028765176437261
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -116,7 +114,6 @@ GameObject:
   - component: {fileID: 6352498474630446333}
   - component: {fileID: 5507024948798430352}
   - component: {fileID: 7976398671355292779}
-  - component: {fileID: 1932110978176917476}
   m_Layer: 0
   m_Name: Robot
   m_TagString: Untagged
@@ -266,18 +263,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 491047c9cf5b4aff83287bf6cf9abf54, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1932110978176917476
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2066815804742709546}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 25bb175ac02941159d60eb3a989be117, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &5218869151837568069

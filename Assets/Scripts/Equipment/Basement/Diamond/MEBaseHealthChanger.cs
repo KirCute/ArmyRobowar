@@ -32,7 +32,7 @@ namespace Equipment.Basement.Diamond {
         }
 
         public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
-            if (identity.flagColor == Summary.team.teamColor) {
+            if (Summary.isGameStarted && identity.flagColor == Summary.team.teamColor) {
                 if (stream.IsWriting) {
                     stream.SendNext(Summary.team.bases[identity.baseId].health);
                 } else {

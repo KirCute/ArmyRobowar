@@ -7,7 +7,9 @@ namespace System {
         public static readonly IReadOnlyDictionary<string, Technic> TECHNOLOGY = new Dictionary<string, Technic> {
             {"iRobot", new Technic("基础底盘", "只含有两个装备槽", _ => { })},
             {"iiRobot", new Technic("进阶底盘", "拥有三个装备槽", team => team.availableRobotTemplates.Add("iiRobot"))},
-            {"iiiRobot", new Technic("进阶底盘", "拥有三个装备槽", team => team.availableRobotTemplates.Add("iiiRobot"))}
+            {"iiiRobot", new Technic("进阶底盘", "拥有三个装备槽", team => team.availableRobotTemplates.Add("iiiRobot"))},
+            {"BaseCamera", new Technic("基础摄像机", "", _ => { })},
+            {"BaseGun", new Technic("基础炮", "", _ => { })}
         };
 
         public static readonly IReadOnlyDictionary<string, RobotTemplate> ROBOT_TEMPLATES = new Dictionary<string, RobotTemplate> {
@@ -16,7 +18,17 @@ namespace System {
             {"iiiRobot", new RobotTemplate("iiiRobot", "Robot", 4, 30, 4, 30.0f)}
         };
 
-        public static readonly IReadOnlyDictionary<string, SensorTemplate> SENSOR_TEMPLATES =
-            new Dictionary<string, SensorTemplate> { };
+        public static readonly IReadOnlyDictionary<string, SensorTemplate> SENSOR_TEMPLATES = new Dictionary<string, SensorTemplate> {
+            {
+                "BaseCamera", new SensorTemplate("BaseCamera", "摄像头", "基础摄像头", 6, 1, 
+                    SensorTemplate.COMMON_OBJECT_COMPONENT_ON_EQUIPPED("BaseCamera"), 
+                    SensorTemplate.COMMON_OBJECT_COMPONENT_ON_UNLOADED)
+            },
+            {
+                "BaseGun", new SensorTemplate("BaseGun", "炮", "基础炮", 6, 1, 
+                    SensorTemplate.COMMON_OBJECT_COMPONENT_ON_EQUIPPED("BaseGun"), 
+                    SensorTemplate.COMMON_OBJECT_COMPONENT_ON_UNLOADED)
+            }
+        };
     }
 }

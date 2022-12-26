@@ -297,8 +297,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c7718eb2d922bf4ba59cc969fe5776a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  neutralFlagMaterial: {fileID: 0}
-  flagMaterials: []
+  neutralFlagMaterial: {fileID: 15303, guid: 0000000000000000f000000000000000, type: 0}
+  flagMaterials:
+  - {fileID: 15303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 15303, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!1 &2778548803809046563
 GameObject:
   m_ObjectHideFlags: 0
