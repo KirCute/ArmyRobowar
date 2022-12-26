@@ -9,15 +9,39 @@ namespace Map.Navigation {
         [SerializeField] private float acceptDistance = 10.0f;
         [SerializeField] private List<MDNavigationPoint> neighbors = new();
         private readonly List<MDNavigationPoint> closes = new();
+        private Vector3 lastPosition;
+        public float G { get; private set;}
+        public float H { get; private set;}
+        
+        public MDNavigationPoint parent { get; private set; }
+        public float F => G + H;
+
+        public void SetG(float g)
+        {
+            G = g;
+        }
+
+        public void SetH(float h)
+        {
+            H = h;
+        }
+
+        public void SetParent(MDNavigationPoint connection)
+        {
+            parent = connection;
+        }
 
         private void Update() {
             if (Application.isPlaying) return;
-            closes.Clear();
-            foreach (var point in transform.parent.gameObject.GetComponentsInChildren<MDNavigationPoint>()) {
-                if (point == this) continue;
-                if ((point.transform.position - transform.position).magnitude > acceptDistance) continue;
-                closes.Add(point);
-            }
+            //if (transform.position != lastPosition) {
+                lastPosition = transform.position;
+                closes.Clear();
+                foreach (var point in transform.parent.gameObject.GetComponentsInChildren<MDNavigationPoint>()) {
+                    if (point == this) continue;
+                    if ((point.transform.position - transform.position).magnitude > acceptDistance) continue;
+                    closes.Add(point);
+                }
+            //}
 
             neighbors.Clear();
             foreach (var point in closes.Where(
@@ -32,6 +56,11 @@ namespace Map.Navigation {
             foreach (var neighbor in neighbors) {
                 Gizmos.DrawLine(transform.position, neighbor.transform.position);
             }
+        }
+
+        public IReadOnlyList<MDNavigationPoint> GetNeighbors() {
+            
+            return neighbors;
         }
     }
 }
