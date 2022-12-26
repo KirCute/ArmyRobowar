@@ -18,8 +18,8 @@ namespace Map.Navigation {
             if (Application.isPlaying) return;
 			SyncNeighbors();
         }
-		
-		private void SyncNeighbors() {
+
+        private void SyncNeighbors() {
             closes.Clear();
             foreach (var point in transform.parent.gameObject.GetComponentsInChildren<MDNavigationPoint>()) {
                 if (point == this) continue;
@@ -40,6 +40,10 @@ namespace Map.Navigation {
             foreach (var neighbor in neighbors) {
                 Gizmos.DrawLine(transform.position, neighbor.transform.position);
             }
+        }
+
+        public IReadOnlyList<MDNavigationPoint> GetNeighbors() {
+            return neighbors;
         }
     }
 }
