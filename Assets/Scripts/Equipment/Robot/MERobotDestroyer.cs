@@ -25,6 +25,7 @@ namespace Equipment.Robot {
 
         private void OnDestroy() {
             if (Summary.team.teamColor == identity.team) {
+                
                 Summary.team.robots[identity.id].connection = 0;
                 Summary.team.robots[identity.id].gameObject = null;
                 if (photonView.IsMine) {
@@ -37,4 +38,4 @@ namespace Equipment.Robot {
             }
         }
     }
-}
+}    
