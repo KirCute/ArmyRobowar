@@ -13,7 +13,7 @@ namespace System {
         };
 
         public static readonly IReadOnlyDictionary<string, RobotTemplate> ROBOT_TEMPLATES = new Dictionary<string, RobotTemplate> {
-            {"iRobot", new RobotTemplate("iRobot", "Robot", 2, 30, 2, 10.0f)},
+            {"iRobot", new RobotTemplate("iRobot", "Robot", 2, 30, 2, 2.0f)},  // TODO
             {"iiRobot", new RobotTemplate("iiRobot", "Robot", 3, 30, 3, 20.0f)},
             {"iiiRobot", new RobotTemplate("iiiRobot", "Robot", 4, 30, 4, 30.0f)}
         };

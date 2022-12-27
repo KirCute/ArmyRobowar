@@ -19,11 +19,15 @@ namespace Test {
             if (Input.GetKeyDown(KeyCode.Alpha4)) {
                 var robotId = Summary.team.robots.Keys.First();
                 var place = Summary.team.robots[robotId].equippedComponents[0] == null ? 0 : 1;
-                Events.Invoke(Events.M_ROBOT_INSTALL_COMPONENT, new object[] {Summary.team.teamColor, Summary.team.robots[0].id, place, 0});
+                Events.Invoke(Events.M_ROBOT_INSTALL_COMPONENT, new object[] {Summary.team.teamColor, robotId, place, 0});
             }
             if (Input.GetKeyDown(KeyCode.Alpha5)) {
                 Events.Invoke(Events.M_ROBOT_MONITOR, new object[] {Summary.team.robots[0].id, PhotonNetwork.LocalPlayer, true});
                 Events.Invoke(Events.M_ROBOT_CONTROL, new object[] {Summary.team.robots[0].id, PhotonNetwork.LocalPlayer});
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha6)) {
+                Events.Invoke(Events.M_ROBOT_MONITOR, new object[] {Summary.team.robots[0].id, PhotonNetwork.LocalPlayer, false});
+                Events.Invoke(Events.M_ROBOT_CONTROL, new object[] {Summary.team.robots[0].id, null});
             }
         }
     }
