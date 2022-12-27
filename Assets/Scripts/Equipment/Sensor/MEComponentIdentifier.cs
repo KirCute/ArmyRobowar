@@ -1,11 +1,20 @@
-﻿using Photon.Pun;
+﻿using System;
+using Photon.Pun;
+using UnityEngine;
 
 namespace Equipment.Sensor {
     public class MEComponentIdentifier : MonoBehaviourPun, IPunObservable {
         public int robotId { get; private set; }
         public int index { get; private set; }
         public int team { get; private set; }
-        
+
+        private void Awake() {
+            robotId = (int) photonView.InstantiationData[0];
+            index = (int) photonView.InstantiationData[1];
+            team = (int) photonView.InstantiationData[2];
+            transform.parent = GameObject.Find($"Robot_{robotId}").transform;
+        }
+
         public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
             if (stream.IsWriting) {
                 stream.SendNext(robotId);

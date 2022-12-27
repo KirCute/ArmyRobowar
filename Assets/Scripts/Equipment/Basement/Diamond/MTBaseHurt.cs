@@ -7,7 +7,7 @@
         }
 
         public override void Hurt(int damage, int team) {
-            if (identity.flagColor == team) return;
+            if (identity.flagColor == -1 || identity.flagColor == team) return;
             if (enabled) Events.Invoke(Events.M_BASE_DAMAGE, new object[] {identity.baseId, -damage});
         }
     }

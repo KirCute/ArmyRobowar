@@ -1,11 +1,9 @@
 ﻿using System;
-using UnityEngine;
-using Vector3 = System.Numerics.Vector3;
-
 
 namespace Model.Inventory {
     public class Coin : IItem{
         private readonly int value;
+        public string name => $"金币 * {value}";
 
         public Coin(int value) {
             this.value = value;

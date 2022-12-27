@@ -30,23 +30,11 @@ namespace Equipment.Basement {
                         }
                     }
                 }
-
-                foreach (var obj in gameObject.GetComponentsInChildren<Transform>()
-                             .Where(t => t != transform)
-                             .Select(t => t.gameObject)) {
-                    obj.SetActive(true);
-                }
             }
         }
 
         private void OnConquered(object[] args) {
             if (baseId == (int) args[0]) {
-                foreach (var obj in gameObject.GetComponentsInChildren<Transform>()
-                             .Where(t => t != transform)
-                             .Select(t => t.gameObject)) {
-                    obj.SetActive(false);
-                }
-
                 if (flagColor == Summary.team.teamColor) {
                     if (Summary.isTeamLeader) {
                         foreach (var photon in GetComponentsInChildren<PhotonView>()) {
@@ -61,7 +49,7 @@ namespace Equipment.Basement {
             }
         }
 
-        public override int getTeamId() {
+        public override int GetTeamId() {
             return flagColor;
         }
     }

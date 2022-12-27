@@ -20,7 +20,7 @@ GameObject:
   - component: {fileID: 815469634264525584}
   - component: {fileID: 1641635152892306644}
   - component: {fileID: 5199880332420411746}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BaseCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -257,7 +257,7 @@ GameObject:
   - component: {fileID: 587001019544415869}
   - component: {fileID: 974244866298001852}
   - component: {fileID: 7558444703020640590}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: EnemySeizer
   m_TagString: Untagged
   m_Icon: {fileID: 0}

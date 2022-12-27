@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Model.Equipment {
     public class Sensor {
-        public delegate bool EquipDelegate(Sensor self, GameObject robot, int robotId, int componentIndex);
+        public delegate void EquipDelegate(Sensor self, int robotId, int instIndex, bool processObject);
 
         public readonly SensorTemplate template;
         public int health { get; set; }
@@ -15,12 +15,12 @@ namespace Model.Equipment {
 
         public Sensor(SensorTemplate template) : this(template, template.maxHealth) { }
 
-        public bool OnEquipped(GameObject robot, int robotId, int componentIndex) {
-            return template.onEquipped(this, robot, robotId, componentIndex);
+        public void OnEquipped(int robotId, int instIndex, bool processObject) {
+            template.onEquipped(this, robotId, instIndex, processObject);
         }
 
-        public bool OnUnloaded(GameObject robot, int robotId, int componentIndex) {
-            return template.onUnloaded(this, robot, robotId, componentIndex);
+        public void OnUnloaded(int robotId, int instIndex, bool processObject) {
+            template.onUnloaded(this, robotId, instIndex, processObject);
         }
     }
 }

@@ -5,9 +5,20 @@ using UnityEngine;
 namespace Equipment.Sensor {
     public class MEComponentHealthChanger : MonoBehaviourPun, IPunObservable {
         private MEComponentIdentifier identity;
+        private bool broken;
 
         private void Awake() {
             identity = GetComponent<MEComponentIdentifier>();
+        }
+
+        private void Update() {
+            if (identity.team == Summary.team.teamColor &&
+                Summary.team.robots[identity.robotId].equippedComponents[identity.index].health <= 0) {
+                Summary.team.robots[identity.robotId].equippedComponents[identity.index]
+                    .OnUnloaded(identity.robotId, identity.index, photonView.IsMine);
+                Summary.team.robots[identity.robotId].equippedComponents[identity.index] = null;
+                broken = true;
+            }
         }
 
         private void OnEnable() {
@@ -19,24 +30,24 @@ namespace Equipment.Sensor {
         }
 
         private void OnHealthChanging(object[] args) {
-            if (identity.robotId == (int) args[0] && identity.index == (int) args[1] &&
+            if (!broken && identity.robotId == (int) args[0] && identity.index == (int) args[1] &&
                 identity.team == Summary.team.teamColor && photonView.IsMine) {
                 var health = Summary.team.robots[identity.robotId].equippedComponents[identity.index].health;
                 health = Mathf.Max(health + (int) args[2], 0);
                 Summary.team.robots[identity.robotId].equippedComponents[identity.index].health = health;
-                Events.Invoke(Events.F_COMPONENT_HEALTH_CHANGED, new object[] {identity.robotId, identity.index, health});
-                if (health <= 0) {
-                    Events.Invoke(Events.F_COMPONENT_DESTROYED, new object[] {identity.robotId, identity.index});
-                }
+                Events.Invoke(Events.F_COMPONENT_HEALTH_CHANGED,
+                    new object[] {identity.robotId, identity.index, health});
             }
         }
 
         public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
+            if (broken) return;
             if (identity.team == Summary.team.teamColor) {
                 if (stream.IsWriting) {
                     stream.SendNext(Summary.team.robots[identity.robotId].equippedComponents[identity.index].health);
                 } else {
-                    Summary.team.robots[identity.robotId].equippedComponents[identity.index].health = (int) stream.ReceiveNext();
+                    Summary.team.robots[identity.robotId].equippedComponents[identity.index].health =
+                        (int) stream.ReceiveNext();
                 }
             }
         }

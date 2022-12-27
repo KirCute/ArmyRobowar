@@ -1,6 +1,9 @@
 ﻿namespace Model.Inventory {
     public interface IItem {
-        void StoreIn();
-        
+
+        public string name { get; }
+
+        public void StoreIn();
+
     }
 }

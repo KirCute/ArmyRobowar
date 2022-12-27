@@ -13,19 +13,19 @@ namespace Equipment.Basement.Updater {
         }
         
         private void OnTriggerEnter(Collider other) {
-            if (Summary.team.teamColor == identity.flagColor && other.GetComponent<MTRobotHurt>() != null) {
+            if (other.GetComponent<MTRobotHurt>() != null && Summary.team.teamColor == identity.flagColor) {
                 var robot = other.GetComponentInParent<MERobotIdentifier>();
                 if (robot.team == identity.flagColor) {
-                    Summary.team.robots[identity.baseId].gameObject = other.gameObject;
+                    Summary.team.robots[robot.id].gameObject = other.gameObject;
                 }
             }
         }
 
         private void OnTriggerExit(Collider other) {
-            if (Summary.team.teamColor == identity.flagColor && other.GetComponent<MTRobotHurt>() != null) {
+            if (other.GetComponent<MTRobotHurt>() != null && Summary.team.teamColor == identity.flagColor) {
                 var robot = other.GetComponentInParent<MERobotIdentifier>();
                 if (robot.team == identity.flagColor) {
-                    Summary.team.robots[identity.baseId].gameObject = null;
+                    Summary.team.robots[robot.id].gameObject = null;
                 }
             }
         }
