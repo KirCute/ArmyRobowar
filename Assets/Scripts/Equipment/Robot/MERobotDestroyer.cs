@@ -25,7 +25,7 @@ namespace Equipment.Robot {
 
         private void OnDestroy() {
             if (Summary.team.teamColor == identity.team) {
-                //Summary.team.robots[identity.id].equippedComponents[0].
+                
                 Summary.team.robots[identity.id].connection = 0;
                 Summary.team.robots[identity.id].gameObject = null;
                 Events.Invoke(Events.F_CREATE_ITEM,new object[] { identity.team, identity.id });
