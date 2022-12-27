@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Linq;
 using Model.Equipment;
+using Model.Technology;
 using UnityEngine;
+using Photon.Pun;
 
 namespace UI
 {
-    public class MTViewShop : MonoBehaviour
+    public class MTViewShop : MonoBehaviourPun
     {
         private const int VIEW_SHOP_ID = 0;
         private const float VIEW_SHOP_WIDTH = 0.8F;
@@ -28,7 +30,8 @@ namespace UI
                     GUILayout.Label(goods,GUILayout.ExpandWidth(true));
                     if (GUILayout.Button("购买",GUILayout.ExpandWidth(false)))
                     {
-                        Events.Invoke(Events.M_PURCHASE, new object[] { });
+                        Events.Invoke(Events.M_TEAM_BUY_COMPONENT,
+                            new object[] { Summary.team.teamColor, (string)photonView.InstantiationData[0] });
                     }
                     GUILayout.EndVertical();
                     GUILayout.EndHorizontal();
@@ -37,11 +40,12 @@ namespace UI
                 foreach (var goods in Summary.team.availableSensorTemplates) {
                     // 再展示已失联的机器人
                     GUILayout.BeginHorizontal("Box"); // 单独的机器人条目
-
                     GUILayout.BeginVertical(); // 左侧名称
                     GUILayout.Label(goods,GUILayout.ExpandWidth(true));
-                    if (GUILayout.Button("购买",GUILayout.ExpandWidth(false))) {
-                        // TODO
+                    if (GUILayout.Button("购买",GUILayout.ExpandWidth(false)))
+                    {
+                        Events.Invoke(Events.M_TEAM_BUY_COMPONENT,
+                            new object[] { Summary.team.teamColor, (string)photonView.InstantiationData[0] });
                     }
                     GUILayout.EndVertical();
 

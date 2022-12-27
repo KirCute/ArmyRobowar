@@ -44,7 +44,7 @@ namespace UI
                     GUILayout.Label(robot.name,GUILayout.ExpandWidth(true));
                     if (GUILayout.Button("查看机器人", GUILayout.ExpandWidth(false)))
                     {
-                        Events.Invoke(Events.M_VIEW_ROBOT, new object[] { });
+                        //TODO
                     }
                     GUILayout.EndVertical();
                 }
@@ -59,6 +59,9 @@ namespace UI
                     GUILayout.Label(component.template.name,GUILayout.ExpandWidth(true));//配件名字（或者是贴图）未解决
                     if (GUILayout.Button("装配", GUILayout.ExpandWidth(false))) {
                         //TODO
+                        // 参数：队伍号(int), 机器人id(int), 安装位置(int), 要安装的传感器在仓库中的索引(int)
+                        Events.Invoke(Events.M_ROBOT_INSTALL_COMPONENT, new object[] { Summary.team.teamColor,
+                            Summary.team.robots[0].id});
                     }
                     GUILayout.EndVertical();
                 }

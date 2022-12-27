@@ -33,7 +33,8 @@ namespace UI {
 
                     if (GUILayout.Button("查看画面"))
                     {
-                        Events.Invoke(Events.M_VIEW_SCREEN, new object[] { });
+                        //TODO
+                        //直接显示画面
                     }
 
                     GUILayout.EndHorizontal();
