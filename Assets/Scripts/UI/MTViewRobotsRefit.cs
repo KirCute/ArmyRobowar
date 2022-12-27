@@ -55,8 +55,8 @@ namespace UI
                     GUILayout.BeginHorizontal("Box");
                     
                     GUILayout.BeginVertical();
-                    GUILayout.Label(component.template.name,GUILayout.ExpandWidth(true));//配件名字（或者是贴图）未解决
-                    if (GUILayout.Button("装配", GUILayout.ExpandWidth(false))) {
+                    bool isPress = LableWithImage(component.template.name);//点击配件并点击“装配”，才嫩实现装配
+                    if (isPress && GUILayout.Button("装配", GUILayout.ExpandWidth(false))) {
                         //TODO
                     }
                     GUILayout.EndVertical();
@@ -64,6 +64,27 @@ namespace UI
                 
                 GUILayout.EndHorizontal();
             },VIEW_REFIT_PAGE_TITLE);
+        }
+
+        //把图片和标签绑定在一起
+        private bool LableWithImage(String sensorName) {
+            GUILayout.BeginHorizontal("Box");
+            Texture2D image = ImageForSensor(sensorName);
+            bool isPress = GUILayout.Button(image);
+            GUILayout.Label(sensorName,GUILayout.ExpandWidth(true));
+            GUILayout.EndHorizontal();
+            return isPress;
+        }
+
+        //配件的图片和名字的匹配
+        private Texture2D ImageForSensor(String sensorName) {
+            //TODO,配件的名字是？
+            Texture2D texture2D = null;
+            switch (sensorName) {
+                case "camera" : texture2D =  Resources.Load<Texture2D>("camera");break;
+                case "radar" : texture2D =  Resources.Load<Texture2D>("radar"); break;
+            }
+            return texture2D;
         }
     }
 }
