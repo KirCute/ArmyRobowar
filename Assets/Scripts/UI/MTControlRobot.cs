@@ -5,7 +5,7 @@ using UnityEngine;
 namespace UI {
     public class MTControlRobot : MonoBehaviour {
         private const float SENSITIVITY = 10f;
-        public int controllingRobot { get; set; } = -1;
+        private int controllingRobot { get; set; } = -1;
         private Vector2 lastMotivation = Vector2.zero;
         
         private void OnEnable() {
@@ -17,9 +17,13 @@ namespace UI {
         }
 
         private void OnControlled(object[] args) {
-            Cursor.lockState = CursorLockMode.Locked;
-            if (controllingRobot == (int) args[0]) controllingRobot = -1;
-            if (PhotonNetwork.LocalPlayer.Equals((Player) args[1])) controllingRobot = (int) args[0];
+            if (controllingRobot == (int) args[0] && args[1] == null) {
+                Cursor.lockState = CursorLockMode.None;
+                controllingRobot = -1;
+            } else if (PhotonNetwork.LocalPlayer.Equals((Player) args[1])) {
+                Cursor.lockState = CursorLockMode.Locked;
+                controllingRobot = (int) args[0];
+            }
         }
         
         private void Update() {

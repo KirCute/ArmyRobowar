@@ -9,7 +9,7 @@ namespace Equipment.Sensor.Gun {
         private MEComponentIdentifier identity;
         private double lastShoot;
         [SerializeField] private int damage = 3;
-        [SerializeField] private double loadingTime = 2.0;
+        [SerializeField] private double loadingTime = 4.0;
 
         private void Awake() {
             identity = GetComponent<MEComponentIdentifier>();

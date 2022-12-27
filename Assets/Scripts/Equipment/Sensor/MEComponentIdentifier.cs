@@ -13,6 +13,8 @@ namespace Equipment.Sensor {
             index = (int) photonView.InstantiationData[1];
             team = (int) photonView.InstantiationData[2];
             transform.parent = GameObject.Find($"Robot_{robotId}").transform;
+            transform.localPosition = Vector3.zero;
+            transform.localRotation = Quaternion.identity;
         }
 
         public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {

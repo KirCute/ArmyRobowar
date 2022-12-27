@@ -6,8 +6,8 @@ namespace Equipment.Robot.Body {
     /// 在接收到小车运动方式需要改变时，改变小车运动方式
     /// </summary>
     public class MEMotivationChanger : MonoBehaviourPun, IPunObservable {
-        private const float LINEAR_SPEED = 1.5f;
-        private const float ANGULAR_SPEED = 1.0f;
+        private const float LINEAR_SPEED = 2.0f;
+        private const float ANGULAR_SPEED = 50f;
 
         private float motivationHorizontal;
         private float motivationVertical;
@@ -30,8 +30,8 @@ namespace Equipment.Robot.Body {
         private void Update() {
             switch (mode) {
                 case 0:
-                    transform.Translate(Vector3.forward * motivationVertical * LINEAR_SPEED * Time.deltaTime, Space.Self);
-                    transform.Rotate(0.0f, motivationHorizontal * ANGULAR_SPEED * Time.deltaTime, 0.0f, Space.Self);
+                    identity.transform.Translate(Vector3.forward * motivationVertical * LINEAR_SPEED * Time.deltaTime, Space.Self);
+                    identity.transform.Rotate(0.0f, motivationHorizontal * ANGULAR_SPEED * Time.deltaTime, 0.0f, Space.Self);
                     break;
                 case 1:
                     // TODO
@@ -52,6 +52,8 @@ namespace Equipment.Robot.Body {
                         target = motivation;
                         break;
                 }
+
+                Events.Invoke(Events.F_ROBOT_MOTIVATION_CHANGED, args);
             }
         }
 

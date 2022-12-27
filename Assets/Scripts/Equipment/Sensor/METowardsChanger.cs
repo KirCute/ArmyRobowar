@@ -1,14 +1,15 @@
-﻿using Photon.Pun;
+﻿using Equipment.Robot;
+using Photon.Pun;
 using UnityEngine;
 
 namespace Equipment.Sensor {
     public class METowardsChanger : MonoBehaviourPun {
-        private static readonly Vector2 ROTATION_X_CLAMP = new(-45f, 45f);
+        private static readonly Vector2 ROTATION_X_CLAMP = new(-20f, 45f);
         private static readonly Vector2 ROTATION_Y_CLAMP = new(-60f, 60f);
-        private MEComponentIdentifier identity;
+        private MERobotIdentifier identity;
 
         private void Awake() {
-            identity = GetComponent<MEComponentIdentifier>();
+            identity = GetComponentInParent<MERobotIdentifier>();
         }
 
         private void OnEnable() {
@@ -20,14 +21,20 @@ namespace Equipment.Sensor {
         }
 
         private void OnTowardsChanging(object[] args) {
-            if (identity.robotId == (int) args[0] && photonView.IsMine) {
+            if (identity.id == (int) args[0] && photonView.IsMine) {
                 var rotationX = transform.localEulerAngles.x;
                 var rotationY = transform.localEulerAngles.y;
                 var change = (Vector2) args[1];
                 rotationX += change[0];
-                rotationX = Mathf.Clamp(rotationX, ROTATION_X_CLAMP.x, ROTATION_X_CLAMP.y);
+                while (rotationX > 180f) rotationX -= 360f;
+                while (rotationX < -180f) rotationX += 360f;
+                if (rotationX < ROTATION_X_CLAMP.x) rotationX = ROTATION_X_CLAMP.x;
+                if (rotationX > ROTATION_X_CLAMP.y) rotationX = ROTATION_X_CLAMP.y;
                 rotationY += change[1];
-                rotationY = Mathf.Clamp(rotationY, ROTATION_Y_CLAMP.x, ROTATION_Y_CLAMP.y);
+                while (rotationY > 180f) rotationY -= 360f;
+                while (rotationY < -180f) rotationY += 360f;
+                if (rotationY < ROTATION_Y_CLAMP.x) rotationY = ROTATION_Y_CLAMP.x;
+                if (rotationY > ROTATION_Y_CLAMP.y) rotationY = ROTATION_Y_CLAMP.y;
                 transform.localEulerAngles = new Vector3(rotationX, rotationY, 0f);
             }
         }
