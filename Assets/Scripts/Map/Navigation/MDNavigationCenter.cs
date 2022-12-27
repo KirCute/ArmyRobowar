@@ -1,5 +1,7 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using UnityEngine;
 
@@ -25,7 +27,7 @@ namespace Map.Navigation {
             }
         }
 
-        private MDNavigationPoint GetBestNavigation(Vector3 givenPoint) {
+        public MDNavigationPoint GetBestNavigation(Vector3 givenPoint) {
             //找到离给定位置最近的一个导航点
             var bestNavigation = points[0];
             var minPathLength = Vector3.Distance(givenPoint, bestNavigation.transform.position);
@@ -68,8 +70,11 @@ namespace Map.Navigation {
                         pathList.Add(currentPathTile.transform.position);
                         currentPathTile = parentDic[currentPathTile];
                     }
-
+                    pathList.Add(from.transform.position);
+                    
+                    pathList.Reverse();
                     return pathList;
+                    
                 }
 
                 //遍历寻找相邻节点
@@ -77,6 +82,7 @@ namespace Map.Navigation {
                     var inSearch = openList.Contains(neighbor);
 
                     var costToNeighbor = gDic[cur] + GetDistance(cur, neighbor);
+                    
                     if (!inSearch || costToNeighbor < gDic[neighbor]) {
                         gDic[neighbor] = costToNeighbor;
                         parentDic[neighbor] = cur;
