@@ -6,7 +6,7 @@ using UnityEngine;
 
 public static class Events {
     
-    private const int COUNT_OF_EVENTS = 49;
+    private const int COUNT_OF_EVENTS = 50;
     
     public const byte F_GAME_START = 0;  // 参数：游戏开始时间(double), 0队初始基地(int), 1队初始基地(int), 0队玩家个数n(int), n*0队玩家名单(Player), 1队玩家个数m(int), m*1队玩家名单(Player)
     public const byte M_CREATE_ROBOT = 1;  // 参数：基地号(int), 底盘的科技树编号(string), 机器人的名称(string)
