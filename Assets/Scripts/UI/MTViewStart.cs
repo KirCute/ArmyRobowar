@@ -37,22 +37,23 @@ namespace UI
                     GUILayout.BeginHorizontal("Box");
                     if (true) //按下准备后切换按钮，if里面放的是个人是否准备
                     {
-                        if (GUILayout.Button("准备游戏", style)) {
-                            //TODO
+                        if (GUILayout.Button("准备游戏", style))
+                        {
+                            Events.Invoke(Events.M_PLAYER_READY, new object[] { });
                         }
                     }
                     else {
                         if (GUILayout.Button("取消准备", style)) {
-                            //TODO
+                            Events.Invoke(Events.M_CANCEL_READY, new object[] { });
                         }
                     }
 
                     if (GUILayout.Button("交换队伍",style)) {
-                        //TODO
+                        Events.Invoke(Events.M_CHANGE_TEAM, new object[] { });
                     }
 
                     if (GUILayout.Button("离开匹配",style)) {
-                        //TODO
+                        Events.Invoke(Events.M_LEAVE_MATCHING, new object[] { });
                     }
                     GUILayout.EndHorizontal();
                     GUILayout.BeginHorizontal();

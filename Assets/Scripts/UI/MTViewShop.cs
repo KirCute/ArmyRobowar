@@ -26,8 +26,9 @@ namespace UI
                     GUILayout.BeginHorizontal("Box"); // 单独的机器人条目
                     GUILayout.BeginVertical(); // 左侧名称和血条
                     GUILayout.Label(goods,GUILayout.ExpandWidth(true));
-                    if (GUILayout.Button("购买",GUILayout.ExpandWidth(false))) {
-                        // TODO
+                    if (GUILayout.Button("购买",GUILayout.ExpandWidth(false)))
+                    {
+                        Events.Invoke(Events.M_PURCHASE, new object[] { });
                     }
                     GUILayout.EndVertical();
                     GUILayout.EndHorizontal();

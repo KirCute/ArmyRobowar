@@ -31,8 +31,9 @@ namespace UI {
                     GUILayout.Label(new string('❤', robot.health / 3));
                     GUILayout.EndVertical();
 
-                    if (GUILayout.Button("查看画面")) {
-                        // TODO
+                    if (GUILayout.Button("查看画面"))
+                    {
+                        Events.Invoke(Events.M_VIEW_SCREEN, new object[] { });
                     }
 
                     GUILayout.EndHorizontal();

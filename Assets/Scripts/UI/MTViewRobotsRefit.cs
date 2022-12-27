@@ -42,8 +42,9 @@ namespace UI
                     
                     GUILayout.BeginVertical();
                     GUILayout.Label(robot.name,GUILayout.ExpandWidth(true));
-                    if (GUILayout.Button("查看机器人", GUILayout.ExpandWidth(false))) {
-                        //TODO
+                    if (GUILayout.Button("查看机器人", GUILayout.ExpandWidth(false)))
+                    {
+                        Events.Invoke(Events.M_VIEW_ROBOT, new object[] { });
                     }
                     GUILayout.EndVertical();
                 }
