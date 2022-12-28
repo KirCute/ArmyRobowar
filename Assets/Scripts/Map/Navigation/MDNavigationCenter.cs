@@ -1,7 +1,5 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using UnityEngine;
 
@@ -42,8 +40,9 @@ namespace Map.Navigation {
         }
 
 
-        private List<Vector3> GetPathFromNavigations(MDNavigationPoint from, MDNavigationPoint to) {
-            var pathList = new List<Vector3>();
+        private  List<Vector2> GetPathFromNavigations(MDNavigationPoint from, MDNavigationPoint to)
+        {
+            var pathList = new List<Vector2>();
 
             //定义两个列表开启列表和关闭列表，分别表示待搜索与搜索过的导航点
             var openList = new List<MDNavigationPoint> {from};
@@ -66,15 +65,17 @@ namespace Map.Navigation {
                 //如果最佳点位最终导航点，进行路径回溯，存放到pathList中
                 if (cur.Equals(to)) {
                     var currentPathTile = to;
+                    Vector3 pos;
                     while (!currentPathTile.Equals(from)) {
-                        pathList.Add(currentPathTile.transform.position);
+                        pos = currentPathTile.transform.position;
+                        pathList.Add(new Vector2(pos.x, pos.z));
                         currentPathTile = parentDic[currentPathTile];
                     }
-                    pathList.Add(from.transform.position);
-                    
+
+                    pos = from.transform.position;
+                    pathList.Add(new Vector2(pos.x, pos.z));
                     pathList.Reverse();
                     return pathList;
-                    
                 }
 
                 //遍历寻找相邻节点
@@ -97,16 +98,44 @@ namespace Map.Navigation {
 
             return null;
         }
-
+        
         private float GetF(MDNavigationPoint point) {
+            //获得路径F值
             return gDic[point] + hDic[point];
         }
 
-        public List<Vector3> GetMatch(Vector3 startPos, Vector3 endPos) {
-            var fromNavigation = GetBestNavigation(startPos);
-            var toNavigation = GetBestNavigation(endPos);
+        public List<Vector2> GetFinalPath(List<Vector2> posList) {
+            
+            return GetFinalPath(posList.Select(point => new Vector3(point.x, 0f, point.y)).ToList());
+        }
+        
+        //得到最终的路径列表
+        private List<Vector2> GetFinalPath(List<Vector3> posList) {
+            
+            //定义导航点列表
+            List<MDNavigationPoint> navigationList = new List<MDNavigationPoint>();
+            
+            foreach (var pos in posList) {
+                //获得最近导航点
+                var navigation = GetBestNavigation(pos);
+                navigationList.Add(navigation);
+            }
+            
+            //先获得第一条路径
+            MDNavigationPoint from = navigationList[0];
+            MDNavigationPoint to = navigationList[1];
 
-            return GetPathFromNavigations(fromNavigation, toNavigation);
+            var finalList = GetPathFromNavigations(from, to);
+            
+            for (int i = 1; i < navigationList.Count - 1; i++) {
+                
+                from = navigationList[i];
+                to = navigationList[i + 1];
+                //跳过路径的第一个导航点
+                finalList.AddRange(GetPathFromNavigations(from, to).Skip(1).ToList());
+            }
+            
+            return finalList;
         }
 
         private static float GetDistance(MDNavigationPoint a, MDNavigationPoint b) {
