@@ -266,7 +266,6 @@ GameObject:
   - component: {fileID: 2735594050410916445}
   - component: {fileID: 2735594050410916446}
   - component: {fileID: 2735594050410916447}
-  - component: {fileID: 2735594050410916444}
   m_Layer: 3
   m_Name: window_big_corner_far_plug (1)
   m_TagString: Untagged
@@ -339,20 +338,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &2735594050410916444
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2735594050410917282}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: 98bf02c8bc226a047b520b0e428a5703, type: 3}
 --- !u!1 &2735594050419165992
 GameObject:
   m_ObjectHideFlags: 0
@@ -7481,7 +7466,6 @@ GameObject:
   - component: {fileID: 2735594051648383694}
   - component: {fileID: 2735594051648383691}
   - component: {fileID: 2735594051648383688}
-  - component: {fileID: 2735594051648383689}
   m_Layer: 3
   m_Name: floor_5 (1)
   m_TagString: Untagged
@@ -7556,19 +7540,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &2735594051648383689
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2735594051648383695}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 4.000001, y: 0.1817455, z: 4}
-  m_Center: {x: -0.00000047683716, y: 0.0908726, z: 0.00000047683716}
 --- !u!1 &2735594051658275070
 GameObject:
   m_ObjectHideFlags: 0
@@ -12809,7 +12780,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6550524, guid: 7b45b788a1417934faed26ad07e2f502, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 7b45b788a1417934faed26ad07e2f502, type: 3}
 --- !u!1 &2735594050635794701 stripped
 GameObject:
@@ -13034,7 +13006,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 89.9999
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6550524, guid: 7b45b788a1417934faed26ad07e2f502, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 7b45b788a1417934faed26ad07e2f502, type: 3}
 --- !u!1 &2735594051184221541 stripped
 GameObject:
@@ -13227,7 +13200,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 89.9999
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6550524, guid: 7b45b788a1417934faed26ad07e2f502, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 7b45b788a1417934faed26ad07e2f502, type: 3}
 --- !u!4 &2735594051256019030 stripped
 Transform:
