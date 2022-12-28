@@ -133,12 +133,14 @@ GameObject:
   m_Component:
   - component: {fileID: 214158}
   - component: {fileID: 214162}
+  - component: {fileID: 214163}
   - component: {fileID: 214159}
   - component: {fileID: 214156}
   - component: {fileID: 214155}
   - component: {fileID: 214160}
   - component: {fileID: 214161}
-  - component: {fileID: 214163}
+  - component: {fileID: 214165}
+  - component: {fileID: 214164}
   m_Layer: 0
   m_Name: Judgement
   m_TagString: Untagged
@@ -253,6 +255,30 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 760c0fd2ac9940c287670900eb50af18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &214164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 214154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa63fb0eddfc4ad69c43aabf6d48cb01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &214165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 214154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e10b8532bed452aba6a13590f34f258, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &4352389
@@ -1799,7 +1825,7 @@ GameObject:
   m_Component:
   - component: {fileID: 139866651}
   - component: {fileID: 139866652}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: AirWall_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1819,7 +1845,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 896074692}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!65 &139866652
 BoxCollider:
@@ -10486,7 +10512,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 882749862}
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -11074,13 +11101,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 827034007}
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 50, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_Father: {fileID: 1964602099}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &832575517
 GameObject:
@@ -11681,15 +11708,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 882749861}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 239128611}
   - {fileID: 846894038}
-  m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_Father: {fileID: 773190232}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &896074691
 GameObject:
@@ -11700,8 +11727,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 896074692}
-  m_Layer: 0
-  m_Name: AirWall
+  m_Layer: 3
+  m_Name: Border
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11714,17 +11741,18 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 896074691}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1256931979}
   - {fileID: 1968988105}
   - {fileID: 139866651}
   - {fileID: 906077793}
   - {fileID: 2145308901}
-  m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_Father: {fileID: 1298912704}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &898171359
 PrefabInstance:
@@ -11963,7 +11991,7 @@ GameObject:
   m_Component:
   - component: {fileID: 906077793}
   - component: {fileID: 906077794}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: AirWall_03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11983,7 +12011,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 896074692}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &906077794
 BoxCollider:
@@ -16871,13 +16899,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1230452596}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_Father: {fileID: 1964602099}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1234051182
 PrefabInstance:
@@ -17706,7 +17734,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1256931978}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -17715,8 +17743,8 @@ Transform:
   - {fileID: 1135780205}
   - {fileID: 748941682}
   - {fileID: 1777529674}
-  m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_Father: {fileID: 896074692}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1274418625
 PrefabInstance:
@@ -17914,6 +17942,7 @@ Transform:
   m_Children:
   - {fileID: 544287686}
   - {fileID: 1123335435}
+  - {fileID: 896074692}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -25920,8 +25949,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 242092030}
-  m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_Father: {fileID: 1964602099}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -26420,7 +26449,10 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1950930726}
+  - {fileID: 827034011}
+  - {fileID: 1230452599}
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -26446,7 +26478,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1968988105}
   - component: {fileID: 1968988106}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: AirWall_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26466,7 +26498,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 896074692}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1968988106
 BoxCollider:
@@ -28878,7 +28910,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2145308901}
   - component: {fileID: 2145308902}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: AirWall_04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28898,7 +28930,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 896074692}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!65 &2145308902
 BoxCollider:
