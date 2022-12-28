@@ -27,7 +27,7 @@ namespace Map.Navigation {
             }
         }
 
-        public MDNavigationPoint GetBestNavigation(Vector3 givenPoint) {
+        private MDNavigationPoint GetBestNavigation(Vector3 givenPoint) {
             //找到离给定位置最近的一个导航点
             var bestNavigation = points[0];
             var minPathLength = Vector3.Distance(givenPoint, bestNavigation.transform.position);
