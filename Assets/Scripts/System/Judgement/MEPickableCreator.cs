@@ -2,9 +2,10 @@
 using UnityEngine;
 
 namespace System.Judgement {
-    public class MEPickableCreator : MonoBehaviourPun {
+    public class MEPickableCreator : MonoBehaviour {
         private const string PICKABLE_COINS_PREFAB_NAME = "PickableCoin";
         private const string PICKABLE_COMPONENT_PREFAB_NAME = "PickableComponent";
+		private static int nextPickableId = 0;
         
         private void OnEnable() {
             Events.AddListener(Events.M_CREATE_PICKABLE_COINS, OnCoinsCreating);
@@ -19,14 +20,14 @@ namespace System.Judgement {
         private static void OnCoinsCreating(object[] args) {
             if (PhotonNetwork.IsMasterClient) {
                 PhotonNetwork.Instantiate(PICKABLE_COINS_PREFAB_NAME, (Vector3) args[1], Quaternion.identity, 0,
-                    new[] {args[0]});
+                    new[] {nextPickableId++, args[0]});
             }
         }
 
         private static void OnComponentCreating(object[] args) {
             if (PhotonNetwork.IsMasterClient) {
                 PhotonNetwork.Instantiate(PICKABLE_COMPONENT_PREFAB_NAME, (Vector3) args[2], Quaternion.identity, 0,
-                    new[] {args[0], args[1]});
+                    new[] {nextPickableId++, args[0], args[1]});
             }
         }
     }
