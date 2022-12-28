@@ -39,14 +39,12 @@ namespace System {
                 team = new Team(teamId, team0Players, startTime);
                 if (team0Players[0].Equals(PhotonNetwork.LocalPlayer)) {
                     isTeamLeader = true;
-                    PhotonNetwork.Instantiate("TeamHelper", Vector3.zero, Quaternion.identity);
                     Events.Invoke(Events.M_CAPTURE_BASE, new object[] {base0, 0});
                 }
             } else {
                 team = new Team(teamId, team1Players, startTime);
                 if (team1Players[0].Equals(PhotonNetwork.LocalPlayer)) {
                     isTeamLeader = true;
-                    PhotonNetwork.Instantiate("TeamHelper", Vector3.zero, Quaternion.identity);
                     Events.Invoke(Events.M_CAPTURE_BASE, new object[] {base1, 1});
                 }
             }
