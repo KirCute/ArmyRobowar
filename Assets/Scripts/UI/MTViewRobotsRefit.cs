@@ -1,4 +1,4 @@
-﻿using System;
+﻿        using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +11,7 @@ namespace UI
 {
     public class MTViewRobotsRefit : MonoBehaviour
     {
-        private List<Sensor> Temp_Component_Self_Use = new List<Sensor>(); 
+        //private List<Sensor> Temp_Component_Self_Use = new List<Sensor>(); 
 
         private const int VIEW_REFIT_PAGE_ID = 0;
         private const float VIEW_REFIT_PAGE_WIDTH = 0.8F;
@@ -51,11 +51,11 @@ namespace UI
                 
                 scroll = GUILayout.BeginScrollView(scroll, false, false,
                     GUILayout.Height(Screen.height * VIEW_REFIT_PAGE_HEIGHT));
-                foreach (var component in Temp_Component_Self_Use) {
+                foreach (var component in Summary.team.components) {
                     GUILayout.BeginHorizontal("Box");
                     
                     GUILayout.BeginVertical();
-                    GUILayout.Label(component.template.name,GUILayout.ExpandWidth(true));//配件名字（或者是贴图）未解决
+                    GUILayout.Label(component.template.name,GUILayout.ExpandWidth(true));
                     if (GUILayout.Button("装配", GUILayout.ExpandWidth(false))) {
                         //TODO
                     }
