@@ -40,7 +40,7 @@ public static class Events {
     public const byte F_TEAM_ACQUIRE_COMPONENT = 29;  // 参数：队伍号(int), 部件的科技树编号(string), 部件的血量(int)
     public const byte F_TEAM_ACQUIRE_COINS = 30;  // 参数：队伍号(int), 资源数量(int)
     public const byte M_TEAM_BUY_COMPONENT = 31;  // 参数：队伍号(int), 部件的科技树编号(string)
-    public const byte F_MAP_ROBOT_ENTER_AREA = 32;
+    public const byte M_ROBOT_NAVIGATION = 32;  // 参数：机器人id(int), 导航点个数n(int), n*导航点(Vector2)
     public const byte F_ROBOT_ACQUIRE_COMPONENT = 33;  // 参数：队伍号(int), 机器人id(int), 部件的科技树编号(string), 部件的血量(int)
     public const byte F_ROBOT_ACQUIRE_COINS = 34;  // 参数：队伍号(int), 机器人id(int), 资源数量(int)
     public const byte M_ROBOT_RELEASE_INVENTORY = 35;  // 参数：队伍号(int), 机器人id(int)

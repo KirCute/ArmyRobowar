@@ -40,8 +40,7 @@ namespace Map.Navigation {
         }
 
 
-        private  List<Vector2> GetPathFromNavigations(MDNavigationPoint from, MDNavigationPoint to)
-        {
+        private List<Vector2> GetPathFromNavigations(MDNavigationPoint from, MDNavigationPoint to) {
             var pathList = new List<Vector2>();
 
             //定义两个列表开启列表和关闭列表，分别表示待搜索与搜索过的导航点
@@ -83,7 +82,7 @@ namespace Map.Navigation {
                     var inSearch = openList.Contains(neighbor);
 
                     var costToNeighbor = gDic[cur] + GetDistance(cur, neighbor);
-                    
+
                     if (!inSearch || costToNeighbor < gDic[neighbor]) {
                         gDic[neighbor] = costToNeighbor;
                         parentDic[neighbor] = cur;
@@ -98,43 +97,34 @@ namespace Map.Navigation {
 
             return null;
         }
-        
+
         private float GetF(MDNavigationPoint point) {
             //获得路径F值
             return gDic[point] + hDic[point];
         }
 
-        public List<Vector2> GetFinalPath(List<Vector2> posList) {
-            
-            return GetFinalPath(posList.Select(point => new Vector3(point.x, 0f, point.y)).ToList());
+        public List<Vector2> GetFinalPath(IEnumerable<Vector2> posList) {
+            return GetFinalPath(posList.Select(point => new Vector3(point.x, 0f, point.y)));
         }
-        
+
         //得到最终的路径列表
-        private List<Vector2> GetFinalPath(List<Vector3> posList) {
-            
+        private List<Vector2> GetFinalPath(IEnumerable<Vector3> posList) {
             //定义导航点列表
-            List<MDNavigationPoint> navigationList = new List<MDNavigationPoint>();
-            
-            foreach (var pos in posList) {
-                //获得最近导航点
-                var navigation = GetBestNavigation(pos);
-                navigationList.Add(navigation);
-            }
-            
+            var navigationList = posList.Select(GetBestNavigation).ToList();
+
             //先获得第一条路径
-            MDNavigationPoint from = navigationList[0];
-            MDNavigationPoint to = navigationList[1];
+            var from = navigationList[0];
+            var to = navigationList[1];
 
             var finalList = GetPathFromNavigations(from, to);
-            
-            for (int i = 1; i < navigationList.Count - 1; i++) {
-                
+
+            for (var i = 1; i < navigationList.Count - 1; i++) {
                 from = navigationList[i];
                 to = navigationList[i + 1];
                 //跳过路径的第一个导航点
                 finalList.AddRange(GetPathFromNavigations(from, to).Skip(1).ToList());
             }
-            
+
             return finalList;
         }
 
