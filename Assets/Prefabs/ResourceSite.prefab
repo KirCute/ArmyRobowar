@@ -82,4 +82,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd22515fe8cf45009f2bd32d34e6bf47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  value: 10
+  prefabName: PickableSilverCoin

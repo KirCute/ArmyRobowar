@@ -1,26 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using Model.Equipment;
-using Unity.VisualScripting;
 using UnityEngine;
-using Vector2 = UnityEngine.Vector2;
 
-namespace UI
-{
-    public class MTViewTechnologyTree : MonoBehaviour
-    {
+namespace UI {
+    public class MTViewTechnologyTree : MonoBehaviour {
         private const int VIEW_TECH_PAGE_ID = 0;
         private const float VIEW_TECH_PAGE_WIDTH = 0.8F;
         private const float VIEW_TECH_PAGE_HEIGHT = 0.8F;
         private const string VIEW_TECH_PAGE_TITLE = "";
         private Vector2 scroll = Vector2.zero;
 
-        private Dictionary<string, List<string>> technics = new Dictionary<string, List<string>>
-        {
-            {"iRobot",new List<string>{""}},{"iiRobot",new List<string>{"iRobot"}},{"iiiRobot",new List<string>{"iiRobot"}},{"BaseCamera",new List<string>{""}},{"BaseGun",new List<string>{""}}
-        };
         private void OnGUI() {
             var dim = new Rect(
                 Screen.width * (1 - VIEW_TECH_PAGE_WIDTH) / 2, Screen.height * (1 - VIEW_TECH_PAGE_WIDTH) / 2,
@@ -30,45 +18,47 @@ namespace UI
                 scroll = GUILayout.BeginScrollView(scroll, false, false,
                     GUILayout.Height(Screen.height * VIEW_TECH_PAGE_HEIGHT));
 
-                foreach (var tech in System.Constants.TECHNOLOGY ) {
-                    
-                    GUILayout.BeginHorizontal("Box"); 
-                    
+                foreach (var tech in Constants.TECHNOLOGY) {
                     GUILayout.BeginHorizontal("Box");
-                    
+
+                    GUILayout.BeginHorizontal("Box");
+
                     GUILayout.Label(tech.Key);
-                    int cnt = 0;
-                    foreach (var technic in Summary.team.achievedTechnics) { 
-                        if (technics[tech.Key][0].Equals("")) {
-                            if (technics[tech.Key][0].Equals(technic)) {
-                                break;   
+                    var cnt = 0;
+                    foreach (var technic in Summary.team.achievedTechnics) {
+                        if (Constants.TECHNIC_TOPOLOGY[tech.Key][0].Equals("")) {
+                            if (Constants.TECHNIC_TOPOLOGY[tech.Key][0].Equals(technic)) {
+                                break;
                             }
-                            if (GUILayout.Button("升级",GUILayout.ExpandWidth(false))) {
+
+                            if (GUILayout.Button("升级", GUILayout.ExpandWidth(false))) {
                                 //TODO
                             }
+
                             break;
-                        }else {
-                            if (technics[tech.Key][0].Equals(technic)) {
-                                GUILayout.Label("已升级",GUILayout.ExpandWidth(false));
+                        } else {
+                            if (Constants.TECHNIC_TOPOLOGY[tech.Key][0].Equals(technic)) {
+                                GUILayout.Label("已升级", GUILayout.ExpandWidth(false));
                                 break;
                             }
                         }
+
                         cnt++;
-                        if (cnt==Summary.team.achievedTechnics.Count) {
+                        if (cnt == Summary.team.achievedTechnics.Count) {
                             cnt = 0;
-                            if (GUILayout.Button("升级",GUILayout.ExpandWidth(false))) {
+                            if (GUILayout.Button("升级", GUILayout.ExpandWidth(false))) {
                                 //TODO
                             }
                         }
                     }
 
                     GUILayout.BeginHorizontal();
-                    
+
                     GUILayout.EndHorizontal();
                 }
+
                 GUILayout.EndScrollView();
             }, VIEW_TECH_PAGE_TITLE);
-        
         }
     }
 }

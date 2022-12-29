@@ -141,6 +141,7 @@ GameObject:
   - component: {fileID: 214161}
   - component: {fileID: 214165}
   - component: {fileID: 214164}
+  - component: {fileID: 214166}
   m_Layer: 0
   m_Name: Judgement
   m_TagString: Untagged
@@ -279,6 +280,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e10b8532bed452aba6a13590f34f258, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &214166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 214154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42b46b55c44644e783c246f93ca6c4f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &4352389
@@ -5578,6 +5591,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5336706673940116308, guid: 80e9f820b39f8c140ad92952d2303b2c,
+        type: 3}
+      propertyPath: prefabName
+      value: PickableGoldCoin
       objectReference: {fileID: 0}
     - target: {fileID: 8019778805239884654, guid: 80e9f820b39f8c140ad92952d2303b2c,
         type: 3}
@@ -29288,6 +29306,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1117262472}
     m_Modifications:
+    - target: {fileID: 1279187536501353409, guid: 711a218f457cb8742aa96dfcee6beae4,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2778548803809046563, guid: 711a218f457cb8742aa96dfcee6beae4,
         type: 3}
       propertyPath: m_Name
