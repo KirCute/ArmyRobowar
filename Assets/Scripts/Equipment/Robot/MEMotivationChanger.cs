@@ -5,10 +5,10 @@ namespace Equipment.Robot {
     /// <summary>
     /// 在接收到小车运动方式需要改变时，改变小车运动方式
     /// </summary>
-    public class MEMotivationChanger : MonoBehaviourPun /*, IPunObservable*/ {
-        private const float LINEAR_SPEED = 2.0f;
-        private const float ANGULAR_SPEED = 2.5f;
+    public class MEMotivationChanger : MonoBehaviourPun {
         private const float NAVIGATION_MOVE_ANGULAR_ERROR = 5f;
+        [SerializeField] private float linearSpeed = 2.0f;
+        [SerializeField] private float angularSpeed = 2.5f;
 
         private Vector2 motivation;
         private Vector2 target;
@@ -32,8 +32,8 @@ namespace Equipment.Robot {
         private void Update() {
             switch (mode) {
                 case 0:
-                    rbody.velocity = transform.forward * motivation.y * LINEAR_SPEED;
-                    rbody.angularVelocity = new Vector3(0f, motivation.x * ANGULAR_SPEED, 0f);
+                    rbody.velocity = transform.forward * motivation.y * linearSpeed;
+                    rbody.angularVelocity = new Vector3(0f, motivation.x * angularSpeed, 0f);
                     break;
                 case 1:
                     var pos = new Vector2(transform.position.x, transform.position.z);
@@ -43,9 +43,9 @@ namespace Equipment.Robot {
                     if (angle > NAVIGATION_MOVE_ANGULAR_ERROR) {
                         rbody.velocity = Vector3.zero;
                         rbody.angularVelocity =
-                            new Vector3(0f, (Vector3.Cross(dis, forward).z > 0 ? 1f : -1f) * ANGULAR_SPEED, 0f);
+                            new Vector3(0f, (Vector3.Cross(dis, forward).z > 0 ? 1f : -1f) * angularSpeed, 0f);
                     } else {
-                        rbody.velocity = new Vector3(dis.x, 0f, dis.y) * LINEAR_SPEED;
+                        rbody.velocity = new Vector3(dis.x, 0f, dis.y) * linearSpeed;
                     }
 
                     break;
@@ -70,18 +70,5 @@ namespace Equipment.Robot {
                 Events.Invoke(Events.F_ROBOT_MOTIVATION_CHANGED, args);
             }
         }
-        /*
-        public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
-            if (stream.IsWriting) {
-                stream.SendNext(motivation);
-                stream.SendNext(target);
-                stream.SendNext(mode);
-            } else {
-                motivation = (Vector2) stream.ReceiveNext();
-                target = (Vector2) stream.ReceiveNext();
-                mode = (int) stream.ReceiveNext();
-            }
-        }
-		*/
     }
 }

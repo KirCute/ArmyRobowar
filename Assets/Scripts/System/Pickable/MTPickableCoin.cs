@@ -9,7 +9,6 @@ namespace System.Pickable {
 
         private void Awake() {
             identity = GetComponentInParent<MEPickableIdentifier>();
-            value = (int) photonView.InstantiationData[1];
         }
 
         public override void Pickup(int team, int robotId) {
@@ -21,10 +20,8 @@ namespace System.Pickable {
 
         public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
             if (stream.IsWriting) {
-                stream.SendNext(value);
                 stream.SendNext(picked);
             } else {
-                value = (int) stream.ReceiveNext();
                 picked = (bool) stream.ReceiveNext();
             }
         }

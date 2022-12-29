@@ -7,7 +7,7 @@ namespace System {
         private const double GENERATE_TIME_INTERVAL = 120.0;
         private static Random rand;
         
-        [SerializeField] private int value;
+        [SerializeField] private string prefabName;
         private double lastGenerate;
 
         private void OnEnable() {
@@ -25,7 +25,7 @@ namespace System {
 
         private void Update() {
             if (Summary.isGameStarted && photonView.IsMine && PhotonNetwork.Time - lastGenerate >= GENERATE_TIME_INTERVAL) {
-                Events.Invoke(Events.M_CREATE_PICKABLE_COINS, new object[] {value, transform.position});
+                Events.Invoke(Events.M_CREATE_PICKABLE_COINS, new object[] {prefabName, transform.position});
                 lastGenerate = PhotonNetwork.Time;
             }
         }
