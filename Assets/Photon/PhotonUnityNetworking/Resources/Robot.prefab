@@ -98,6 +98,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1c076de520f47849f847da19c8b2402, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotationXClamp: {x: -20, y: 45}
+  rotationYClamp: {x: -60, y: 60}
 --- !u!1 &2066815804742709546
 GameObject:
   m_ObjectHideFlags: 0
@@ -328,6 +330,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e62de923c5dd2774aa35a99226b2e456, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  linearSpeed: 2
+  angularSpeed: 2.5
 --- !u!114 &2396423556907651786
 MonoBehaviour:
   m_ObjectHideFlags: 0

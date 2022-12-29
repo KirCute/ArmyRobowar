@@ -200,6 +200,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1c076de520f47849f847da19c8b2402, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotationXClamp: {x: -20, y: 45}
+  rotationYClamp: {x: -60, y: 60}
 --- !u!114 &1641635152892306644
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -326,3 +328,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 427ecbfbec8c42d093ef0b2b65a903f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  perspective: 0
