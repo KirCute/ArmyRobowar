@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using Model.Equipment;
+using Unity.VisualScripting;
 using UnityEngine;
 using Vector2 = UnityEngine.Vector2;
 
@@ -16,12 +17,9 @@ namespace UI
         private const string VIEW_TECH_PAGE_TITLE = "";
         private Vector2 scroll = Vector2.zero;
 
-        private string[] technologies_strings = new[] { "Robot","Camera","Gun","Lidar","Transporter","Shield","Tower","Hider" };
-
-        private Dictionary<int, string> technologies = new Dictionary<int, string>
+        private Dictionary<string, List<string>> technics = new Dictionary<string, List<string>>
         {
-            { 1, "Robot" }, { 0, "Camera" }, { 0, "Gun" }, { 0, "Lidar" }, { 0, "Transporter" }, { 0, "Shield" },
-            { 0, "Tower" }, { 0, "Hider" }
+            {"iRobot",new List<string>{""}},{"iiRobot",new List<string>{"iRobot"}},{"iiiRobot",new List<string>{"iiRobot"}},{"BaseCamera",new List<string>{""}},{"BaseGun",new List<string>{""}}
         };
         private void OnGUI() {
             var dim = new Rect(
@@ -32,38 +30,39 @@ namespace UI
                 scroll = GUILayout.BeginScrollView(scroll, false, false,
                     GUILayout.Height(Screen.height * VIEW_TECH_PAGE_HEIGHT));
 
-                foreach (var tech in technologies) {
+                foreach (var tech in System.Constants.TECHNOLOGY ) {
                     
                     GUILayout.BeginHorizontal("Box"); 
                     
-                    GUILayout.BeginVertical("Box");
+                    GUILayout.BeginHorizontal("Box");
                     
-                    GUILayout.Label(tech.Value);
-                    
-                    GUILayout.Label("当前等级是:"+tech.Key);
-                    if (tech.Value.Equals("Camera")&&tech.Key>=1) {
-                        if (GUILayout.Button("查看详情",GUILayout.ExpandWidth(false))) {
-                            //TODO
+                    GUILayout.Label(tech.Key);
+                    int cnt = 0;
+                    foreach (var technic in Summary.team.achievedTechnics) { 
+                        if (technics[tech.Key][0].Equals("")) {
+                            if (technics[tech.Key][0].Equals(technic)) {
+                                break;   
+                            }
+                            if (GUILayout.Button("升级",GUILayout.ExpandWidth(false))) {
+                                //TODO
+                            }
+                            break;
+                        }else {
+                            if (technics[tech.Key][0].Equals(technic)) {
+                                GUILayout.Label("已升级",GUILayout.ExpandWidth(false));
+                                break;
+                            }
                         }
-                    }else if (tech.Value.Equals("Gun")&&tech.Key>=1) {
-                        if (GUILayout.Button("查看详情",GUILayout.ExpandWidth(false))) {
-                            //TODO
-                        }
-                    }else if (tech.Value.Equals("Lidar")&&tech.Key>=1) {
-                        if (GUILayout.Button("查看详情",GUILayout.ExpandWidth(false))) {
-                            //TODO
-                        }
-                    }else if (tech.Value.Equals("Tower")&&tech.Key>=1) {
-                        if (GUILayout.Button("查看详情",GUILayout.ExpandWidth(false))) {
-                            //TODO
-                        }
-                    }else {
-                        if (GUILayout.Button("升级",GUILayout.ExpandWidth(false))){
-                            //TODO
+                        cnt++;
+                        if (cnt==Summary.team.achievedTechnics.Count) {
+                            cnt = 0;
+                            if (GUILayout.Button("升级",GUILayout.ExpandWidth(false))) {
+                                //TODO
+                            }
                         }
                     }
 
-                    GUILayout.EndVertical();
+                    GUILayout.BeginHorizontal();
                     
                     GUILayout.EndHorizontal();
                 }
