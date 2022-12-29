@@ -1,4 +1,4 @@
-﻿        using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +11,7 @@ namespace UI
 {
     public class MTViewRobotsRefit : MonoBehaviour
     {
-        //private List<Sensor> Temp_Component_Self_Use = new List<Sensor>(); 
+        private List<Sensor> Temp_Component_Self_Use = new List<Sensor>(); 
 
         private const int VIEW_REFIT_PAGE_ID = 0;
         private const float VIEW_REFIT_PAGE_WIDTH = 0.8F;
@@ -42,8 +42,7 @@ namespace UI
                     
                     GUILayout.BeginVertical();
                     GUILayout.Label(robot.name,GUILayout.ExpandWidth(true));
-                    if (GUILayout.Button("查看机器人", GUILayout.ExpandWidth(false)))
-                    {
+                    if (GUILayout.Button("查看机器人", GUILayout.ExpandWidth(false))) {
                         //TODO
                     }
                     GUILayout.EndVertical();
@@ -52,48 +51,19 @@ namespace UI
                 
                 scroll = GUILayout.BeginScrollView(scroll, false, false,
                     GUILayout.Height(Screen.height * VIEW_REFIT_PAGE_HEIGHT));
-                foreach (var component in Summary.team.components) {
+                foreach (var component in Temp_Component_Self_Use) {
                     GUILayout.BeginHorizontal("Box");
                     
                     GUILayout.BeginVertical();
-<<<<<<<<< Temporary merge branch 1
-                    bool isPress = LableWithImage(component.template.name);//点击配件并点击“装配”，才嫩实现装配
-                    if (isPress && GUILayout.Button("装配", GUILayout.ExpandWidth(false))) {
-=========
-                    GUILayout.Label(component.template.name,GUILayout.ExpandWidth(true));
+                    GUILayout.Label(component.template.name,GUILayout.ExpandWidth(true));//配件名字（或者是贴图）未解决
                     if (GUILayout.Button("装配", GUILayout.ExpandWidth(false))) {
->>>>>>>>> Temporary merge branch 2
                         //TODO
-                        // 参数：队伍号(int), 机器人id(int), 安装位置(int), 要安装的传感器在仓库中的索引(int)
-                        Events.Invoke(Events.M_ROBOT_INSTALL_COMPONENT, new object[] { Summary.team.teamColor,
-                            Summary.team.robots[0].id});
                     }
                     GUILayout.EndVertical();
                 }
                 
                 GUILayout.EndHorizontal();
             },VIEW_REFIT_PAGE_TITLE);
-        }
-
-        //把图片和标签绑定在一起
-        private bool LableWithImage(String sensorName) {
-            GUILayout.BeginHorizontal("Box");
-            Texture2D image = ImageForSensor(sensorName);
-            bool isPress = GUILayout.Button(image);
-            GUILayout.Label(sensorName,GUILayout.ExpandWidth(true));
-            GUILayout.EndHorizontal();
-            return isPress;
-        }
-
-        //配件的图片和名字的匹配
-        private Texture2D ImageForSensor(String sensorName) {
-            //TODO,配件的名字是？
-            Texture2D texture2D = null;
-            switch (sensorName) {
-                case "camera" : texture2D =  Resources.Load<Texture2D>("camera");break;
-                case "radar" : texture2D =  Resources.Load<Texture2D>("radar"); break;
-            }
-            return texture2D;
         }
     }
 }
