@@ -3,6 +3,7 @@ using Photon.Pun;
 
 namespace Equipment.Robot {
     public class MERobotDestroyer : MonoBehaviourPun {
+        private static Random rand;
         private MERobotIdentifier identity;
 
         private void Awake() {
@@ -29,10 +30,13 @@ namespace Equipment.Robot {
                 Summary.team.robots[identity.id].connection = 0;
                 Summary.team.robots[identity.id].gameObject = null;
                 if (photonView.IsMine) {
+                    rand ??= new Random(Guid.NewGuid().GetHashCode());
                     foreach (var sensor in Summary.team.robots[identity.id].equippedComponents) {
-                        Events.Invoke(Events.M_CREATE_PICKABLE_COMPONENT, new object[] {
-                            sensor.template.nameOnTechnologyTree, sensor.health, transform.position
-                        });
+                        if (rand.NextDouble() < sensor.template.dropProbability) {
+                            Events.Invoke(Events.M_CREATE_PICKABLE_COMPONENT, new object[] {
+                                sensor.template.nameOnTechnologyTree, sensor.health, transform.position
+                            });
+                        }
                     }
                 }
             }

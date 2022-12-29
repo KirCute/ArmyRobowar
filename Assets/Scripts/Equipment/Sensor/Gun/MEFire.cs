@@ -1,5 +1,4 @@
 using Photon.Pun;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Equipment.Sensor.Gun {

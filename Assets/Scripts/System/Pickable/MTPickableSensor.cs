@@ -2,6 +2,7 @@
 
 namespace System.Pickable {
     public class MTPickableSensor : AbstractMTPickable, IPunObservable {
+        private const double PICKABLE_SENSOR_DEAD_TIME = 180.0;
         public string nameOnTechnologyTree;
         public int health;
         private bool picked;
@@ -12,6 +13,7 @@ namespace System.Pickable {
             identity = GetComponentInParent<MEPickableIdentifier>();
             nameOnTechnologyTree = (string) photonView.InstantiationData[1];
             health = (int) photonView.InstantiationData[2];
+            GetComponent<MEPickableDestroyer>().deadTime = PhotonNetwork.Time + PICKABLE_SENSOR_DEAD_TIME;
         }
 
         public override void Pickup(int team, int robotId) {

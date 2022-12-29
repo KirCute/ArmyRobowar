@@ -20,14 +20,16 @@ namespace System {
 
         public static readonly IReadOnlyDictionary<string, SensorTemplate> SENSOR_TEMPLATES = new Dictionary<string, SensorTemplate> {
             {
-                "BaseCamera", new SensorTemplate("BaseCamera", "摄像头", "基础摄像头", 6, 1, 
+                "BaseCamera", new SensorTemplate("BaseCamera", "摄像头", "基础摄像头", 6, 1, 0.3,
                     SensorTemplate.COMMON_OBJECT_COMPONENT_ON_EQUIPPED("BaseCamera"), 
-                    SensorTemplate.COMMON_OBJECT_COMPONENT_ON_UNLOADED)
+                    SensorTemplate.COMMON_OBJECT_COMPONENT_ON_UNLOADED,
+                    SensorTemplate.COMMON_COMPONENT_PREFAB)
             },
             {
-                "BaseGun", new SensorTemplate("BaseGun", "炮", "基础炮", 6, 1, 
+                "BaseGun", new SensorTemplate("BaseGun", "炮", "基础炮", 6, 1, 0.3,
                     SensorTemplate.COMMON_OBJECT_COMPONENT_ON_EQUIPPED("BaseGun"), 
-                    SensorTemplate.COMMON_OBJECT_COMPONENT_ON_UNLOADED)
+                    SensorTemplate.COMMON_OBJECT_COMPONENT_ON_UNLOADED,
+                    SensorTemplate.COMMON_COMPONENT_PREFAB)
             }
         };
     }

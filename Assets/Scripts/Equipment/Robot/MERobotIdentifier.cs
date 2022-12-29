@@ -1,6 +1,4 @@
-﻿using System;
-using Photon.Pun;
-using UnityEngine;
+﻿using Photon.Pun;
 
 namespace Equipment.Robot {
     /// <summary>

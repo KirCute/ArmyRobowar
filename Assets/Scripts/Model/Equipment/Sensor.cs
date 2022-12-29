@@ -6,7 +6,7 @@ namespace Model.Equipment {
         public delegate void EquipDelegate(Sensor self, int robotId, int instIndex, bool processObject);
 
         public readonly SensorTemplate template;
-        public int health { get; set; }
+        public int health { get; set; }  // client-server
 
         public Sensor(SensorTemplate template, int health) {
             this.template = template;
