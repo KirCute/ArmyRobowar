@@ -37,7 +37,7 @@ namespace UI
                     GUILayout.BeginHorizontal("Box");
                     
                     GUILayout.Label(tech.Key);
-
+                    int cnt = 0;
                     foreach (var technic in Summary.team.achievedTechnics) { 
                         if (technics[tech.Key][0].Equals("")) {
                             if (technics[tech.Key][0].Equals(technic)) {
@@ -49,10 +49,15 @@ namespace UI
                             break;
                         }else {
                             if (technics[tech.Key][0].Equals(technic)) {
-                                if (GUILayout.Button("升级",GUILayout.ExpandWidth(false))) {
-                                    //TODO
-                                }
-                                break;  
+                                GUILayout.Label("已升级",GUILayout.ExpandWidth(false));
+                                break;
+                            }
+                        }
+                        cnt++;
+                        if (cnt==Summary.team.achievedTechnics.Count) {
+                            cnt = 0;
+                            if (GUILayout.Button("升级",GUILayout.ExpandWidth(false))) {
+                                //TODO
                             }
                         }
                     }
