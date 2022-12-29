@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Map.Navigation;
 using Photon.Pun;
 using UnityEngine;
 
@@ -22,12 +23,30 @@ namespace Test {
                 Events.Invoke(Events.M_ROBOT_INSTALL_COMPONENT, new object[] {Summary.team.teamColor, robotId, place, 0});
             }
             if (Input.GetKeyDown(KeyCode.Alpha5)) {
-                Events.Invoke(Events.M_ROBOT_MONITOR, new object[] {Summary.team.robots[0].id, PhotonNetwork.LocalPlayer, true});
-                Events.Invoke(Events.M_ROBOT_CONTROL, new object[] {Summary.team.robots[0].id, PhotonNetwork.LocalPlayer});
+                var robotId = Summary.team.robots.Keys.First();
+                Events.Invoke(Events.M_ROBOT_MONITOR, new object[] {Summary.team.robots[robotId].id, PhotonNetwork.LocalPlayer, true});
+                Events.Invoke(Events.M_ROBOT_CONTROL, new object[] {Summary.team.robots[robotId].id, PhotonNetwork.LocalPlayer});
             }
             if (Input.GetKeyDown(KeyCode.Alpha6)) {
-                Events.Invoke(Events.M_ROBOT_MONITOR, new object[] {Summary.team.robots[0].id, PhotonNetwork.LocalPlayer, false});
-                Events.Invoke(Events.M_ROBOT_CONTROL, new object[] {Summary.team.robots[0].id, null});
+                var robotId = Summary.team.robots.Keys.First();
+                Events.Invoke(Events.M_ROBOT_MONITOR, new object[] {Summary.team.robots[robotId].id, PhotonNetwork.LocalPlayer, false});
+                Events.Invoke(Events.M_ROBOT_CONTROL, new object[] {Summary.team.robots[robotId].id, null});
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha7)) {
+                var robotId = Summary.team.robots.Keys.First();
+                Events.Invoke(Events.M_ROBOT_RELEASE_INVENTORY, new object[] {Summary.team.teamColor, Summary.team.robots[robotId].id});
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha0)) {
+                var robotId = Summary.team.robots.Keys.First();
+                var from3 = GameObject.Find($"Robot_{robotId}").transform.position;
+                var from = new Vector2(from3.x, from3.z);
+                var to = Vector2.zero;
+                var path = MDNavigationCenter.GetInstance().GetFinalPath(new [] {from, to});
+                var input = new object[path.Count + 2];
+                input[0] = robotId;
+                input[1] = path.Count;
+                for (var i = 2; i < path.Count + 2; i++) input[i] = path[i - 2];
+                Events.Invoke(Events.M_ROBOT_NAVIGATION, input);
             }
         }
     }

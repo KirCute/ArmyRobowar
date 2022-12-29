@@ -20,7 +20,7 @@ namespace Test {
         void Update()
         {
             List<Vector3> list = new List<Vector3>();
-            list = MDNavigationCenter.GetInstance().GetMatch(transform.localPosition, new Vector3(30.5f, 0, -30.97f));
+            //list = MDNavigationCenter.GetInstance().GetMatch(transform.localPosition, new Vector3(30.5f, 0, -30.97f));
             
             foreach (var VARIABLE in list) {
                 print(VARIABLE);

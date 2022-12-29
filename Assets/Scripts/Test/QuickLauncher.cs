@@ -9,7 +9,7 @@ namespace Test {
 
         public override void OnConnectedToMaster() {
             base.OnConnectedToMaster();
-            PhotonNetwork.JoinOrCreateRoom("QuickLaunchTest", new RoomOptions {MaxPlayers = 2}, default);
+            PhotonNetwork.JoinOrCreateRoom("DevelopmentTest", new RoomOptions {MaxPlayers = 2}, default);
         }
 
         public override void OnJoinedRoom() {
@@ -19,7 +19,8 @@ namespace Test {
                 Events.Invoke(Events.F_GAME_START, new object[] {
                     PhotonNetwork.Time,
                     0, 5,
-                    1, PhotonNetwork.MasterClient, 1, PhotonNetwork.LocalPlayer
+                    1, PhotonNetwork.MasterClient,
+                    1, PhotonNetwork.LocalPlayer
                 });
             }
         }
