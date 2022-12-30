@@ -1,6 +1,7 @@
 ﻿using System;
 using Model.Equipment;
 using Model.Equipment.Template;
+using UnityEngine;
 
 namespace Model.Inventory {
     public class SensorItemAdapter : IItem {
@@ -19,6 +20,10 @@ namespace Model.Inventory {
             Events.Invoke(Events.F_TEAM_ACQUIRE_COMPONENT, new object[] {
                 Summary.team.teamColor, nameOnTechnologyTree, health
             });
+        }
+
+        public void DropAt(Vector3 pos) {
+            Events.Invoke(Events.M_CREATE_PICKABLE_COINS, new object[] {nameOnTechnologyTree, health, pos});
         }
     }
 }

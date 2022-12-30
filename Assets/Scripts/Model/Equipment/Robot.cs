@@ -24,6 +24,7 @@ namespace Model.Equipment {
         public bool manufacturing { get; set; }  // peer-to-peer
         public int inventoryCapacity { get; set; }  // peer-to-peer
         public Player controller { get; set; }  // client-server
+        public double lastRecoveryTime { get; set; }  // peer-to-peer
         public byte status => manufacturing ? STATUS_MANUFACTURING : (connection > 0 ? STATUS_ACTIVE : STATUS_MISSING);
 
         public Robot(int id, string name, RobotTemplate template) {
@@ -38,6 +39,7 @@ namespace Model.Equipment {
             this.connection = 0;
             this.manufacturing = true;
             this.createTime = PhotonNetwork.Time;
+            this.lastRecoveryTime = PhotonNetwork.Time;
             this.controller = null;
         }
     }

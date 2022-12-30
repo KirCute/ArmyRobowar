@@ -22,6 +22,7 @@ namespace Equipment.Tower {
             if (identity.id == (int) args[0] && identity.team == Summary.team.teamColor && photonView.IsMine) {
                 var health = Summary.team.towers[identity.id].health;
                 health = Mathf.Max(health + (int) args[1], 0);
+                health = Mathf.Min(health, Summary.team.towers[identity.id].template.maxHealth);
                 Summary.team.towers[identity.id].health = health;
                 Events.Invoke(Events.F_TOWER_HEALTH_CHANGED, new object[] {identity.id, health});
                 if (health <= 0) {

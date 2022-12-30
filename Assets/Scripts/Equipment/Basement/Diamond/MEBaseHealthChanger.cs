@@ -23,6 +23,7 @@ namespace Equipment.Basement.Diamond {
                 Summary.isTeamLeader) {
                 var health = Summary.team.bases[identity.baseId].health;
                 health = Mathf.Max(health + (int) args[1], 0);
+                health = Mathf.Min(health, Model.Equipment.Basement.BASE_MAX_HEALTH);
                 Summary.team.bases[identity.baseId].health = health;
                 Events.Invoke(Events.F_BASE_HEALTH_CHANGED, new object[] {identity.baseId, health});
                 if (health <= 0) {

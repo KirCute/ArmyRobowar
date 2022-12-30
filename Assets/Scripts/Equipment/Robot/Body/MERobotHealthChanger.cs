@@ -22,6 +22,7 @@ namespace Equipment.Robot.Body {
             if (identity.id == (int) args[0] && identity.team == Summary.team.teamColor && photonView.IsMine) {
                 var health = Summary.team.robots[identity.id].health;
                 health = Mathf.Max(health + (int) args[1], 0);
+                health = Mathf.Min(health, Summary.team.robots[identity.id].maxHealth);
                 Summary.team.robots[identity.id].health = health;
                 Events.Invoke(Events.F_BODY_HEALTH_CHANGED, new object[] {identity.id, health});
                 if (health <= 0) {

@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace System.Judgement {
     public class METowerBuilder : MonoBehaviour {
+        private const float TOWER_BUILD_HEIGHT = 4F;
         private static int nextTowerId = -1;
 
         private void OnEnable() {
@@ -20,7 +21,9 @@ namespace System.Judgement {
                 var template = Constants.TOWER_TEMPLATES[(string) args[1]];
                 Summary.team.towers.Add(nextTowerId, new Tower(template));
                 if (Summary.isTeamLeader) {
-                    PhotonNetwork.Instantiate(template.prefabName, (Vector3) args[2], Quaternion.identity, 0,
+                    var pos2d = (Vector2) args[2];
+                    var pos = new Vector3(pos2d.x, TOWER_BUILD_HEIGHT, pos2d.y);
+                    PhotonNetwork.Instantiate(template.prefabName, pos, Quaternion.identity, 0,
                         new object[] {nextTowerId, Summary.team.teamColor}
                     );
                 }
