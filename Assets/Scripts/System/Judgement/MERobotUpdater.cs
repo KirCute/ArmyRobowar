@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace System.TeamHelper {
+namespace System.Judgement {
     public class MERobotUpdater : MonoBehaviour {
         private void OnEnable() {
             Events.AddListener(Events.M_ROBOT_RELEASE_INVENTORY, OnReleaseInventory);

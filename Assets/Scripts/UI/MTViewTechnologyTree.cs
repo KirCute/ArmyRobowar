@@ -32,7 +32,9 @@ namespace UI {
                             }
 
                             if (GUILayout.Button("升级", GUILayout.ExpandWidth(false))) {
-                                //TODO
+                                Events.Invoke(Events.M_TECHNOLOGY_RESEARCH,
+                                    new object[] {Summary.team.teamColor, tech.Key}
+                                );
                             }
 
                             break;

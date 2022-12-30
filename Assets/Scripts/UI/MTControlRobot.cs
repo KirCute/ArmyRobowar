@@ -7,7 +7,8 @@ namespace UI {
         private const float SENSITIVITY = 10f;
         private int controllingRobot { get; set; } = -1;
         private Vector2 lastMotivation = Vector2.zero;
-        
+        private bool lockCamera;
+
         private void OnEnable() {
             Events.AddListener(Events.M_ROBOT_CONTROL, OnControlled);
         }
@@ -25,13 +26,27 @@ namespace UI {
                 controllingRobot = (int) args[0];
             }
         }
-        
+
         private void Update() {
             if (controllingRobot == -1) return;
-            var mouseMove = new Vector2(-Input.GetAxis("Mouse Y"), Input.GetAxis("Mouse X")) * SENSITIVITY;
-            if (mouseMove.sqrMagnitude > 0.0001f) {
-                Events.Invoke(Events.M_ROBOT_TOWARDS_CHANGE, new object[] {controllingRobot, mouseMove});
+            if (Input.GetKeyDown(KeyCode.Y)) {
+                if (!lockCamera) {
+                    lockCamera = true;
+                    Events.Invoke(Events.M_ROBOT_TOWARDS_CHANGE, new object[] {controllingRobot, 0});
+                    Cursor.lockState = CursorLockMode.None;
+                } else {
+                    lockCamera = false;
+                    Cursor.lockState = CursorLockMode.Locked;
+                }
             }
+
+            if (!lockCamera) {
+                var mouseMove = new Vector2(-Input.GetAxis("Mouse Y"), Input.GetAxis("Mouse X")) * SENSITIVITY;
+                if (mouseMove.sqrMagnitude > 0.0001f) {
+                    Events.Invoke(Events.M_ROBOT_TOWARDS_CHANGE, new object[] {controllingRobot, 1, mouseMove});
+                }
+            }
+
             if (Input.GetMouseButtonDown(0)) {
                 Events.Invoke(Events.M_ROBOT_FIRE, new object[] {controllingRobot});
             }

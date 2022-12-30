@@ -4,7 +4,7 @@ using Photon.Realtime;
 using UnityEngine;
 
 public static class Events {
-    private const int COUNT_OF_EVENTS = 51;
+    private const int COUNT_OF_EVENTS = 52;
     
     public const byte F_GAME_START = 0;  // 参数：游戏开始时间(double), 0队初始基地(int), 1队初始基地(int), 0队玩家个数n(int), n*0队玩家名单(Player), 1队玩家个数m(int), m*1队玩家名单(Player)
     public const byte M_CREATE_ROBOT = 1;  // 参数：基地号(int), 底盘的科技树编号(string), 机器人的名称(string)
@@ -19,7 +19,7 @@ public static class Events {
     public const byte F_ROBOT_FIRED = 10;  // 参数：机器人id(int), 机器人炮口位置(Vector3), 机器人击中点(Vector3)
     public const byte M_ROBOT_MOTIVATION_CHANGE = 11;  // 参数：机器人id(int), 控制模式(int), [前后方向动机, 左右方向动机（当控制模式为0时） | 目标点（当控制模式为1时）](Vector2)
     public const byte F_ROBOT_MOTIVATION_CHANGED = 12;  // 参数：机器人id(int), 控制模式(int), [前后方向动机, 左右方向动机（当控制模式为0时） | 目标点（当控制模式为1时）](Vector2)
-    public const byte M_ROBOT_TOWARDS_CHANGE = 13;  // 参数：机器人id(int), 炮口和摄像头朝向改变量(Vector2)
+    public const byte M_ROBOT_TOWARDS_CHANGE = 13;  // 参数：机器人id(int), 模式(锁定为0,自由移动为1)(int), 炮口和摄像头朝向改变量(仅模式1)(Vector2)
     public const byte F_ROBOT_SEIZE_ENEMY = 14;  // 参数：己方队伍号(int), 被索敌敌方机器人id(int)
     public const byte F_ROBOT_LOST_SEIZE_ENEMY = 15;  // 参数：己方队伍号(int), 被索敌敌方机器人id(int)
     public const byte M_ROBOT_CHANGE_CONNECTION = 16;  // 参数：机器人id(int), 信号强度变化量(int)
@@ -50,13 +50,14 @@ public static class Events {
     public const byte F_ROBOT_LOST_FOUND_PICKABLE = 41;  // 参数：机器人id(int)
     public const byte M_ROBOT_PICK = 42;  // 参数：机器人id(int)
     public const byte F_PICKABLE_PICKED = 43;  // 参数：掉落物id(int)
-    public const byte M_CREATE_TOWER = 44;  // 参数：队伍号(int), 位置(Vector3)
+    public const byte M_CREATE_TOWER = 44;  // 参数：队伍号(int), 信号塔的科技树编号(string), 位置(Vector3)
     public const byte F_ROBOT_LIDAR_SYNC = 45;  // 参数：队伍号(int), 同步点数n(int), n*同步点(int)
-    public const byte M_PLAYER_READY = 46;
-    public const byte M_CANCEL_READY = 47;
-    public const byte M_CHANGE_TEAM = 48;
-    public const byte M_LEAVE_MATCHING = 49;
-    public const byte LOG = 50;
+    public const byte M_TECHNOLOGY_RESEARCH = 46;  // 参数：队伍号(int), 科技点编号(string)
+    public const byte M_PLAYER_ATTEND = 47;  // 参数：玩家(Player)
+    public const byte M_PLAYER_READY = 48;  // 参数：玩家(Player), 准备状态(取消准备时为false)(bool)
+    public const byte M_CHANGE_TEAM = 49;  // 参数：玩家(Player), 新的队号(int)
+    public const byte M_LEAVE_MATCHING = 50;  // 参数：玩家(Player)
+    public const byte LOG = 51;
 
     public delegate void GameEvent(object[] args);
     private static readonly GameEvent[] EVENTS = new GameEvent[COUNT_OF_EVENTS];

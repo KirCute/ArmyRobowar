@@ -1,9 +1,9 @@
-﻿using Photon.Pun;
+﻿using Model.Equipment;
+using Photon.Pun;
 using UnityEngine;
 
-namespace System.TeamHelper {
+namespace System.Judgement {
     public class METowerBuilder : MonoBehaviour {
-        private const string TOWER_PREFAB_NAME = "Tower";
         private static int nextTowerId = -1;
 
         private void OnEnable() {
@@ -16,10 +16,14 @@ namespace System.TeamHelper {
 
         private static void OnTowerCreating(object[] args) {
             nextTowerId++;
-            if (Summary.team.teamColor == (int) args[0] && Summary.isTeamLeader) {
-                PhotonNetwork.Instantiate(TOWER_PREFAB_NAME, (Vector3) args[1], Quaternion.identity, 0,
-                    new object[] {nextTowerId, Summary.team.teamColor}
-                );
+            if (Summary.team.teamColor == (int) args[0]) {
+                var template = Constants.TOWER_TEMPLATES[(string) args[1]];
+                Summary.team.towers.Add(nextTowerId, new Tower(template));
+                if (Summary.isTeamLeader) {
+                    PhotonNetwork.Instantiate(template.prefabName, (Vector3) args[2], Quaternion.identity, 0,
+                        new object[] {nextTowerId, Summary.team.teamColor}
+                    );
+                }
             }
         }
     }
