@@ -21,8 +21,8 @@ namespace Model {
             this.towers = new Dictionary<int, Tower>();
             this.availableRobotTemplates = new HashSet<string> {"iRobot"};
             this.availableSensorTemplates = new HashSet<string> {"BaseCamera", "BaseGun"};
-            this.achievedTechnics = new HashSet<string>();
-            this.achievedTower = new HashSet<string>();
+            this.achievedTechnics = new HashSet<string> {"iRobot", "BaseCamera", "BaseGun", "BaseTower"};
+            this.achievedTower = new HashSet<string> {"BaseTower"};
             this.coins = INIT_COUNT_OF_COINS;
             this.teamMap = new BitArray(TEAM_MAP_WIDTH * TEAM_MAP_HEIGHT, false);
             this.usedResearchTime = startTime - INIT_RESEARCH_POINT * 60.0 / RESEARCH_POINT_INCREMENT_PER_MIN;
@@ -40,11 +40,10 @@ namespace Model {
         public ISet<string> achievedTower { get; }  // peer-to-peer
         public int coins { get; set; }  // peer-to-peer
         public BitArray teamMap { get; }  // peer-to-peer
-        private double usedResearchTime;  // peer-to-peer
-
+        private double usedResearchTime;
         public double researchPoint {
             get => (PhotonNetwork.Time - usedResearchTime) * RESEARCH_POINT_INCREMENT_PER_MIN / 60.0;
-            protected set => usedResearchTime = PhotonNetwork.Time - value * 60.0 / RESEARCH_POINT_INCREMENT_PER_MIN;
-        }
+            set => usedResearchTime = PhotonNetwork.Time - value * 60.0 / RESEARCH_POINT_INCREMENT_PER_MIN;
+        }  // peer-to-peer
     }
 }
