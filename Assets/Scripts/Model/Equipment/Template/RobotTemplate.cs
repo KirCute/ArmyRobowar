@@ -5,13 +5,15 @@
     public class RobotTemplate {
         public readonly string nameOnTechnologyTree;
         public readonly string prefabName;
+        public readonly string name;
         public readonly int capacity; // 机器人可携带部件的最大数量
         public readonly int maxHealth;
         public readonly int cost;
         public readonly float makingTime;
 
-        public RobotTemplate(string name, string prefabName, int capacity, int maxHealth, int cost, float makingTime) {
-            this.nameOnTechnologyTree = name;
+        public RobotTemplate(string technic, string name, string prefabName, int capacity, int maxHealth, int cost, float makingTime) {
+            this.nameOnTechnologyTree = technic;
+            this.name = name;
             this.prefabName = prefabName;
             this.capacity = capacity;
             this.cost = cost;

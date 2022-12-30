@@ -1,6 +1,6 @@
 ﻿namespace Model.Equipment {
     public class Basement {
-        public const int BASE_MAX_HEALTH = 60;
+        public const int BASE_MAX_HEALTH = 100;
         
         public readonly int id;
         public int health { get; set; }  // client-server

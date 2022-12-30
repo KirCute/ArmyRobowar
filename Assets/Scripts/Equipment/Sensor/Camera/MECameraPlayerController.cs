@@ -1,5 +1,4 @@
 ﻿using Photon.Pun;
-using Photon.Realtime;
 
 namespace Equipment.Sensor.Camera {
     public class MECameraPlayerController : MonoBehaviourPun {

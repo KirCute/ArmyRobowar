@@ -32,7 +32,7 @@ namespace Model.Equipment.Template {
         }
 
         public static Sensor.EquipDelegate COMMON_OBJECT_COMPONENT_ON_EQUIPPED(string prefab) {
-            return (self, id, index, processObject) => {
+            return (_, id, index, processObject) => {
                 if (processObject) {
                     PhotonNetwork.Instantiate(prefab, Vector3.zero, Quaternion.identity, 0,
                         new object[] {id, index, Summary.team.teamColor}

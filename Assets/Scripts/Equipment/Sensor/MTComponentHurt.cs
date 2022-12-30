@@ -1,6 +1,4 @@
-﻿using Photon.Pun;
-
-namespace Equipment.Sensor {
+﻿namespace Equipment.Sensor {
     public class MTComponentHurt : AbstractMTHurt {
         private MEComponentIdentifier identity;
         

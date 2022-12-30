@@ -1,5 +1,4 @@
 ﻿using System;
-using Equipment.Robot;
 using Photon.Pun;
 
 namespace Equipment.Sensor {

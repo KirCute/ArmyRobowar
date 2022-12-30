@@ -1,5 +1,4 @@
 ﻿using Model.Equipment.Template;
-using UnityEngine;
 
 namespace Model.Equipment {
     public class Sensor {

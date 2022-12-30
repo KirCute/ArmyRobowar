@@ -1,6 +1,5 @@
 ﻿using System;
 using Equipment.Robot;
-using Equipment.Robot.Body;
 using Photon.Pun;
 using UnityEngine;
 

@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Linq;
 using Photon.Pun;
-using UnityEngine;
 
 namespace Equipment.Basement {
     public class MEBaseFlag : AbstractMESignalIdentifier {

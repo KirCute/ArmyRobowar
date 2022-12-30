@@ -17,7 +17,6 @@ GameObject:
   - component: {fileID: 4171042622184775796}
   - component: {fileID: 9003334826065505923}
   - component: {fileID: 4102676790758551652}
-  - component: {fileID: 815469634264525584}
   - component: {fileID: 1641635152892306644}
   - component: {fileID: 5199880332420411746}
   m_Layer: 7
@@ -66,7 +65,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0.5
   far clip plane: 20
   field of view: 60
   orthographic: 0
@@ -188,22 +187,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0955129ace44b809010e6b2237df45e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &815469634264525584
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1282208298271157565}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1c076de520f47849f847da19c8b2402, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rotationXClamp: {x: -20, y: 45}
-  rotationYClamp: {x: -60, y: 60}
-  lockRotationX: 0
-  lockRotationY: 0
 --- !u!114 &1641635152892306644
 MonoBehaviour:
   m_ObjectHideFlags: 0

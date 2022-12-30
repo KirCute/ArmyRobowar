@@ -34,7 +34,7 @@ namespace Equipment.Robot {
                 if (photonView.IsMine) {
                     rand ??= new Random(Guid.NewGuid().GetHashCode());
                     foreach (var sensor in Summary.team.robots[identity.id].equippedComponents) {
-                        if (rand.NextDouble() < sensor.template.dropProbability) {
+                        if (sensor != null && rand.NextDouble() < sensor.template.dropProbability) {
                             Events.Invoke(Events.M_CREATE_PICKABLE_COMPONENT, new object[] {
                                 sensor.template.nameOnTechnologyTree, sensor.health, GenerateDropPos()
                             });

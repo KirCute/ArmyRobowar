@@ -16,7 +16,6 @@ GameObject:
   - component: {fileID: 276367542238298637}
   - component: {fileID: 7204352378676629596}
   - component: {fileID: 4786345837128296900}
-  - component: {fileID: 4175356215989677833}
   - component: {fileID: 2247252202567752547}
   m_Layer: 7
   m_Name: BaseGun
@@ -143,20 +142,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0955129ace44b809010e6b2237df45e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &4175356215989677833
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 892925349879553371}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1c076de520f47849f847da19c8b2402, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rotationXClamp: {x: -20, y: 45}
-  rotationYClamp: {x: -60, y: 60}
 --- !u!114 &2247252202567752547
 MonoBehaviour:
   m_ObjectHideFlags: 0
