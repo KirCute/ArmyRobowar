@@ -40,11 +40,11 @@ namespace System {
             };
 
         public static readonly IReadOnlyDictionary<string, List<string>> TECHNIC_TOPOLOGY = new Dictionary<string, List<string>> {
-            {"iRobot", new List<string> {""}},
+            {"iRobot", new List<string>()},
             {"iiRobot", new List<string> {"iRobot"}},
             {"iiiRobot", new List<string> {"iiRobot"}},
-            {"BaseCamera", new List<string> {""}},
-            {"BaseGun", new List<string> {""}}
+            {"BaseCamera", new List<string>()},
+            {"BaseGun", new List<string>()}
         };
     }
 }

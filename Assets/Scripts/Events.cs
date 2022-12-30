@@ -53,10 +53,10 @@ public static class Events {
     public const byte M_CREATE_TOWER = 44;  // 参数：队伍号(int), 信号塔的科技树编号(string), 位置(Vector3)
     public const byte F_ROBOT_LIDAR_SYNC = 45;  // 参数：队伍号(int), 同步点数n(int), n*同步点(int)
     public const byte M_TECHNOLOGY_RESEARCH = 46;  // 参数：队伍号(int), 科技点编号(string)
-    public const byte M_PLAYER_READY = 47;
-    public const byte M_CANCEL_READY = 48;
-    public const byte M_CHANGE_TEAM = 49;
-    public const byte M_LEAVE_MATCHING = 50;
+    public const byte M_PLAYER_ATTEND = 47;  // 参数：玩家(Player)
+    public const byte M_PLAYER_READY = 48;  // 参数：玩家(Player), 准备状态(取消准备时为false)(bool)
+    public const byte M_CHANGE_TEAM = 49;  // 参数：玩家(Player), 新的队号(int)
+    public const byte M_LEAVE_MATCHING = 50;  // 参数：玩家(Player)
     public const byte LOG = 51;
 
     public delegate void GameEvent(object[] args);
