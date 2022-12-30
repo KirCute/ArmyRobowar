@@ -67,7 +67,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 1000
+  far clip plane: 20
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -202,6 +202,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotationXClamp: {x: -20, y: 45}
   rotationYClamp: {x: -60, y: 60}
+  lockRotationX: 0
+  lockRotationY: 0
 --- !u!114 &1641635152892306644
 MonoBehaviour:
   m_ObjectHideFlags: 0
