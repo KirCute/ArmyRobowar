@@ -15,7 +15,7 @@ namespace Test {
             }
             if (Input.GetKeyDown(KeyCode.Alpha3)) {
                 var baseId = Summary.team.bases.Keys.First();
-                Events.Invoke(Events.M_CREATE_ROBOT, new object[] {baseId, "iRobot", $"TestCar_{Summary.team.teamColor}"});
+                Events.Invoke(Events.M_CREATE_ROBOT, new object[] {baseId, "BaseRobot", $"TestCar_{Summary.team.teamColor}"});
             }
             if (Input.GetKeyDown(KeyCode.Alpha4)) {
                 var robotId = Summary.team.robots.Keys.First();

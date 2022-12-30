@@ -1,5 +1,4 @@
-﻿using System;
-using Photon.Pun;
+﻿using Photon.Pun;
 using UnityEngine;
 
 namespace Equipment.Sensor {
@@ -12,9 +11,11 @@ namespace Equipment.Sensor {
             robotId = (int) photonView.InstantiationData[0];
             index = (int) photonView.InstantiationData[1];
             team = (int) photonView.InstantiationData[2];
-            transform.parent = GameObject.Find($"Robot_{robotId}").transform;
+            transform.parent = GameObject.Find($"Robot_{robotId}").transform
+                .Find("Body").Find("U arm.step").Find("Gun turret.step").Find("Components");
             transform.localPosition = Vector3.zero;
             transform.localRotation = Quaternion.identity;
+            gameObject.name = $"Component_{robotId}_{index}";
         }
 
         public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {

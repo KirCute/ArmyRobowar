@@ -1,6 +1,5 @@
 ﻿using System;
 using Model.Equipment;
-using Model.Equipment.Template;
 using UnityEngine;
 
 namespace Model.Inventory {

@@ -19,9 +19,9 @@ namespace Model {
             this.components = new List<Sensor>();
             this.bases = new Dictionary<int, Basement>();
             this.towers = new Dictionary<int, Tower>();
-            this.availableRobotTemplates = new HashSet<string> {"iRobot"};
-            this.availableSensorTemplates = new HashSet<string> {"BaseCamera", "BaseGun"};
-            this.achievedTechnics = new HashSet<string> {"iRobot", "BaseCamera", "BaseGun", "BaseTower"};
+            this.availableRobotTemplates = new HashSet<string> {"BaseRobot"};
+            this.availableSensorTemplates = new HashSet<string> {"BaseCamera", "BaseGun", "iInventory", "Engineer"};
+            this.achievedTechnics = new HashSet<string> {"BaseRobot", "BaseCamera", "BaseGun", "iInventory", "Engineer", "BaseTower"};
             this.achievedTower = new HashSet<string> {"BaseTower"};
             this.coins = INIT_COUNT_OF_COINS;
             this.teamMap = new BitArray(TEAM_MAP_WIDTH * TEAM_MAP_HEIGHT, false);

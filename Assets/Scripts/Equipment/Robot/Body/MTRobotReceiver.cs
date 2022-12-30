@@ -1,6 +1,4 @@
-﻿using Photon.Pun;
-
-namespace Equipment.Robot.Body {
+﻿namespace Equipment.Robot.Body {
     public class MTRobotReceiver : AbstractMTConnection {
         private MERobotIdentifier identity;
         

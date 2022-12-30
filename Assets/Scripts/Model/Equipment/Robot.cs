@@ -22,6 +22,7 @@ namespace Model.Equipment {
         public int health { get; set; }  // client-server
         public int connection { get; set; }  // client-server
         public bool manufacturing { get; set; }  // peer-to-peer
+        public bool allowBuild { get; set; }  // peer-to-peer
         public int inventoryCapacity { get; set; }  // peer-to-peer
         public Player controller { get; set; }  // client-server
         public double lastRecoveryTime { get; set; }  // peer-to-peer

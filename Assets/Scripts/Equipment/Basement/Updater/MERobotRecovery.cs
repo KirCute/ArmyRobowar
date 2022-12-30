@@ -5,8 +5,8 @@ using UnityEngine;
 
 namespace Equipment.Basement.Updater {
     public class MERobotRecovery : MonoBehaviourPun {
-        private const double RECOVER_DELAY = 60.0;
-        private const int RECOVER_AMOUNT = 6;
+        private const double RECOVER_DELAY = 10.0;
+        private const int RECOVER_AMOUNT = 3;
         private MEBaseFlag identity;
 
         private void Awake() {
