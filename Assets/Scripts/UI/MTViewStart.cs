@@ -10,8 +10,7 @@ namespace UI
     public class MTViewStart : MonoBehaviour
     {
         private const int VIEW_START_PAGE_ID = 0;
-        private const float VIEW_START_PAGE_WIDTH = 0.8F;
-        private const float VIEW_START_PAGE_HEIGHT = 0.8F;
+
         private const string VIEW_START_PAGE_TITLE = "";
         
         private readonly GUIStyle style = new(); //定义控件
@@ -42,9 +41,9 @@ namespace UI
         
         private void OnGUI() {
             if (Summary.isGameStarted) return;
-            GUILayout.Window(VIEW_START_PAGE_ID, new Rect(Screen.width * (1 - VIEW_START_PAGE_WIDTH) / 2,
-                    Screen.height * (1 - VIEW_START_PAGE_HEIGHT) / 2,
-                    Screen.width * VIEW_START_PAGE_WIDTH, Screen.height * VIEW_START_PAGE_HEIGHT), _ =>
+            GUILayout.Window(VIEW_START_PAGE_ID, new Rect(0,
+                    0 ,
+                    Screen.width , Screen.height), _ =>
                 {
                     GUILayout.BeginVertical("Box");
                     GUILayout.BeginHorizontal("Box");
