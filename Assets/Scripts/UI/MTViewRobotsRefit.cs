@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Model.Equipment;
+using Photon.Pun;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -21,6 +22,7 @@ namespace UI
         private Robot myRobot;
         private int componentPos;
         private string componentStr = "";
+        private Dictionary<int, int> componentType = new Dictionary<int, int>();
         
         private void Start() {
             
@@ -53,9 +55,13 @@ namespace UI
                     GUILayout.BeginHorizontal("Box");
                     GUILayout.Label(robot.name,GUILayout.ExpandWidth(true));
                     if (GUILayout.Button("查看机器人", GUILayout.ExpandWidth(false))) {
+                        componentType.Clear();
                         myRobot = robot;
                         componentStr = componentToString(robot.equippedComponents);
-                        //TODO:不能装两个配件
+                        var cnt = 0;
+                        foreach (var component in robot.equippedComponents) {
+                            componentType.Add(cnt++,component.template.type);
+                        }
                     }
                     GUILayout.EndHorizontal();
                     GUILayout.BeginHorizontal("Box");
@@ -71,11 +77,23 @@ namespace UI
                 scroll = GUILayout.BeginScrollView(scroll, false, false,
                     GUILayout.Height(Screen.height * VIEW_REFIT_PAGE_HEIGHT));
                 GUILayout.BeginVertical("Box");
-                foreach (var component in Summary.team.components) {
+
+                for (int i = 0; i < Summary.team.components.Count; i++) {
+                    var component = Summary.team.components[i];
                     GUILayout.BeginHorizontal("Box");
                     GUILayout.Label(component.template.name,GUILayout.ExpandWidth(true));//配件名字（或者是贴图）未解决
                     if (GUILayout.Button("装配", GUILayout.ExpandWidth(false))) {
-                        //TODO
+                        if (componentType.Count>=myRobot.template.capacity) {
+                            
+                        }else if (componentType.ContainsValue(component.template.type)) {
+                            
+                        }else {
+                            Events.Invoke(Events.M_ROBOT_INSTALL_COMPONENT, new object[]
+                            {
+                                Summary.team.teamColor, myRobot.id, componentType.Count, i
+                            });
+                            componentType.Add(componentType.Count,component.template.type);
+                        }
                     }
                     GUILayout.EndHorizontal();
                 }
