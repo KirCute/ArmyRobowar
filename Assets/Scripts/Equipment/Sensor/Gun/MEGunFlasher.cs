@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Equipment.Sensor.Gun {
     public class MEGunFlasher : MonoBehaviourPun {
-        private const double FLASH_TIME = 0.1;
+        [SerializeField] private double flashTime = 0.1;
         private MEComponentIdentifier identity;
         private LineRenderer lineRenderer;
         private double shootTime;
@@ -14,7 +14,7 @@ namespace Equipment.Sensor.Gun {
         }
 
         private void Update() {
-            if (lineRenderer.enabled && Time.time - shootTime > FLASH_TIME) {
+            if (lineRenderer.enabled && Time.time - shootTime > flashTime) {
                 lineRenderer.enabled = false;
             }
         }

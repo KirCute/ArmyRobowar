@@ -46,11 +46,11 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8249350768428450701}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.28, y: 0.1, z: 0.4}
+  m_Center: {x: 0, y: -0.008432731, z: 0}
 --- !u!114 &5055525222786207951
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -87,6 +87,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88880cf21c9a4f3ba98f3a6192def113, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  installPosition: Lidar
 --- !u!114 &9185083551358069402
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -135,3 +136,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 654b3eb37672480b9a06d9e60b8fbfa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scanLayer: 1

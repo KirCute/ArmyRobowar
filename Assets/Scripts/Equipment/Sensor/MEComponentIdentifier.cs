@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace Equipment.Sensor {
     public class MEComponentIdentifier : MonoBehaviourPun, IPunObservable {
+		[SerializeField] private string installPosition;
         public int robotId { get; private set; }
         public int index { get; private set; }
         public int team { get; private set; }
@@ -11,8 +12,8 @@ namespace Equipment.Sensor {
             robotId = (int) photonView.InstantiationData[0];
             index = (int) photonView.InstantiationData[1];
             team = (int) photonView.InstantiationData[2];
-            transform.parent = GameObject.Find($"Robot_{robotId}").transform
-                .Find("Body").Find("U arm.step").Find("Gun turret.step").Find("Components");
+            transform.parent = GameObject.Find($"Robot_{robotId}").transform.Find("Body")
+                .Find("U arm.step").Find("Gun turret.step").Find("Components").Find(installPosition);
             transform.localPosition = Vector3.zero;
             transform.localRotation = Quaternion.identity;
             gameObject.name = $"Component_{robotId}_{index}";
