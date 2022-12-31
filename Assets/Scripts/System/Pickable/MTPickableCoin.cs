@@ -1,11 +1,12 @@
 ﻿using Photon.Pun;
+using UnityEngine;
 
 namespace System.Pickable {
     public class MTPickableCoin : AbstractMTPickable, IPunObservable {
-        public int value;
+        [SerializeField] private int value;
         private bool picked;
         private MEPickableIdentifier identity;
-        public override string name => $"金币 * {value}";
+        public override string pickableName => $"金币 * {value}";
 
         private void Awake() {
             identity = GetComponentInParent<MEPickableIdentifier>();

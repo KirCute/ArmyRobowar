@@ -4,7 +4,7 @@ using Photon.Realtime;
 using UnityEngine;
 
 public static class Events {
-    private const int COUNT_OF_EVENTS = 52;
+    private const int COUNT_OF_EVENTS = 53;
     
     public const byte F_GAME_START = 0;  // 参数：游戏开始时间(double), 0队初始基地(int), 1队初始基地(int), 0队玩家个数n(int), n*0队玩家名单(Player), 1队玩家个数m(int), m*1队玩家名单(Player)
     public const byte M_CREATE_ROBOT = 1;  // 参数：基地号(int), 底盘的科技树编号(string), 机器人的名称(string)
@@ -34,7 +34,7 @@ public static class Events {
     public const byte M_CAPTURE_BASE = 25;  // 参数：基地id(int), 队伍号(int)
     public const byte M_BASE_DAMAGE = 26;  // 参数：基地id(int), 血量变化量(int)
     public const byte F_BASE_HEALTH_CHANGED = 27;  // 参数：基地id(int), 当前血量(int)
-    public const byte F_BASE_DESTROYED = 28;  // 参数：基地id(int)
+    public const byte F_BASE_DESTROYED = 28;  // 参数：基地id(int), 队伍号(int)
     public const byte F_TEAM_ACQUIRE_COMPONENT = 29;  // 参数：队伍号(int), 部件的科技树编号(string), 部件的血量(int)
     public const byte F_TEAM_ACQUIRE_COINS = 30;  // 参数：队伍号(int), 资源数量(int)
     public const byte M_TEAM_BUY_COMPONENT = 31;  // 参数：队伍号(int), 部件的科技树编号(string)
@@ -58,6 +58,7 @@ public static class Events {
     public const byte M_CHANGE_TEAM = 49;  // 参数：玩家(Player), 新的队号(int)
     public const byte M_LEAVE_MATCHING = 50;  // 参数：玩家(Player)
     public const byte F_PLAYER_LIST_UPDATED = 51;  // 参数：0队玩家数n(int), n*(0队第i个玩家(Player), 0队第i个玩家是否准备(bool)), 1队玩家数m(int), m*(1队第i个玩家(Player), 1队第i个玩家是否准备(bool))
+    public const byte F_GAME_OVER = 52;  // 参数：胜利的队伍号(int)
 
     public delegate void GameEvent(object[] args);
     private static readonly GameEvent[] EVENTS = new GameEvent[COUNT_OF_EVENTS];

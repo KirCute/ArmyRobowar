@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 4786345837128296900}
   - component: {fileID: 2247252202567752547}
   m_Layer: 7
-  m_Name: BaseGun
+  m_Name: iiDpmGun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -137,8 +137,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bb14a841dfe42b40a423cff861a8d30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 5
-  loadingTime: 6
+  damage: 2
+  loadingTime: 1.2
 --- !u!1 &6647971566902676284
 GameObject:
   m_ObjectHideFlags: 0

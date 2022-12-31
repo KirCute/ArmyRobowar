@@ -27,7 +27,7 @@ namespace Equipment.Basement.Diamond {
                 Summary.team.bases[identity.baseId].health = health;
                 Events.Invoke(Events.F_BASE_HEALTH_CHANGED, new object[] {identity.baseId, health});
                 if (health <= 0) {
-                    Events.Invoke(Events.F_BASE_DESTROYED, new object[] {identity.baseId});
+                    Events.Invoke(Events.F_BASE_DESTROYED, new object[] {identity.baseId, identity.flagColor});
                 }
             }
         }
