@@ -2,7 +2,7 @@
 
 namespace System.Pickable {
     public class MEPickableIdentifier : MonoBehaviourPun, IPunObservable {
-        public int id { get; set; }
+        public int id { get; private set; }
 		
 		public void Awake() {
             id = (int) photonView.InstantiationData[0];

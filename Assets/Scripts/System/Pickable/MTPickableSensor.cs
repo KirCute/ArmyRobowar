@@ -3,11 +3,11 @@
 namespace System.Pickable {
     public class MTPickableSensor : AbstractMTPickable, IPunObservable {
         private const double PICKABLE_SENSOR_DEAD_TIME = 180.0;
-        public string nameOnTechnologyTree;
-        public int health;
+        private string nameOnTechnologyTree;
+        private int health;
         private bool picked;
         private MEPickableIdentifier identity;
-        public override string name => Constants.SENSOR_TEMPLATES[nameOnTechnologyTree].name;
+        public override string pickableName => Constants.SENSOR_TEMPLATES[nameOnTechnologyTree].name;
 
         private void Awake() {
             identity = GetComponentInParent<MEPickableIdentifier>();

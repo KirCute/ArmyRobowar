@@ -29,7 +29,7 @@ namespace Equipment.Robot.Arm {
                 var found = ret ? hit.collider.GetComponent<AbstractMTPickable>() : null;
                 if (found != lastFound) {
                     if (found == null) Events.Invoke(Events.F_ROBOT_LOST_FOUND_PICKABLE, new object[] {identity.id});
-                    else Events.Invoke(Events.F_ROBOT_FOUND_PICKABLE, new object[] {identity.id, found.name});
+                    else Events.Invoke(Events.F_ROBOT_FOUND_PICKABLE, new object[] {identity.id, found.pickableName});
                 }
 
                 lastFound = found;

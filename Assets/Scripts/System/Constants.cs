@@ -29,8 +29,11 @@ namespace System {
             {"iArmor", new Technic("小型装甲", "机器人的最大血量+5。", 0.0, team => team.availableSensorTemplates.Add("iArmor"))},
             {"iiArmor", new Technic("中型装甲", "机器人的最大血量+10。", 2.0, team => team.availableSensorTemplates.Add("iiArmor"))},
             {"iiiArmor", new Technic("大型装甲", "机器人的最大血量+15。", 5.0, team => team.availableSensorTemplates.Add("iiiArmor"))},
+            {"iLidar", new Technic("近程雷达", "提供近距离小地图，且机器人扫描过的地方将被记录进团队地图。", 0.0, team => team.availableSensorTemplates.Add("iLidar"))},
+            {"iiLidar", new Technic("中程雷达", "提供中等距离小地图，扫描距离增大。", 2.0, team => team.availableSensorTemplates.Add("iiLidar"))},
+            {"iiiLidar", new Technic("远程雷达", "提供远距离小地图，扫描距离进一步增大。", 5.0, team => team.availableSensorTemplates.Add("iiiLidar"))},
             {"Engineer", new Technic("工程配件", "使机器人可以建造信号塔和占领基地。", 0.0, _ => { })},
-            {"BaseTower", new Technic("信号塔", "为一定范围内的机器人提供信号。", 0.0, _ => { })},
+            {"BaseTower", new Technic("信号塔", "为一定范围内的机器人提供信号。", 0.0, _ => { })}
         };
 
         public static readonly IReadOnlyDictionary<string, RobotTemplate> ROBOT_TEMPLATES =
@@ -47,85 +50,99 @@ namespace System {
         public static readonly IReadOnlyDictionary<string, SensorTemplate> SENSOR_TEMPLATES =
             new Dictionary<string, SensorTemplate> {
                 {
-                    "BaseCamera", new SensorTemplate("BaseCamera", "基础摄像机", "最基础的摄像机，拥有20m的可视距离。", 6, 10, 0.3,
+                    "BaseCamera", new SensorTemplate("BaseCamera", "基础摄像机", "最基础的摄像机，拥有20m的可视距离。",
+                        SensorTemplate.SENSOR_TYPE_CAMERA, 6, 10, 0.3,
                         SensorTemplate.COMMON_OBJECT_COMPONENT_ON_EQUIPPED("BaseCamera"),
                         SensorTemplate.COMMON_OBJECT_COMPONENT_ON_UNLOADED,
                         SensorTemplate.COMMON_COMPONENT_PREFAB
                     )
                 }, {
-                    "iFarCamera", new SensorTemplate("iFarCamera", "远距摄像机", "拥有30m的可视距离。", 6, 20, 0.3,
+                    "iFarCamera", new SensorTemplate("iFarCamera", "远距摄像机", "拥有30m的可视距离。",
+                        SensorTemplate.SENSOR_TYPE_CAMERA, 6, 20, 0.3,
                         SensorTemplate.COMMON_OBJECT_COMPONENT_ON_EQUIPPED("iFarCamera"),
                         SensorTemplate.COMMON_OBJECT_COMPONENT_ON_UNLOADED,
                         SensorTemplate.RARE_COMPONENT_PREFAB
                     )
                 }, {
-                    "iiFarCamera", new SensorTemplate("iiFarCamera", "超远距摄像机", "拥有40m的可视距离。", 9, 40, 0.3,
+                    "iiFarCamera", new SensorTemplate("iiFarCamera", "超远距摄像机", "拥有40m的可视距离。",
+                        SensorTemplate.SENSOR_TYPE_CAMERA, 9, 40, 0.3,
                         SensorTemplate.COMMON_OBJECT_COMPONENT_ON_EQUIPPED("iiFarCamera"),
                         SensorTemplate.COMMON_OBJECT_COMPONENT_ON_UNLOADED,
                         SensorTemplate.HEROIC_COMPONENT_PREFAB
                     )
                 }, {
-                    "iDepthCamera", new SensorTemplate("iDepthCamera", "深度摄像机", "拥有20m的可视距离，当敌人进入视野时，可将其标记在小地图上。", 6, 20, 0.3,
+                    "iDepthCamera", new SensorTemplate("iDepthCamera", "深度摄像机", "拥有20m的可视距离，当敌人进入视野时，可将其标记在小地图上。",
+                        SensorTemplate.SENSOR_TYPE_CAMERA, 6, 20, 0.3,
                         SensorTemplate.COMMON_OBJECT_COMPONENT_ON_EQUIPPED("iDepthCamera"),
                         SensorTemplate.COMMON_OBJECT_COMPONENT_ON_UNLOADED,
                         SensorTemplate.RARE_COMPONENT_PREFAB
                     )
                 }, {
-                    "iiDepthCamera", new SensorTemplate("iiDepthCamera", "热成像摄像机", "拥有30m的可视距离，索敌时无视障碍物的阻挡。", 9, 40, 0.3,
+                    "iiDepthCamera", new SensorTemplate("iiDepthCamera", "热成像摄像机", "拥有30m的可视距离，索敌时无视障碍物的阻挡。",
+                        SensorTemplate.SENSOR_TYPE_CAMERA, 9, 40, 0.3,
                         SensorTemplate.COMMON_OBJECT_COMPONENT_ON_EQUIPPED("iiDepthCamera"),
                         SensorTemplate.COMMON_OBJECT_COMPONENT_ON_UNLOADED,
                         SensorTemplate.HEROIC_COMPONENT_PREFAB
                     )
                 }, {
-                    "BaseGun", new SensorTemplate("BaseGun", "基础炮", "最基础的炮，射速和伤害中规中矩。", 6, 10, 0.3,
+                    "BaseGun", new SensorTemplate("BaseGun", "基础炮", "最基础的炮，射速和伤害中规中矩。", 
+                        SensorTemplate.SENSOR_TYPE_GUN, 6, 10, 0.3,
                         SensorTemplate.COMMON_OBJECT_COMPONENT_ON_EQUIPPED("BaseGun"),
                         SensorTemplate.COMMON_OBJECT_COMPONENT_ON_UNLOADED,
                         SensorTemplate.COMMON_COMPONENT_PREFAB
                     )
                 }, {
-                    "iDpmGun", new SensorTemplate("iDpmGun", "速射炮", "拥有更快的射速但伤害更低的炮，每分钟伤害比基础炮高。", 6, 20, 0.3,
+                    "iDpmGun", new SensorTemplate("iDpmGun", "速射炮", "拥有更快的射速但伤害更低的炮，每分钟伤害比基础炮高。", 
+                        SensorTemplate.SENSOR_TYPE_GUN, 6, 20, 0.3,
                         SensorTemplate.COMMON_OBJECT_COMPONENT_ON_EQUIPPED("iDpmGun"),
                         SensorTemplate.COMMON_OBJECT_COMPONENT_ON_UNLOADED,
                         SensorTemplate.RARE_COMPONENT_PREFAB
                     )
                 }, {
-                    "iiDpmGun", new SensorTemplate("iiDpmGun", "高级速射炮", "射速特别快但伤害非常低的炮，每分钟伤害更高。", 9, 40, 0.3,
+                    "iiDpmGun", new SensorTemplate("iiDpmGun", "高级速射炮", "射速特别快但伤害非常低的炮，每分钟伤害更高。", 
+                        SensorTemplate.SENSOR_TYPE_GUN, 9, 40, 0.3,
                         SensorTemplate.COMMON_OBJECT_COMPONENT_ON_EQUIPPED("iiDpmGun"),
                         SensorTemplate.COMMON_OBJECT_COMPONENT_ON_UNLOADED,
                         SensorTemplate.HEROIC_COMPONENT_PREFAB
                     )
                 }, {
-                    "iDpsGun", new SensorTemplate("iDpsGun", "大口径炮", "拥有更高的伤害但射速更慢的炮，每分钟伤害比基础炮低。", 6, 20, 0.3,
+                    "iDpsGun", new SensorTemplate("iDpsGun", "大口径炮", "拥有更高的伤害但射速更慢的炮，每分钟伤害比基础炮低。", 
+                        SensorTemplate.SENSOR_TYPE_GUN, 6, 20, 0.3,
                         SensorTemplate.COMMON_OBJECT_COMPONENT_ON_EQUIPPED("iDpsGun"),
                         SensorTemplate.COMMON_OBJECT_COMPONENT_ON_UNLOADED,
                         SensorTemplate.RARE_COMPONENT_PREFAB
                     )
                 }, {
-                    "iiDpsGun", new SensorTemplate("iiDpsGun", "超大口径炮", "伤害特别高但装填非常久的炮，每分钟伤害更低。", 9, 40, 0.3,
+                    "iiDpsGun", new SensorTemplate("iiDpsGun", "超大口径炮", "伤害特别高但装填非常久的炮，每分钟伤害更低。", 
+                        SensorTemplate.SENSOR_TYPE_GUN, 9, 40, 0.3,
                         SensorTemplate.COMMON_OBJECT_COMPONENT_ON_EQUIPPED("iiDpsGun"),
                         SensorTemplate.COMMON_OBJECT_COMPONENT_ON_UNLOADED,
                         SensorTemplate.HEROIC_COMPONENT_PREFAB
                     )
                 }, {
-                    "iInventory", new SensorTemplate("iInventory", "小型载物架", "机器人的最大载物量+2。", 1, 20, 0.3,
+                    "iInventory", new SensorTemplate("iInventory", "小型载物架", "机器人的最大载物量+2。", 
+                        SensorTemplate.SENSOR_TYPE_INVENTORY, 1, 20, 0.3,
                         (_, id, _, _) => Summary.team.robots[id].inventoryCapacity += 2,
                         (_, id, _, _) => Summary.team.robots[id].inventoryCapacity -= 2,
                         SensorTemplate.COMMON_COMPONENT_PREFAB
                     )
                 }, {
-                    "iiInventory", new SensorTemplate("iiInventory", "中型载物架", "机器人的最大载物量+3。", 1, 30, 0.3,
+                    "iiInventory", new SensorTemplate("iiInventory", "中型载物架", "机器人的最大载物量+3。", 
+                        SensorTemplate.SENSOR_TYPE_INVENTORY, 1, 30, 0.3,
                         (_, id, _, _) => Summary.team.robots[id].inventoryCapacity += 3,
                         (_, id, _, _) => Summary.team.robots[id].inventoryCapacity -= 3,
                         SensorTemplate.RARE_COMPONENT_PREFAB
                     )
                 }, {
-                    "iiiInventory", new SensorTemplate("iiiInventory", "大型载物架", "机器人的最大载物量+4。", 1, 40, 0.3,
+                    "iiiInventory", new SensorTemplate("iiiInventory", "大型载物架", "机器人的最大载物量+4。", 
+                        SensorTemplate.SENSOR_TYPE_INVENTORY, 1, 40, 0.3,
                         (_, id, _, _) => Summary.team.robots[id].inventoryCapacity += 4,
                         (_, id, _, _) => Summary.team.robots[id].inventoryCapacity -= 4,
                         SensorTemplate.HEROIC_COMPONENT_PREFAB
                     )
                 }, {
-                    "iArmor", new SensorTemplate("iArmor", "小型装甲", "机器人的最大血量+5。", 1, 20, 0.3,
+                    "iArmor", new SensorTemplate("iArmor", "小型装甲", "机器人的最大血量+5。", 
+                        SensorTemplate.SENSOR_TYPE_ARMOR, 1, 20, 0.3,
                         (_, id, _, _) => Summary.team.robots[id].maxHealth += 5,
                         (_, id, _, _) => {
                             Summary.team.robots[id].maxHealth -= 5;
@@ -134,7 +151,8 @@ namespace System {
                         SensorTemplate.COMMON_COMPONENT_PREFAB
                     )
                 }, {
-                    "iiArmor", new SensorTemplate("iiArmor", "中型装甲", "机器人的最大血量+10。", 1, 40, 0.3,
+                    "iiArmor", new SensorTemplate("iiArmor", "中型装甲", "机器人的最大血量+10。", 
+                        SensorTemplate.SENSOR_TYPE_ARMOR, 1, 40, 0.3,
                         (_, id, _, _) => Summary.team.robots[id].maxHealth += 10,
                         (_, id, _, _) => {
                             Summary.team.robots[id].maxHealth -= 10;
@@ -143,7 +161,8 @@ namespace System {
                         SensorTemplate.RARE_COMPONENT_PREFAB
                     )
                 }, {
-                    "iiiArmor", new SensorTemplate("iiiArmor", "大型装甲", "机器人的最大血量+15。", 1, 60, 0.3,
+                    "iiiArmor", new SensorTemplate("iiiArmor", "大型装甲", "机器人的最大血量+15。", 
+                        SensorTemplate.SENSOR_TYPE_ARMOR, 1, 60, 0.3,
                         (_, id, _, _) => Summary.team.robots[id].maxHealth += 15,
                         (_, id, _, _) => {
                             Summary.team.robots[id].maxHealth -= 15;
@@ -152,7 +171,29 @@ namespace System {
                         SensorTemplate.HEROIC_COMPONENT_PREFAB
                     )
                 }, {
-                    "Engineer", new SensorTemplate("Engineer", "工程配件", "使机器人可以建造信号塔和占领基地。", 1, 20, 0.3,
+                    "iLidar", new SensorTemplate("iLidar", "近程雷达", "提供近距离小地图，且机器人扫描过的地方将被记录进团队地图。", 
+                        SensorTemplate.SENSOR_TYPE_LIDAR, 6, 10, 0.3,
+                        SensorTemplate.COMMON_OBJECT_COMPONENT_ON_EQUIPPED("iLidar"),
+                        SensorTemplate.COMMON_OBJECT_COMPONENT_ON_UNLOADED,
+                        SensorTemplate.COMMON_COMPONENT_PREFAB
+                    )
+                }, {
+                    "iiLidar", new SensorTemplate("iiLidar", "中程雷达", "提供中等距离小地图，扫描距离增大。", 
+                        SensorTemplate.SENSOR_TYPE_LIDAR, 6, 20, 0.3,
+                        SensorTemplate.COMMON_OBJECT_COMPONENT_ON_EQUIPPED("iiLidar"),
+                        SensorTemplate.COMMON_OBJECT_COMPONENT_ON_UNLOADED,
+                        SensorTemplate.RARE_COMPONENT_PREFAB
+                    )
+                }, {
+                    "iiiLidar", new SensorTemplate("iiiLidar", "远程雷达", "提供远距离小地图，扫描距离进一步增大。", 
+                        SensorTemplate.SENSOR_TYPE_LIDAR, 9, 40, 0.3,
+                        SensorTemplate.COMMON_OBJECT_COMPONENT_ON_EQUIPPED("iiiLidar"),
+                        SensorTemplate.COMMON_OBJECT_COMPONENT_ON_UNLOADED,
+                        SensorTemplate.HEROIC_COMPONENT_PREFAB
+                    )
+                }, {
+                    "Engineer", new SensorTemplate("Engineer", "工程配件", "使机器人可以建造信号塔和占领基地。", 
+                        SensorTemplate.SENSOR_TYPE_ENGINEER, 1, 20, 0.3,
                         (_, id, _, _) => Summary.team.robots[id].allowBuild = true,
                         (_, id, _, _) => Summary.team.robots[id].allowBuild = false,
                         SensorTemplate.COMMON_COMPONENT_PREFAB
@@ -189,8 +230,11 @@ namespace System {
             {"iArmor", new List<string>()},
             {"iiArmor", new List<string> {"iArmor"}},
             {"iiiArmor", new List<string> {"iiArmor"}},
+            {"iLidar", new List<string>()},
+            {"iiLidar", new List<string> {"iLidar"}},
+            {"iiiLidar", new List<string> {"iiLidar"}},
             {"Engineer", new List<string>()},
-            {"BaseTower", new List<string>()},
+            {"BaseTower", new List<string>()}
         };
     }
 }
