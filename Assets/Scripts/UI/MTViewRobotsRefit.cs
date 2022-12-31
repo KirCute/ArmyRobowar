@@ -100,6 +100,10 @@ namespace UI
                 GUILayout.EndVertical();
                 GUILayout.BeginHorizontal();
             },VIEW_REFIT_PAGE_TITLE);
+            if (Input.GetKeyDown(KeyCode.Escape)) {
+                enabled = false;
+                GetComponent<MEMainCameraController>().active = true;
+            }
         }
     }
 }

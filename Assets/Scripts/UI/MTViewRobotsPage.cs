@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using Model.Equipment;
+using Photon.Pun;
 using UnityEngine;
 
 namespace UI {
@@ -31,10 +32,9 @@ namespace UI {
                     GUILayout.Label(new string('❤', robot.health / 3));
                     GUILayout.EndVertical();
 
-                    if (GUILayout.Button("查看画面"))
-                    {
-                        //TODO
-                        //直接显示画面
+                    if (GUILayout.Button("查看画面")) {
+                        Events.Invoke(Events.M_ROBOT_MONITOR, new object[] {robot.id, PhotonNetwork.LocalPlayer, true});
+                        enabled = false;
                     }
 
                     GUILayout.EndHorizontal();
@@ -56,6 +56,11 @@ namespace UI {
 
                 GUILayout.EndScrollView();
             }, VIEW_ROBOTS_PAGE_TITLE);
+
+            if (Input.GetKeyDown(KeyCode.Escape)) {
+                enabled = false;
+                GetComponent<MEMainCameraController>().active = true;
+            }
         }
     }
 }

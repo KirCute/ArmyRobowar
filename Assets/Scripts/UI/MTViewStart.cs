@@ -77,22 +77,17 @@ namespace UI
                         if (GUILayout.Button("开始游戏", style)) {
                             if (IsAllReady()) {
                                 var input = new object[5 + tempTestBlue.Count + tempTestRed.Count];
-                                input[0] = PhotonNetwork.Time;
-                                input[1] = blueHome;
-                                input[2] = redHome;
-                                input[3] = tempTestBlue.Count;
-                                input[4] = tempTestBlue[0];
-                                int cntBlue = 1;
-                                for (int i = 5; i < 5+tempTestBlue.Count-1; i++) {
-                                    input[i] = tempTestBlue[cntBlue];
-                                    cntBlue++;
+                                var index = 0;
+                                input[index++] = PhotonNetwork.Time;
+                                input[index++] = blueHome;
+                                input[index++] = redHome;
+                                input[index++] = tempTestBlue.Count;
+                                foreach (var player in tempTestBlue) {
+                                    input[index++] = player;
                                 }
-                                input[3 + tempTestBlue.Count] = tempTestRed.Count;
-                                input[3 + tempTestBlue.Count + 1] = tempTestBlue[0];
-                                int cntRed = 1;
-                                for (int i = 3 + tempTestBlue.Count + 1 + 1; i < 5 + tempTestBlue.Count + tempTestRed.Count; i++) {
-                                    input[i] = tempTestRed[cntRed];
-                                    cntRed++;
+                                input[index++] = tempTestRed.Count;
+                                foreach (var player in tempTestRed) {
+                                    input[index++] = player;
                                 }
                                 Events.Invoke(Events.F_GAME_START, input);
                             }
@@ -211,6 +206,8 @@ namespace UI
 
         private void OnPlayerAttend(object[] args) {
             var player = (Player) args[0];
+            Debug.Log(player);
+            Debug.Log(player.IsMasterClient);
             if (player.IsMasterClient) {
                 ready.Add(player, true);
                 tempTestBlue.Add(player);
@@ -219,11 +216,6 @@ namespace UI
                 (tempTestBlue.Count > tempTestRed.Count ? tempTestRed : tempTestBlue).Add(player);
             }
             SyncPlayerList();
-        }
-
-        public override void OnJoinedRoom() {
-            base.OnJoinedRoom();
-            Events.Invoke(Events.M_PLAYER_ATTEND, new object[] { PhotonNetwork.LocalPlayer });
         }
 
         private void OnPlayerReady(object[] args) {

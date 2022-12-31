@@ -30,15 +30,6 @@ namespace UI
             }
         }
 
-        public override void OnConnectedToMaster() {
-            base.OnConnectedToMaster();
-            
-        }
-
-        private void Start() {
-            
-        }
-
         private void OnGUI() {
             text_style = GUI.skin.textField;
             text_style.normal.textColor = Color.white;
@@ -61,8 +52,6 @@ namespace UI
                                 roomExistCreate = "";
                                 RoomOptions roomOptions = new RoomOptions { MaxPlayers = 10 };
                                 PhotonNetwork.CreateRoom(roomNameCreate, roomOptions);
-                                _instance.enabled = false;
-                                MTViewStart.GetInstance().enabled = true;
                             }
                         }
                     }
@@ -79,13 +68,12 @@ namespace UI
                      roomNameJoin=GUILayout.TextField(roomNameJoin,9,text_style,GUILayout.ExpandHeight(true),GUILayout.ExpandWidth(true));
                      GUILayout.Label("",GUILayout.ExpandHeight(true));
                      GUILayout.BeginHorizontal("Box");
-                     if (GUILayout.Button("加入房间",GUILayout.ExpandHeight(false),GUILayout.Height(Screen.height/6))); {
+                     if (GUILayout.Button("加入房间",GUILayout.ExpandHeight(false),GUILayout.Height(Screen.height/6))) {
                          if (roomNameJoin.Length>2) {
+                             roomExistJoin = "";
+                             PhotonNetwork.JoinRoom(roomNameJoin);
                              if (myRoomList.ContainsKey(roomNameJoin)) {
-                                 roomExistJoin = "";
-                                 PhotonNetwork.JoinRoom(roomNameJoin);
-                                 _instance.enabled = false;
-                                 MTViewStart.GetInstance().enabled = true;
+								 // FIXME
                              }
                              else {
                                  roomExistJoin = "不存在此房间";
@@ -124,6 +112,13 @@ namespace UI
                     myRoomList.Add(r.Name, r);//如果该房间之前没有，现在有了就加进myRoomList
                 }
             }
+        }
+
+        public override void OnJoinedRoom() {
+            base.OnJoinedRoom();
+            _instance.enabled = false;
+            MTViewStart.GetInstance().enabled = true;
+            Events.Invoke(Events.M_PLAYER_ATTEND, new object[] { PhotonNetwork.LocalPlayer });
         }
     }
 }

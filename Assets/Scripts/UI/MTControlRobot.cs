@@ -11,10 +11,12 @@ namespace UI {
 
         private void OnEnable() {
             Events.AddListener(Events.M_ROBOT_CONTROL, OnControlled);
+            Events.AddListener(Events.M_ROBOT_MONITOR, CheckMonitor);
         }
 
         private void OnDisable() {
             Events.RemoveListener(Events.M_ROBOT_CONTROL, OnControlled);
+            Events.RemoveListener(Events.M_ROBOT_MONITOR, CheckMonitor);
         }
 
         private void OnControlled(object[] args) {
@@ -24,6 +26,13 @@ namespace UI {
             } else if (PhotonNetwork.LocalPlayer.Equals((Player) args[1])) {
                 Cursor.lockState = CursorLockMode.Locked;
                 controllingRobot = (int) args[0];
+            }
+        }
+
+        private void CheckMonitor(object[] args) {
+            if (controllingRobot == (int) args[0] && PhotonNetwork.LocalPlayer.Equals((Player) args[1]) &&
+                !(bool) args[3]) {
+                Events.Invoke(Events.M_ROBOT_CONTROL, new object[] {controllingRobot, null});
             }
         }
 
@@ -60,6 +69,8 @@ namespace UI {
                 Events.Invoke(Events.M_ROBOT_MOTIVATION_CHANGE, new object[] {controllingRobot, 0, motivation});
                 lastMotivation = motivation;
             }
+            
+            // TODO 造塔和占领基地
         }
     }
 }
