@@ -13,8 +13,6 @@ namespace Test {
         }
 
         public override void OnJoinedRoom() {
-            Events.Invoke(Events.LOG, new object[] {$"{PhotonNetwork.LocalPlayer} joined in."});
-            
             if (!PhotonNetwork.IsMasterClient) {
                 Events.Invoke(Events.F_GAME_START, new object[] {
                     PhotonNetwork.Time,

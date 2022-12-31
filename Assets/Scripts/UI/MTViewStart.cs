@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Photon.Pun;
 using Photon.Realtime;
-using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 using Random = System.Random;
 
@@ -11,44 +10,54 @@ namespace UI
 {
     public class MTViewStart : MonoBehaviourPunCallbacks
     {
-        private static MTViewStart _instance;
+        private static MTViewStart instance;
         private const int VIEW_START_PAGE_ID = 0;
 
         private const string VIEW_START_PAGE_TITLE = "";
         
         private readonly GUIStyle style = new(); //定义控件
 
-        private readonly List<Player> tempTestRed = new();//1
-        private readonly List<Player> tempTestBlue = new();//0
-        private readonly Dictionary<Player, bool> ready = new();
-        private static Random _random = new Random();
+        private readonly List<Player> tempTestRed = new();  // 1, client-server
+        private readonly List<Player> tempTestBlue = new();  // 0, client-server
+        private readonly Dictionary<Player, bool> ready = new();  // client-server
+        private static readonly Random RANDOM = new Random();
         private int blueHome;
         private int redHome;
-        private int myTeam;
+        private int myTeam;  // client-server
 
-        public static MTViewStart getInstance() {
-            return _instance;
+        public static MTViewStart GetInstance() {
+            return instance;
         }
         private void Awake() {
-            _instance = this;
+            instance = this;
             do {
-                blueHome = _random.Next(0, 5);
-                redHome = _random.Next(0, 5);
+                blueHome = RANDOM.Next(0, 5);
+                redHome = RANDOM.Next(0, 5);
             } while (blueHome == redHome);
         }
 
-        private void OnEnable() {
-            Events.AddListener(Events.M_PLAYER_ATTEND, OnPlayerAttend);
-            Events.AddListener(Events.M_PLAYER_READY, OnPlayerReady);
-            Events.AddListener(Events.M_CHANGE_TEAM, OnTeamChanging);
-            Events.AddListener(Events.M_LEAVE_MATCHING, OnLeavingMatch);
+        public override void OnEnable() {
+            base.OnEnable();
+            if (PhotonNetwork.IsMasterClient) {
+                Events.AddListener(Events.M_PLAYER_ATTEND, OnPlayerAttend);
+                Events.AddListener(Events.M_PLAYER_READY, OnPlayerReady);
+                Events.AddListener(Events.M_CHANGE_TEAM, OnTeamChanging);
+                Events.AddListener(Events.M_LEAVE_MATCHING, OnLeavingMatch);
+            } else {
+                Events.AddListener(Events.F_PLAYER_LIST_UPDATED, OnPlayerListSync);
+            }
         }
 
-        private void OnDisable() {
-            Events.RemoveListener(Events.M_PLAYER_ATTEND, OnPlayerAttend);
-            Events.RemoveListener(Events.M_PLAYER_READY, OnPlayerReady);
-            Events.RemoveListener(Events.M_CHANGE_TEAM, OnTeamChanging);
-            Events.RemoveListener(Events.M_LEAVE_MATCHING, OnLeavingMatch);
+        public override void OnDisable() {
+            base.OnDisable();
+            if (PhotonNetwork.IsMasterClient) {
+                Events.RemoveListener(Events.M_PLAYER_ATTEND, OnPlayerAttend);
+                Events.RemoveListener(Events.M_PLAYER_READY, OnPlayerReady);
+                Events.RemoveListener(Events.M_CHANGE_TEAM, OnTeamChanging);
+                Events.RemoveListener(Events.M_LEAVE_MATCHING, OnLeavingMatch);
+            } else {
+                Events.RemoveListener(Events.F_PLAYER_LIST_UPDATED, OnPlayerListSync);
+            }
         }
         
         private void Start() {
@@ -201,41 +210,25 @@ namespace UI
         }
 
         private void OnPlayerAttend(object[] args) {
-            if (PhotonNetwork.IsMasterClient) Events.Invoke(Events.M_PLAYER_READY, new object[] {PhotonNetwork.LocalPlayer, true});
             var player = (Player) args[0];
-            ready.Add(player, false);
+            if (player.IsMasterClient) {
+                ready.Add(player, true);
+                tempTestBlue.Add(player);
+            } else {
+                ready.Add(player, false);
+                (tempTestBlue.Count > tempTestRed.Count ? tempTestRed : tempTestBlue).Add(player);
+            }
+            SyncPlayerList();
         }
 
         public override void OnJoinedRoom() {
             base.OnJoinedRoom();
-            var player = PhotonNetwork.LocalPlayer;
-            if(!PhotonNetwork.IsMasterClient){
-                Events.Invoke(Events.M_PLAYER_ATTEND, new object[] { player });
-            }
-            if (tempTestBlue.Count == 0 && tempTestRed.Count == 0) {
-                var team = 0;  
-                Events.Invoke(Events.M_CHANGE_TEAM, new object[] {player, team});
-            }else if (tempTestBlue.Count==5&&tempTestRed.Count<5) {
-                var team = 1;  
-                Events.Invoke(Events.M_CHANGE_TEAM, new object[] {player, team});
-            }else if (tempTestRed.Count==5&&tempTestBlue.Count<5) {
-                var team = 0;  
-                Events.Invoke(Events.M_CHANGE_TEAM, new object[] {player, team});
-            }else if (tempTestBlue.Count==tempTestRed.Count) {
-                var team = 0;  
-                Events.Invoke(Events.M_CHANGE_TEAM, new object[] {player, team});
-            }else if (tempTestBlue.Count > tempTestRed.Count) {
-                var team = 1;  
-                Events.Invoke(Events.M_CHANGE_TEAM, new object[] {player, team});
-            }else {
-                var team = 0;  
-                Events.Invoke(Events.M_CHANGE_TEAM, new object[] {player, team});
-            }
-        
+            Events.Invoke(Events.M_PLAYER_ATTEND, new object[] { PhotonNetwork.LocalPlayer });
         }
 
         private void OnPlayerReady(object[] args) {
             ready[(Player) args[0]] = true;
+            SyncPlayerList();
         }
 
         private void OnTeamChanging(object[] args) {
@@ -250,6 +243,7 @@ namespace UI
             }
 
             if (Equals(player, PhotonNetwork.LocalPlayer)) myTeam = team;
+            SyncPlayerList();
         }
 
         private void OnLeavingMatch(object[] args) {
@@ -257,6 +251,47 @@ namespace UI
             ready.Remove(player);
             if (tempTestRed.Contains(player)) tempTestRed.Remove(player);
             if (tempTestBlue.Contains(player)) tempTestBlue.Remove(player);
+            SyncPlayerList();
+        }
+
+        private void OnPlayerListSync(object[] args) {
+            tempTestBlue.Clear();
+            tempTestRed.Clear();
+            ready.Clear();
+            var index = 0;
+            var teamBlueCount = (int) args[index++];
+            for (var i = 0; i < teamBlueCount; i++) {
+                var player = (Player) args[index++];
+                var playerReady = (bool) args[index++];
+                tempTestBlue.Add(player);
+                ready.Add(player, playerReady);
+                if (Equals(player, PhotonNetwork.LocalPlayer)) myTeam = 0;
+            }
+            var teamRedCount = (int) args[index++];
+            for (var i = 0; i < teamRedCount; i++) {
+                var player = (Player) args[index++];
+                var playerReady = (bool) args[index++];
+                tempTestRed.Add(player);
+                ready.Add(player, playerReady);
+                if (Equals(player, PhotonNetwork.LocalPlayer)) myTeam = 1;
+            }
+        }
+
+        private void SyncPlayerList() {
+            var output = new object[2 + 2 * (tempTestBlue.Count + tempTestRed.Count)];
+            var index = 0;
+            output[index++] = tempTestBlue.Count;
+            foreach (var t in tempTestBlue) {
+                output[index++] = t;
+                output[index++] = ready[t];
+            }
+            output[index++] = tempTestRed.Count;
+            foreach (var t in tempTestRed) {
+                output[index++] = t;
+                output[index++] = ready[t];
+            }
+
+            Events.Invoke(Events.F_PLAYER_LIST_UPDATED, output);
         }
 
         private bool IsAllReady() {

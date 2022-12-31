@@ -62,7 +62,7 @@ namespace UI
                                 RoomOptions roomOptions = new RoomOptions { MaxPlayers = 10 };
                                 PhotonNetwork.CreateRoom(roomNameCreate, roomOptions);
                                 _instance.enabled = false;
-                                MTViewStart.getInstance().enabled = true;
+                                MTViewStart.GetInstance().enabled = true;
                             }
                         }
                     }
@@ -85,7 +85,7 @@ namespace UI
                                  roomExistJoin = "";
                                  PhotonNetwork.JoinRoom(roomNameJoin);
                                  _instance.enabled = false;
-                                 MTViewStart.getInstance().enabled = true;
+                                 MTViewStart.GetInstance().enabled = true;
                              }
                              else {
                                  roomExistJoin = "不存在此房间";

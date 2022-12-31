@@ -34,7 +34,6 @@ namespace System {
             }
             
             var teamId = team0Players.Contains(PhotonNetwork.LocalPlayer) ? 0 : 1;
-			Events.Invoke(Events.LOG, new object[] {$"{PhotonNetwork.LocalPlayer} - {teamId}"});
             if (teamId == 0) {
                 team = new Team(teamId, team0Players, startTime);
                 if (team0Players[0].Equals(PhotonNetwork.LocalPlayer)) {

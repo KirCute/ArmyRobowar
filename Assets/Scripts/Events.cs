@@ -57,7 +57,7 @@ public static class Events {
     public const byte M_PLAYER_READY = 48;  // 参数：玩家(Player), 准备状态(取消准备时为false)(bool)
     public const byte M_CHANGE_TEAM = 49;  // 参数：玩家(Player), 新的队号(int)
     public const byte M_LEAVE_MATCHING = 50;  // 参数：玩家(Player)
-    public const byte LOG = 51;
+    public const byte F_PLAYER_LIST_UPDATED = 51;  // 参数：0队玩家数n(int), n*(0队第i个玩家(Player), 0队第i个玩家是否准备(bool)), 1队玩家数m(int), m*(1队第i个玩家(Player), 1队第i个玩家是否准备(bool))
 
     public delegate void GameEvent(object[] args);
     private static readonly GameEvent[] EVENTS = new GameEvent[COUNT_OF_EVENTS];
