@@ -17,10 +17,9 @@ namespace UI {
             GUILayout.Window(VIEW_TECH_PAGE_ID, dim, _ => {
                 scroll = GUILayout.BeginScrollView(scroll, false, false,
                     GUILayout.Height(Screen.height * VIEW_TECH_PAGE_HEIGHT));
-
+                GUILayout.BeginVertical("Box");
                 foreach (var tech in Constants.TECHNOLOGY) {
-                    GUILayout.BeginHorizontal("Box");
-
+                    
                     GUILayout.BeginHorizontal("Box");
 
                     GUILayout.Label(tech.Key);
@@ -28,6 +27,7 @@ namespace UI {
                     foreach (var technic in Summary.team.achievedTechnics) {
                         if (Constants.TECHNIC_TOPOLOGY[tech.Key][0].Equals("")) {
                             if (Constants.TECHNIC_TOPOLOGY[tech.Key][0].Equals(technic)) {
+                                cnt = 0;
                                 break;
                             }
 
@@ -37,10 +37,12 @@ namespace UI {
                                 );
                             }
 
+                            cnt = 0;
                             break;
                         } else {
                             if (Constants.TECHNIC_TOPOLOGY[tech.Key][0].Equals(technic)) {
                                 GUILayout.Label("已升级", GUILayout.ExpandWidth(false));
+                                cnt = 0;
                                 break;
                             }
                         }
@@ -49,16 +51,18 @@ namespace UI {
                         if (cnt == Summary.team.achievedTechnics.Count) {
                             cnt = 0;
                             if (GUILayout.Button("升级", GUILayout.ExpandWidth(false))) {
-                                //TODO
+                                Events.Invoke(Events.M_TECHNOLOGY_RESEARCH,
+                                    new object[] {Summary.team.teamColor, tech.Key}
+                                );
+                                break;
                             }
                         }
                     }
 
-                    GUILayout.BeginHorizontal();
-
                     GUILayout.EndHorizontal();
+                    
                 }
-
+                GUILayout.EndVertical();
                 GUILayout.EndScrollView();
             }, VIEW_TECH_PAGE_TITLE);
         }
