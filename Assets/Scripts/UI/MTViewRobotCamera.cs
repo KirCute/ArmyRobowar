@@ -18,10 +18,12 @@ namespace UI {
 
         private void OnEnable() {
             Events.AddListener(Events.M_ROBOT_MONITOR, OnMonitored);
+            Events.AddListener(Events.F_ROBOT_LOST_CONNECTION, OnLostConnection);
         }
 
         private void OnDisable() {
             Events.RemoveListener(Events.M_ROBOT_MONITOR, OnMonitored);
+            Events.RemoveListener(Events.F_ROBOT_LOST_CONNECTION, OnLostConnection);
         }
 
         private void Update() {
@@ -41,7 +43,6 @@ namespace UI {
         }
 
         public void OnButtonDown() {
-            Debug.Log(123);
             Events.Invoke(Events.M_ROBOT_CONTROL, new object[] {viewingRobot, PhotonNetwork.LocalPlayer});
             button.gameObject.SetActive(false);
         }
@@ -56,6 +57,12 @@ namespace UI {
                     button.gameObject.SetActive(false);
                     frontPage.enabled = true;
                 }
+            }
+        }
+
+        private void OnLostConnection(object[] args) {
+            if (viewingRobot == (int) args[0]) {
+                Events.Invoke(Events.M_ROBOT_MONITOR, new object[] {viewingRobot, PhotonNetwork.LocalPlayer, false});
             }
         }
     }

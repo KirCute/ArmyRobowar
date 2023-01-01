@@ -42,6 +42,7 @@ namespace UI {
         private void ChangeBodyHealth(object[] args) {
             if ((int) args[0] == robotId) {
                 robotSlider.value = (int) args[1];
+                robotSlider.maxValue = Summary.team.robots[robotId].maxHealth;
             }
         }
     }

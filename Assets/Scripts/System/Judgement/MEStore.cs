@@ -6,12 +6,14 @@ namespace System.Judgement {
             Events.AddListener(Events.M_CREATE_ROBOT, OnCreateRobot);
             Events.AddListener(Events.M_TEAM_BUY_COMPONENT, OnBuyingComponent);
             Events.AddListener(Events.M_CREATE_TOWER, OnCreatingTower);
+            Events.AddListener(Events.M_CAPTURE_BASE, OnCapturing);
         }
 
         private void OnDisable() {
             Events.RemoveListener(Events.M_CREATE_ROBOT, OnCreateRobot);
             Events.RemoveListener(Events.M_TEAM_BUY_COMPONENT, OnBuyingComponent);
             Events.RemoveListener(Events.M_CREATE_TOWER, OnCreatingTower);
+            Events.RemoveListener(Events.M_CAPTURE_BASE, OnCapturing);
         }
 
         private static void OnCreateRobot(object[] args) {
@@ -34,6 +36,12 @@ namespace System.Judgement {
         private static void OnCreatingTower(object[] args) {
             if (Summary.team.teamColor == (int) args[0]) {
                 Summary.team.coins -= Constants.TOWER_TEMPLATES[(string) args[1]].cost;
+            }
+        }
+
+        private static void OnCapturing(object[] args) {
+            if (Summary.team.teamColor == (int) args[0]) {
+                Summary.team.coins -= Constants.BASE_CAPTURE_COST;
             }
         }
     }

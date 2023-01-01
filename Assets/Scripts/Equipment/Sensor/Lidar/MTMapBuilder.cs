@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Photon.Pun;
-using UnityEngine;
 
 namespace Equipment.Sensor.Lidar {
     public class MTMapBuilder : MonoBehaviourPun {
@@ -19,7 +18,7 @@ namespace Equipment.Sensor.Lidar {
             MAP_PIXEL_CELL_HEIGHT * MAP_WORLD_HALF_HEIGHT * 2.0F / MAP_PIXEL_HEIGHT;
 
         private MEComponentIdentifier identity;
-        [SerializeField] private int scanLayer = 1;
+        public int scanLayer = 1;
         private readonly List<int> pointBuffer = new();
         private int lastPositionX = -1;
         private int lastPositionY = -1;

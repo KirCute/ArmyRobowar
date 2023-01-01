@@ -3,7 +3,6 @@ using Model.Equipment.Template;
 using Model.Inventory;
 using Photon.Pun;
 using Photon.Realtime;
-using UnityEngine;
 
 namespace Model.Equipment {
     public class Robot {
@@ -17,7 +16,8 @@ namespace Model.Equipment {
         public readonly RobotTemplate template;
         public readonly Sensor[] equippedComponents;  // peer-to-peer
         public readonly List<IItem> inventory;  // peer-to-peer
-        public GameObject gameObject { get; set; }  // peer-to-peer
+        public bool atHome { get; set; }  // peer-to-peer
+        public int atBase { get; set; }  // peer-to-peer
         public int maxHealth { get; set; }  // peer-to-peer
         public int health { get; set; }  // client-server
         public int connection { get; set; }  // client-server

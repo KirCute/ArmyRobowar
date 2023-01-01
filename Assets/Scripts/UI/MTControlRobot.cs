@@ -1,4 +1,5 @@
-﻿using Photon.Pun;
+﻿using System;
+using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
 
@@ -38,6 +39,7 @@ namespace UI {
 
         private void Update() {
             if (controllingRobot == -1) return;
+            var robot = Summary.team.robots[controllingRobot];
             if (Input.GetKeyDown(KeyCode.Y)) {
                 if (!lockCamera) {
                     lockCamera = true;
@@ -61,7 +63,11 @@ namespace UI {
             }
 
             if (Input.GetMouseButtonDown(1)) {
-                Events.Invoke(Events.M_ROBOT_PICK, new object[] {controllingRobot});
+                if (robot.inventory.Count >= robot.inventoryCapacity) {
+                    // TODO Log Mistake
+                } else {
+                    Events.Invoke(Events.M_ROBOT_PICK, new object[] {controllingRobot});
+                }
             }
 
             var motivation = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
@@ -69,8 +75,24 @@ namespace UI {
                 Events.Invoke(Events.M_ROBOT_MOTIVATION_CHANGE, new object[] {controllingRobot, 0, motivation});
                 lastMotivation = motivation;
             }
-            
-            // TODO 造塔和占领基地
+
+            if (Input.GetKeyDown(KeyCode.B)) {
+                if (robot.atBase != -1) {
+                    if (Summary.team.coins < Constants.BASE_CAPTURE_COST) {
+                        // TODO Log
+                    } else {
+                        Events.Invoke(Events.M_CAPTURE_BASE, new object[] {robot.atBase, Summary.team.teamColor});
+                    }
+                } else {
+                    if (Summary.team.coins < Constants.TOWER_TEMPLATES["BaseTower"].cost) {
+                        // TODO Log
+                    } else {
+                        var pos3 = GameObject.Find($"Robot_{controllingRobot}").transform.position;
+                        var pos2 = new Vector2(pos3.x, pos3.z);
+                        Events.Invoke(Events.M_CREATE_TOWER, new object[] {Summary.team.teamColor, "BaseTower", pos2});
+                    }
+                }
+            }
         }
     }
 }

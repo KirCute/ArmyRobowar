@@ -30,7 +30,7 @@ namespace Equipment.Robot {
         private void OnDestroy() {
             if (Summary.team.teamColor == identity.team) {
                 Summary.team.robots[identity.id].connection = 0;
-                Summary.team.robots[identity.id].gameObject = null;
+                Summary.team.robots[identity.id].atHome = false;
                 if (photonView.IsMine) {
                     rand ??= new Random(Guid.NewGuid().GetHashCode());
                     foreach (var sensor in Summary.team.robots[identity.id].equippedComponents) {

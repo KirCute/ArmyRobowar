@@ -11,17 +11,11 @@ namespace Equipment.Basement.Updater {
             identity = GetComponentInParent<MEBaseFlag>();
         }
 
-        private void OnTriggerEnter(Collider other) {
+        private void OnTriggerStay(Collider other) {
             var robot = other.GetComponent<MERobotIdentifier>();
-            if (robot != null && Summary.team.teamColor == identity.flagColor && robot.team == identity.flagColor) {
-                Summary.team.robots[robot.id].gameObject = other.gameObject;
-            }
-        }
-
-        private void OnTriggerExit(Collider other) {
-            var robot = other.GetComponent<MERobotIdentifier>();
-            if (robot != null && Summary.team.teamColor == identity.flagColor && robot.team == identity.flagColor) {
-                Summary.team.robots[robot.id].gameObject = null;
+            if (robot != null && Summary.team.teamColor == robot.team) {
+                Summary.team.robots[robot.id].atBase = identity.flagColor == -1 ? identity.baseId : -1;
+                Summary.team.robots[robot.id].atHome = robot.team == identity.flagColor;
             }
         }
     }

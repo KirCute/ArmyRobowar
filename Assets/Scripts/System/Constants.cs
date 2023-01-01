@@ -5,6 +5,8 @@ using UnityEngine;
 
 namespace System {
     public static class Constants {
+        public const int BASE_CAPTURE_COST = 100;
+        
         public static readonly IReadOnlyDictionary<string, Technic> TECHNOLOGY = new Dictionary<string, Technic> {
             {"BaseRobot", new Technic("基础底盘", "最基础的底盘，血量和机动中规中矩，可以携带三个配件。", 0.0, _ => { })},
             {"iLightRobot", new Technic("轻质底盘", "向机动特化的底盘，拥有更大的移动速度，转速和射界，但血量更低。", 2.0, team => team.availableRobotTemplates.Add("iLightRobot"))},
@@ -38,7 +40,7 @@ namespace System {
 
         public static readonly IReadOnlyDictionary<string, RobotTemplate> ROBOT_TEMPLATES =
             new Dictionary<string, RobotTemplate> {
-                {"BaseRobot", new RobotTemplate("BaseRobot", "基础底盘", "BaseRobot", 3, 30, 20, 2.0f)}, // TODO
+                {"BaseRobot", new RobotTemplate("BaseRobot", "基础底盘", "BaseRobot", 3, 30, 20, 10.0f)},
                 {"iLightRobot", new RobotTemplate("iLightRobot", "轻质底盘", "iLightRobot", 3, 20, 30, 20.0f)},
                 {"iiLightRobot", new RobotTemplate("iiLightRobot", "全向机动底盘", "iiLightRobot", 2, 20, 40, 30.0f)},
                 {"iTruckRobot", new RobotTemplate("iTruckRobot", "载物底盘", "iTruckRobot", 4, 30, 30, 20.0f)},
