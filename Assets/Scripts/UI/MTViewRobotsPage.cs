@@ -33,10 +33,9 @@ namespace UI {
                     GUILayout.Label(new string('❤', robot.health / 3));
                     GUILayout.EndVertical();
 
-                    if (robot.equippedComponents.Any(c => c.template.type == SensorTemplate.SENSOR_TYPE_CAMERA)) {
+                    if (robot.equippedComponents.Any(c => c != null && c.template.type == SensorTemplate.SENSOR_TYPE_CAMERA)) {
                         if (GUILayout.Button("查看画面")) {
-                            Events.Invoke(Events.M_ROBOT_MONITOR,
-                                new object[] {robot.id, PhotonNetwork.LocalPlayer, true});
+                            Events.Invoke(Events.M_ROBOT_MONITOR, new object[] {robot.id, PhotonNetwork.LocalPlayer, true});
                             enabled = false;
                         }
                     } else {

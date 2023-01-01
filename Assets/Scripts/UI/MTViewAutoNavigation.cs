@@ -15,10 +15,9 @@ namespace UI {
         private const int SKETCH_MAP_WIDTH = 920;
         private const int SKETCH_MAP_HEIGHT = 680;
         
-        private List<Vector2> positionInSketchMap = new List<Vector2>();
-        private List<Vector2> positionInWorld = new List<Vector2>();
+        private readonly List<Vector2> positionInSketchMap = new();
+        private readonly List<Vector2> positionInWorld = new();
         private int selectedRobotId;
-        
         
         private Vector2 scroll = Vector2.zero;
         private void OnGUI() {
@@ -29,6 +28,10 @@ namespace UI {
             );
             GUILayout.Window(PICK_ROBOTS_PAGE_ID, dim, ViewAutoNavigation,PICK_ROBOTS_PAGE_TITLE);
 
+            if (Input.GetKeyDown(KeyCode.Escape)) {
+                enabled = false;
+                GetComponent<MEMainCameraController>().active = true;
+            }
         }
 
         private void ViewAutoNavigation(int id) {

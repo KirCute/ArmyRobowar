@@ -11,29 +11,13 @@ namespace UI {
         private const float VIEW_REFIT_PAGE_WIDTH = 0.8F;
         private const float VIEW_REFIT_PAGE_HEIGHT = 0.8F;
         private const string VIEW_REFIT_PAGE_TITLE = "";
-        private Vector2 scroll = Vector2.zero;
+        private Vector2 robotScroll = Vector2.zero;
+        private Vector2 detailScroll = Vector2.zero;
+        private Vector2 componentScroll = Vector2.zero;
         private Robot myRobot;
         private int componentPos;
-        private string componentStr = "";
         private readonly List<int> componentType = new();
 
-        private static string ComponentToString(IEnumerable<Sensor> component) {
-            var i = 0;
-
-            return component.Aggregate("  ",
-                (current, sensor) => $"{current}{i++}:{(sensor == null ? "空" : sensor.template.name)}  ");
-        }
-
-        private static bool HasInventory(Sensor[] component) {
-            bool j = false;
-            foreach (var sensor in component) {
-                if (sensor.template.type == 3) {
-                    j = true;
-                    break;
-                }
-            }
-            return j;
-        }
         private void OnGUI() {
             if (!Summary.isGameStarted) return; //游戏未开始
             var dim = new Rect(Screen.width * (1 - VIEW_REFIT_PAGE_WIDTH) / 2,
@@ -42,57 +26,66 @@ namespace UI {
                 Screen.height * VIEW_REFIT_PAGE_HEIGHT);
             GUILayout.Window(VIEW_REFIT_PAGE_ID, dim, _ => {
                 GUILayout.BeginHorizontal("Box");
-                scroll = GUILayout.BeginScrollView(scroll, false, false,
-                    GUILayout.Height(Screen.height * VIEW_REFIT_PAGE_HEIGHT));
+                GUILayout.BeginVertical();
                 GUILayout.BeginVertical("Box");
-                foreach (var robot in Summary.team.robots.Values.Where(r => r.status == Robot.STATUS_ACTIVE)) {
+                robotScroll = GUILayout.BeginScrollView(robotScroll, false, false,
+                    GUILayout.Height(Screen.height * VIEW_REFIT_PAGE_HEIGHT / 2F));
+                foreach (var robot in Summary.team.robots.Values.Where(r => r.atHome)) {
                     GUILayout.BeginVertical("Box");
-                    GUILayout.BeginHorizontal("Box");
                     GUILayout.Label(robot.name, GUILayout.ExpandWidth(true));
                     if (GUILayout.Button("查看机器人", GUILayout.ExpandWidth(false))) {
                         componentType.Clear();
                         myRobot = robot;
-                        componentStr = ComponentToString(robot.equippedComponents);
                         foreach (var component in robot.equippedComponents) {
                             if (component != null) componentType.Add(component.template.type);
                         }
                     }
-
-                    GUILayout.EndHorizontal();
-                    GUILayout.BeginHorizontal("Box");
-                    GUILayout.Label(componentStr);
-                    if(myRobot != null){
-                        if (GUILayout.Button("收起", GUILayout.ExpandWidth(false))) {
-                            componentStr = "";
-                        }
-
-                        if (GUILayout.Button("拆卸配件",GUILayout.ExpandWidth(false))) {
-                            if (robot.equippedComponents.Length != 0) {
-                                Events.Invoke(Events.M_ROBOT_UNINSTALL_COMPONENT, new object[]
-                                {
-                                    Summary.team.teamColor,robot.id,robot.equippedComponents.Length-1
-                                });
-                            }
-                        }
-
-                        if (HasInventory(robot.equippedComponents)) {
-                            if (GUILayout.Button("卸货",GUILayout.ExpandWidth(false))) {
-                                Events.Invoke(Events.M_ROBOT_RELEASE_INVENTORY, new object[]
-                                {
-                                    Summary.team.teamColor, robot.id
-                                });
-                            }
-                        }
-                    }
-
-                    GUILayout.EndHorizontal();
                     GUILayout.EndVertical();
                 }
 
-                GUILayout.EndVertical();
                 GUILayout.EndScrollView();
+                GUILayout.EndVertical();
 
-                scroll = GUILayout.BeginScrollView(scroll, false, false,
+                if (myRobot != null) {
+                    GUILayout.BeginVertical("Box");
+                    detailScroll = GUILayout.BeginScrollView(detailScroll, false, false,
+                        GUILayout.Height(Screen.height * VIEW_REFIT_PAGE_HEIGHT / 2F));
+                    GUILayout.Label(myRobot.name);
+                    GUILayout.BeginVertical("Box");
+                    GUILayout.Label("已安装配件：");
+                    for (var i = 0; i < myRobot.equippedComponents.Length; i++) {
+                        var component = myRobot.equippedComponents[i];
+                        GUILayout.BeginHorizontal("Box");
+                        GUILayout.Label($"{i} - {(component == null ? "空" : component.template.name)}", GUILayout.ExpandWidth(true));
+                        if (GUILayout.Button("拆卸")) {
+                            Events.Invoke(Events.M_ROBOT_UNINSTALL_COMPONENT, new object[] {
+                                Summary.team.teamColor, myRobot.id, i
+                            });
+                        }
+                        GUILayout.EndHorizontal();
+                    }
+                    GUILayout.EndVertical();
+                    GUILayout.BeginVertical("Box");
+                    GUILayout.BeginHorizontal();
+                    GUILayout.Label("物品栏：", GUILayout.ExpandWidth(true));
+                    if (GUILayout.Button("卸货")) {
+                        Events.Invoke(Events.M_ROBOT_RELEASE_INVENTORY, new object[] {
+                            Summary.team.teamColor, myRobot.id
+                        });
+                    }
+                    GUILayout.EndHorizontal();
+                    for (var i = 0; i < myRobot.inventory.Count; i++) {
+                        GUILayout.BeginHorizontal("Box");
+                        GUILayout.Label($"{i} - {myRobot.inventory[i].name}");
+                        GUILayout.EndHorizontal();
+                    }
+                    GUILayout.EndVertical();
+                    GUILayout.EndScrollView();
+                    GUILayout.EndVertical();
+                }
+                GUILayout.EndVertical();
+
+                componentScroll = GUILayout.BeginScrollView(componentScroll, false, false,
                     GUILayout.Height(Screen.height * VIEW_REFIT_PAGE_HEIGHT));
                 GUILayout.BeginVertical("Box");
 
@@ -114,7 +107,6 @@ namespace UI {
                                 Summary.team.teamColor, myRobot.id, componentType.Count, i
                             });
                             componentType.Add(component.template.type);
-                            componentStr = ComponentToString(myRobot.equippedComponents);
                         }
                     }
                     

@@ -1,80 +1,82 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using Model.Equipment;
-using Model.Technology;
 using UnityEngine;
 using Photon.Pun;
 
-namespace UI
-{
-    public class MTViewShop : MonoBehaviourPun
-    {
+namespace UI {
+    public class MTViewShop : MonoBehaviourPun {
         private const int VIEW_SHOP_ID = 0;
         private const float VIEW_SHOP_WIDTH = 0.8F;
         private const float VIEW_SHOP_HEIGHT = 0.8F;
         private const string VIEW_SHOP_TITLE = "";
         private Vector2 scroll = Vector2.zero;
-        private string baseName = "";
-        private string robotName = "";
-        private bool HasBase(string s) {
-            bool b = false;
-            if (int.Parse(s) != 0||int.Parse(s) != 1||int.Parse(s) != 2||int.Parse(s) != 3||int.Parse(s) != 4||int.Parse(s) != 5) {
-                return false;
-            }
-            foreach (var basement in Summary.team.bases) {
-                if (basement.Value.id == int.Parse(s)) {
-                    b = true;
-                    break;
-                }
+        private int baseId = 6;
+        private readonly Dictionary<string, string> robotNames = new();
+        private readonly Dictionary<string, string> robotNameErrors = new();
+
+        private void OnEnable() {
+            if (baseId == 6) SwitchNextBase();
+            var robotNamesKey = robotNames.Keys.ToList();
+            foreach (var key in robotNamesKey) robotNames[key] = "";
+            var robotNameErrorsKey = robotNameErrors.Keys.ToList();
+            foreach (var key in robotNameErrorsKey) robotNameErrors[key] = "";
+        }
+
+        private void OnGUI() {
+            foreach (var template in Summary.team.availableRobotTemplates) {
+                if (!robotNames.ContainsKey(template)) robotNames.Add(template, "");
+                if (!robotNameErrors.ContainsKey(template)) robotNameErrors.Add(template, "");
             }
 
-            return b;
-        }
-        private void OnGUI() {
             var dim = new Rect(
                 Screen.width * (1 - VIEW_SHOP_WIDTH) / 2, Screen.height * (1 - VIEW_SHOP_HEIGHT) / 2,
                 Screen.width * VIEW_SHOP_WIDTH, Screen.height * VIEW_SHOP_HEIGHT
             );
             GUILayout.Window(VIEW_SHOP_ID, dim, _ => {
+                GUILayout.BeginHorizontal();
+                GUILayout.Label($"当前机器人出生基地：{baseId}");
+                if (GUILayout.Button(">")) SwitchNextBase();
+                GUILayout.Label("", GUILayout.ExpandWidth(true));
+                GUILayout.Label($"剩余货币：{Summary.team.coins,-8}");
+                GUILayout.EndHorizontal();
                 scroll = GUILayout.BeginScrollView(scroll, false, false,
                     GUILayout.Height(Screen.height * VIEW_SHOP_HEIGHT));
-                GUILayout.BeginVertical("Box"); 
+                GUILayout.BeginVertical("Box");
                 foreach (var goods in Summary.team.availableRobotTemplates) {
-                    GUILayout.BeginHorizontal("Box");
-                    string label = "";
-                    GUILayout.Label(Constants.TECHNOLOGY[goods].name+label,GUILayout.ExpandWidth(true));
-                    GUILayout.Label("取名:");
-                    
-                    robotName = GUILayout.TextField(robotName);
-                    GUILayout.Label("选择基地:");
-                    
-                    baseName = GUILayout.TextField(baseName);
-                    if (GUILayout.Button("购买",GUILayout.ExpandWidth(false)))
-                    {
-                        if(robotName != ""&& baseName != "" && HasBase(baseName)) {
-                            label = "";
-                            Events.Invoke(Events.M_CREATE_ROBOT,
-                                new object[]
-                                {
-                                    int.Parse(baseName), goods, robotName
-                                });
+                    GUILayout.BeginVertical("Box");
+                    GUILayout.BeginHorizontal();
+                    var template = Constants.ROBOT_TEMPLATES[goods];
+                    GUILayout.Label($"{template.name} (${template.cost})", GUILayout.ExpandWidth(true));
+                    if (GUILayout.Button("购买", GUILayout.ExpandWidth(false))) {
+                        if (robotNames[goods] == "") {
+                            robotNameErrors[goods] = "请输入机器人名称";
+                        } else if (Summary.team.robots.Values.Any(robot => robot.name == robotNames[goods])) {
+                            robotNameErrors[goods] = "该名称已被使用";
+                        } else {
+                            Events.Invoke(Events.M_CREATE_ROBOT, new object[] {baseId, goods, robotNames[goods]});
                         }
-                        else {
-                            label = "请输入正确的名字和基地号";
-                        }                   
                     }
                     GUILayout.EndHorizontal();
+                    GUILayout.BeginHorizontal();
+                    GUILayout.Label("命名:"); 
+                    robotNames[goods] = GUILayout.TextField(robotNames[goods], GUILayout.ExpandWidth(true));
+                    GUILayout.Label($"{robotNameErrors[goods], -16}");
+                    GUILayout.EndHorizontal();
+                    GUILayout.EndVertical();
                 }
+
                 foreach (var goods in Summary.team.availableSensorTemplates) {
                     GUILayout.BeginHorizontal("Box");
-                    GUILayout.Label(Constants.TECHNOLOGY[goods].name,GUILayout.ExpandWidth(true));
-                    if (GUILayout.Button("购买",GUILayout.ExpandWidth(false)))
-                    {
-                        Events.Invoke(Events.M_TEAM_BUY_COMPONENT,
-                            new object[] { Summary.team.teamColor, goods });
+                    var template = Constants.SENSOR_TEMPLATES[goods];
+                    GUILayout.Label($"{template.name} (${template.cost})", GUILayout.ExpandWidth(true));
+                    if (GUILayout.Button("购买", GUILayout.ExpandWidth(false))) {
+                        Events.Invoke(Events.M_TEAM_BUY_COMPONENT, new object[] {Summary.team.teamColor, goods});
                     }
+
                     GUILayout.EndHorizontal();
                 }
+
                 GUILayout.EndVertical();
                 GUILayout.EndScrollView();
             }, VIEW_SHOP_TITLE);
@@ -82,6 +84,17 @@ namespace UI
                 enabled = false;
                 GetComponent<MEMainCameraController>().active = true;
             }
+        }
+
+        private void SwitchNextBase() {
+            var min = Constants.BASE_COUNT;
+            var minBigger = Constants.BASE_COUNT;
+            foreach (var id in Summary.team.bases.Keys) {
+                if (min > id) min = id;
+                if (minBigger > id && id > baseId) minBigger = id;
+            }
+
+            baseId = minBigger == Constants.BASE_COUNT ? min : minBigger;
         }
     }
 }

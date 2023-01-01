@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace System {
     public static class Constants {
+        public const int BASE_COUNT = 6;
         public const int BASE_CAPTURE_COST = 100;
         
         public static readonly IReadOnlyDictionary<string, Technic> TECHNOLOGY = new Dictionary<string, Technic> {
