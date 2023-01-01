@@ -6,6 +6,8 @@ using UnityEngine;
 namespace UI {
     public class MTControlRobot : MonoBehaviour {
         private const float SENSITIVITY = 10f;
+
+        public MEErrorBroadcaster broadcaster;
         private int controllingRobot { get; set; } = -1;
         private Vector2 lastMotivation = Vector2.zero;
         private bool lockCamera;
