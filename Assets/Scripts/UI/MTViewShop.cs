@@ -42,7 +42,7 @@ namespace UI
                 foreach (var goods in Summary.team.availableRobotTemplates) {
                     GUILayout.BeginHorizontal("Box");
                     string label = "";
-                    GUILayout.Label(goods+label,GUILayout.ExpandWidth(true));
+                    GUILayout.Label(Constants.TECHNOLOGY[goods].name+label,GUILayout.ExpandWidth(true));
                     GUILayout.Label("取名:");
                     
                     robotName = GUILayout.TextField(robotName);
@@ -67,7 +67,7 @@ namespace UI
                 }
                 foreach (var goods in Summary.team.availableSensorTemplates) {
                     GUILayout.BeginHorizontal("Box");
-                    GUILayout.Label(goods,GUILayout.ExpandWidth(true));
+                    GUILayout.Label(Constants.TECHNOLOGY[goods].name,GUILayout.ExpandWidth(true));
                     if (GUILayout.Button("购买",GUILayout.ExpandWidth(false)))
                     {
                         Events.Invoke(Events.M_TEAM_BUY_COMPONENT,
