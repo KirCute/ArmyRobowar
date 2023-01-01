@@ -31,7 +31,7 @@ namespace UI {
 
         private void CheckMonitor(object[] args) {
             if (controllingRobot == (int) args[0] && PhotonNetwork.LocalPlayer.Equals((Player) args[1]) &&
-                !(bool) args[3]) {
+                !(bool) args[2]) {
                 Events.Invoke(Events.M_ROBOT_CONTROL, new object[] {controllingRobot, null});
             }
         }

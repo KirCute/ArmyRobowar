@@ -1,11 +1,21 @@
-﻿using Photon.Pun;
+﻿using System;
+using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace UI {
     public class MTViewRobotCamera : MonoBehaviour {
         private int viewingRobot { get; set; } = -1;
-        
+        [SerializeField] private MTViewRobotsPage frontPage;
+        private Button button;
+        private Text text;
+
+        private void Awake() {
+            button = transform.Find("Button").GetComponent<Button>();
+            text = button.transform.Find("Text").GetComponent<Text>();
+        }
+
         private void OnEnable() {
             Events.AddListener(Events.M_ROBOT_MONITOR, OnMonitored);
         }
@@ -16,21 +26,35 @@ namespace UI {
 
         private void Update() {
             if (viewingRobot == -1) return;
-            
-            // TODO 显示控制按钮
+
+            if (Summary.team.robots[viewingRobot].controller == null) {
+                button.interactable = true;
+                text.text = "取得控制权";
+            } else if (!Summary.team.robots[viewingRobot].controller.Equals(PhotonNetwork.LocalPlayer)) {
+                button.interactable = false;
+                text.text = $"控制者：{Summary.team.robots[viewingRobot].controller.NickName}";
+            }
             
             if (Input.GetKeyDown(KeyCode.Escape)) {
                 Events.Invoke(Events.M_ROBOT_MONITOR, new object[] {viewingRobot, PhotonNetwork.LocalPlayer, false});
             }
         }
 
+        public void OnButtonDown() {
+            Debug.Log(123);
+            Events.Invoke(Events.M_ROBOT_CONTROL, new object[] {viewingRobot, PhotonNetwork.LocalPlayer});
+            button.gameObject.SetActive(false);
+        }
+
         private void OnMonitored(object[] args) {
             if (PhotonNetwork.LocalPlayer.Equals((Player) args[1])) {
                 if ((bool) args[2]) {
                     viewingRobot = (int) args[0];
+                    button.gameObject.SetActive(true);
                 } else {
                     viewingRobot = -1;
-                    GetComponent<MTViewRobotsPage>().enabled = true;
+                    button.gameObject.SetActive(false);
+                    frontPage.enabled = true;
                 }
             }
         }

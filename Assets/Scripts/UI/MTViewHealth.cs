@@ -41,7 +41,7 @@ namespace UI {
 
         private void ChangeBodyHealth(object[] args) {
             if ((int) args[0] == robotId) {
-                robotSlider.value = (float) args[1];
+                robotSlider.value = (int) args[1];
             }
         }
     }

@@ -46,6 +46,7 @@ namespace UI
             } else {
                 Events.AddListener(Events.F_PLAYER_LIST_UPDATED, OnPlayerListSync);
             }
+            Events.AddListener(Events.F_GAME_START, OnGameStart);
         }
 
         public override void OnDisable() {
@@ -58,6 +59,7 @@ namespace UI
             } else {
                 Events.RemoveListener(Events.F_PLAYER_LIST_UPDATED, OnPlayerListSync);
             }
+            Events.RemoveListener(Events.F_GAME_START, OnGameStart);
         }
         
         private void Start() {
@@ -288,6 +290,10 @@ namespace UI
 
         private bool IsAllReady() {
             return ready.Values.All(v => v);
+        }
+
+        private void OnGameStart(object[] args) {
+            enabled = false;
         }
     }
 }
