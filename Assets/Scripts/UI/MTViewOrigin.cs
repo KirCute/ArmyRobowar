@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Photon.Pun;
 using Photon.Realtime;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,6 +21,8 @@ namespace UI
         private Dictionary<string, RoomInfo> myRoomList = new Dictionary<string, RoomInfo>();
         private string roomExistCreate = "";
         private string roomExistJoin = "";
+        private string joinFail = "";
+        private string createFail = "";
         public static MTViewOrigin getInstance() {
             return _instance;
         }
@@ -43,6 +46,7 @@ namespace UI
                     roomNameCreate=GUILayout.TextField(roomNameCreate,9,text_style,GUILayout.ExpandHeight(true),GUILayout.ExpandWidth(true));
                     GUILayout.Label("",GUILayout.ExpandHeight(true));
                     GUILayout.BeginHorizontal("Box");
+                    GUILayout.Label(createFail,GUILayout.ExpandWidth(false));
                     if (GUILayout.Button("创建房间",GUILayout.ExpandHeight(false),GUILayout.Height(Screen.height/6))) {
                         if (roomNameCreate.Length>2) {
                             if (myRoomList.ContainsKey(roomNameCreate)) {
@@ -68,6 +72,7 @@ namespace UI
                      roomNameJoin=GUILayout.TextField(roomNameJoin,9,text_style,GUILayout.ExpandHeight(true),GUILayout.ExpandWidth(true));
                      GUILayout.Label("",GUILayout.ExpandHeight(true));
                      GUILayout.BeginHorizontal("Box");
+                     GUILayout.Label(joinFail,GUILayout.ExpandWidth(false));
                      if (GUILayout.Button("加入房间",GUILayout.ExpandHeight(false),GUILayout.Height(Screen.height/6))) {
                          if (roomNameJoin.Length>2) {
                              roomExistJoin = "";
@@ -119,6 +124,16 @@ namespace UI
             _instance.enabled = false;
             MTViewStart.GetInstance().enabled = true;
             Events.Invoke(Events.M_PLAYER_ATTEND, new object[] { PhotonNetwork.LocalPlayer });
+        }
+
+        public override void OnJoinRoomFailed(short returnCode, string message) {
+            base.OnJoinRoomFailed(returnCode, message);
+            joinFail = "此房间不存在";
+        }
+
+        public override void OnCreateRoomFailed(short returnCode, string message) {
+            base.OnCreateRoomFailed(returnCode, message);
+            createFail = "此房间已存在";
         }
     }
 }

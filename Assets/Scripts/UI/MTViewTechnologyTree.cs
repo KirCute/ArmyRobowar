@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using WebSocketSharp;
 
 namespace UI {
     public class MTViewTechnologyTree : MonoBehaviour {
@@ -25,7 +26,7 @@ namespace UI {
                     GUILayout.Label(tech.Key);
                     var cnt = 0;
                     foreach (var technic in Summary.team.achievedTechnics) {
-                        if (Constants.TECHNIC_TOPOLOGY[tech.Key][0].Equals("")) {
+                        if (Constants.TECHNIC_TOPOLOGY[tech.Key][0].IsNullOrEmpty()) {
                             if (Constants.TECHNIC_TOPOLOGY[tech.Key][0].Equals(technic)) {
                                 cnt = 0;
                                 break;

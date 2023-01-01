@@ -24,6 +24,16 @@ namespace UI {
                 (current, sensor) => $"{current}{i++}:{(sensor == null ? "空" : sensor.template.name)}  ");
         }
 
+        private static bool HasInventory(Sensor[] component) {
+            bool j = false;
+            foreach (var sensor in component) {
+                if (sensor.template.type == 3) {
+                    j = true;
+                    break;
+                }
+            }
+            return j;
+        }
         private void OnGUI() {
             if (!Summary.isGameStarted) return; //游戏未开始
             var dim = new Rect(Screen.width * (1 - VIEW_REFIT_PAGE_WIDTH) / 2,
@@ -51,8 +61,28 @@ namespace UI {
                     GUILayout.EndHorizontal();
                     GUILayout.BeginHorizontal("Box");
                     GUILayout.Label(componentStr);
-                    if (GUILayout.Button("收起", GUILayout.ExpandWidth(false))) {
-                        componentStr = "";
+                    if(myRobot != null){
+                        if (GUILayout.Button("收起", GUILayout.ExpandWidth(false))) {
+                            componentStr = "";
+                        }
+
+                        if (GUILayout.Button("拆卸配件",GUILayout.ExpandWidth(false))) {
+                            if (robot.equippedComponents.Length != 0) {
+                                Events.Invoke(Events.M_ROBOT_UNINSTALL_COMPONENT, new object[]
+                                {
+                                    Summary.team.teamColor,robot.id,robot.equippedComponents.Length-1
+                                });
+                            }
+                        }
+
+                        if (HasInventory(robot.equippedComponents)) {
+                            if (GUILayout.Button("卸货",GUILayout.ExpandWidth(false))) {
+                                Events.Invoke(Events.M_ROBOT_RELEASE_INVENTORY, new object[]
+                                {
+                                    Summary.team.teamColor, robot.id
+                                });
+                            }
+                        }
                     }
 
                     GUILayout.EndHorizontal();
@@ -87,6 +117,7 @@ namespace UI {
                             componentStr = ComponentToString(myRobot.equippedComponents);
                         }
                     }
+                    
 
                     GUILayout.EndHorizontal();
                 }
