@@ -79,9 +79,12 @@ namespace UI {
                         positionInWorld.Add(position);
                     }
                     
-                    List<Vector2> temp = MDNavigationCenter.GetInstance().GetFinalPath(positionInWorld);
-                    //TODO,最后一个参数
-                    Events.Invoke(Events.M_ROBOT_NAVIGATION, new object[] { selectedRobotId, temp.Count, temp});
+                    List<Vector2> path = MDNavigationCenter.GetInstance().GetFinalPath(positionInWorld);
+                    var input = new object[path.Count + 2];
+                    input[0] = selectedRobotId;
+                    input[1] = path.Count;
+                    for (var i = 2; i < path.Count + 2; i++) input[i] = path[i - 2];
+                    Events.Invoke(Events.M_ROBOT_NAVIGATION, input);
                 }
             }
             
