@@ -26,7 +26,7 @@ namespace UI {
                     GUILayout.Label(tech.Key);
                     var cnt = 0;
                     foreach (var technic in Summary.team.achievedTechnics) {
-                        if (Constants.TECHNIC_TOPOLOGY[tech.Key][0].IsNullOrEmpty()) {
+                        if (Constants.TECHNIC_TOPOLOGY[tech.Key].Count==0) {
                             if (Constants.TECHNIC_TOPOLOGY[tech.Key][0].Equals(technic)) {
                                 cnt = 0;
                                 break;
@@ -37,7 +37,6 @@ namespace UI {
                                     new object[] {Summary.team.teamColor, tech.Key}
                                 );
                             }
-
                             cnt = 0;
                             break;
                         } else {
@@ -58,6 +57,7 @@ namespace UI {
                                 break;
                             }
                         }
+                        
                     }
 
                     GUILayout.EndHorizontal();

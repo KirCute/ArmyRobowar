@@ -14,7 +14,8 @@ namespace UI
         private const float VIEW_SHOP_HEIGHT = 0.8F;
         private const string VIEW_SHOP_TITLE = "";
         private Vector2 scroll = Vector2.zero;
-
+        private string baseName = "";
+        private string robotName = "";
         private bool HasBase(string s) {
             bool b = false;
             if (int.Parse(s) != 0||int.Parse(s) != 1||int.Parse(s) != 2||int.Parse(s) != 3||int.Parse(s) != 4||int.Parse(s) != 5) {
@@ -43,11 +44,11 @@ namespace UI
                     string label = "";
                     GUILayout.Label(goods+label,GUILayout.ExpandWidth(true));
                     GUILayout.Label("取名:");
-                    string robotName = "";
-                    GUILayout.TextField(robotName);
+                    
+                    robotName = GUILayout.TextField(robotName);
                     GUILayout.Label("选择基地:");
-                    string baseName = "";
-                    GUILayout.TextField(baseName);
+                    
+                    baseName = GUILayout.TextField(baseName);
                     if (GUILayout.Button("购买",GUILayout.ExpandWidth(false)))
                     {
                         if(robotName != ""&& baseName != "" && HasBase(baseName)) {
