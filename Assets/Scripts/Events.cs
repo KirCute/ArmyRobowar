@@ -50,7 +50,7 @@ public static class Events {
     public const byte F_ROBOT_LOST_FOUND_PICKABLE = 41;  // 参数：机器人id(int)
     public const byte M_ROBOT_PICK = 42;  // 参数：机器人id(int)
     public const byte F_PICKABLE_PICKED = 43;  // 参数：掉落物id(int)
-    public const byte M_CREATE_TOWER = 44;  // 参数：队伍号(int), 信号塔的科技树编号(string), 位置(Vector3)
+    public const byte M_CREATE_TOWER = 44;  // 参数：队伍号(int), 信号塔的科技树编号(string), 位置(Vector2)
     public const byte F_ROBOT_LIDAR_SYNC = 45;  // 参数：队伍号(int), 同步点数n(int), n*同步点(int)
     public const byte M_TECHNOLOGY_RESEARCH = 46;  // 参数：队伍号(int), 科技点编号(string)
     public const byte M_PLAYER_ATTEND = 47;  // 参数：玩家(Player)
