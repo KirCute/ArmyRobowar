@@ -12,6 +12,7 @@ namespace System {
 
         private void Start() {
             Events.AddListener(Events.F_GAME_START, OnGameStart);
+            Events.AddListener(Events.F_RESTART, OnRestart);
         }
 
         private static void OnGameStart(object[] args) {
@@ -39,14 +40,18 @@ namespace System {
                 if (team0Players[0].Equals(PhotonNetwork.LocalPlayer)) {
                     isTeamLeader = true;
                     Events.Invoke(Events.M_CAPTURE_BASE, new object[] {base0, 0});
-                }
+                } else isTeamLeader = false;
             } else {
                 team = new Team(teamId, team1Players, startTime);
                 if (team1Players[0].Equals(PhotonNetwork.LocalPlayer)) {
                     isTeamLeader = true;
                     Events.Invoke(Events.M_CAPTURE_BASE, new object[] {base1, 1});
-                }
+                } else isTeamLeader = false;
             }
+        }
+
+        private static void OnRestart(object[] _) {
+            isGameStarted = false;
         }
     }
 }

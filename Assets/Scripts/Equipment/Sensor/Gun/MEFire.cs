@@ -34,7 +34,6 @@ namespace Equipment.Sensor.Gun {
                 if (photonView.IsMine) {
                     if (Physics.Raycast(transform.position, transform.forward, out var hit, MAX_SHOOT_DISTANCE,
                             SHOOT_MASK)) {
-                        Debug.Log(hit.collider.gameObject);
                         var hurt = hit.collider.GetComponent<AbstractMTHurt>();
                         if (hurt != null) hurt.Hurt(damage, identity.team);
                     }

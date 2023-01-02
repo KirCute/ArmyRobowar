@@ -4,7 +4,7 @@ using Photon.Realtime;
 using UnityEngine;
 
 public static class Events {
-    private const int COUNT_OF_EVENTS = 53;
+    private const int COUNT_OF_EVENTS = 54;
     
     public const byte F_GAME_START = 0;  // 参数：游戏开始时间(double), 0队初始基地(int), 1队初始基地(int), 0队玩家个数n(int), n*0队玩家名单(Player), 1队玩家个数m(int), m*1队玩家名单(Player)
     public const byte M_CREATE_ROBOT = 1;  // 参数：基地号(int), 底盘的科技树编号(string), 机器人的名称(string)
@@ -59,6 +59,7 @@ public static class Events {
     public const byte M_LEAVE_MATCHING = 50;  // 参数：玩家(Player)
     public const byte F_PLAYER_LIST_UPDATED = 51;  // 参数：0队玩家数n(int), n*(0队第i个玩家(Player), 0队第i个玩家是否准备(bool)), 1队玩家数m(int), m*(1队第i个玩家(Player), 1队第i个玩家是否准备(bool))
     public const byte F_GAME_OVER = 52;  // 参数：胜利的队伍号(int)
+    public const byte F_RESTART = 53;  // 无参数
 
     public delegate void GameEvent(object[] args);
     private static readonly GameEvent[] EVENTS = new GameEvent[COUNT_OF_EVENTS];

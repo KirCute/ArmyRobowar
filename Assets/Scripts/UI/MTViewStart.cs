@@ -201,8 +201,6 @@ namespace UI
 
         private void OnPlayerAttend(object[] args) {
             var player = (Player) args[0];
-            Debug.Log(player);
-            Debug.Log(player.IsMasterClient);
             if (player.IsMasterClient) {
                 ready.Add(player, true);
                 tempTestBlue.Add(player);
