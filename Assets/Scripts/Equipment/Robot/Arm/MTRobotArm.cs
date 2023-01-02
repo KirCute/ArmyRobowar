@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Equipment.Robot.Arm {
     public class MTRobotArm : MonoBehaviourPun {
-        private const float MAX_GRAB_DISTANCE = 10f;
+        private const float MAX_GRAB_DISTANCE = 7.5f;
 		private const int GRAB_LAYER_MASK = 1 << 10;
         
         private MERobotIdentifier identity;

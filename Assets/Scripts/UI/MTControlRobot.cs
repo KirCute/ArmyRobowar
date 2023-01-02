@@ -6,6 +6,10 @@ using UnityEngine;
 namespace UI {
     public class MTControlRobot : MonoBehaviour {
         private const float SENSITIVITY = 10f;
+        private const string FULL_INVENTORY_NOTIFY = "物品栏已满，无法捡拾新物品";
+        private const string LACK_MONEY_TO_CAPTURE_NOTIFY = "货币不足，无法占领基地，请保留至少100货币";
+        private const string LACK_MONEY_TO_BUILD_TOWER_NOTIFY = "货币不足，无法搭建信号塔，请保留至少20货币";
+        private const string CONNECTION_WEAK_NOTIFY = "即将离开信号覆盖区";
 
         public MEErrorBroadcaster broadcaster;
         private int controllingRobot { get; set; } = -1;
@@ -15,17 +19,22 @@ namespace UI {
         private void OnEnable() {
             Events.AddListener(Events.M_ROBOT_CONTROL, OnControlled);
             Events.AddListener(Events.M_ROBOT_MONITOR, CheckMonitor);
+            Events.AddListener(Events.F_ROBOT_WEAK_CONNECTION, OnWeakConnection);
+            Events.AddListener(Events.F_ROBOT_STRONG_CONNECTION, OnConnectionRepair);
         }
 
         private void OnDisable() {
             Events.RemoveListener(Events.M_ROBOT_CONTROL, OnControlled);
             Events.RemoveListener(Events.M_ROBOT_MONITOR, CheckMonitor);
+            Events.RemoveListener(Events.F_ROBOT_WEAK_CONNECTION, OnWeakConnection);
+            Events.RemoveListener(Events.F_ROBOT_STRONG_CONNECTION, OnConnectionRepair);
         }
 
         private void OnControlled(object[] args) {
             if (controllingRobot == (int) args[0] && args[1] == null) {
                 Cursor.lockState = CursorLockMode.None;
                 controllingRobot = -1;
+                broadcaster.RemoveLongTermMessage(CONNECTION_WEAK_NOTIFY);
             } else if (PhotonNetwork.LocalPlayer.Equals((Player) args[1])) {
                 Cursor.lockState = CursorLockMode.Locked;
                 controllingRobot = (int) args[0];
@@ -66,7 +75,7 @@ namespace UI {
 
             if (Input.GetMouseButtonDown(1)) {
                 if (robot.inventory.Count >= robot.inventoryCapacity) {
-                    // TODO Log Mistake
+                    broadcaster.Broadcast(FULL_INVENTORY_NOTIFY);
                 } else {
                     Events.Invoke(Events.M_ROBOT_PICK, new object[] {controllingRobot});
                 }
@@ -81,13 +90,13 @@ namespace UI {
             if (Input.GetKeyDown(KeyCode.B)) {
                 if (robot.atBase != -1) {
                     if (Summary.team.coins < Constants.BASE_CAPTURE_COST) {
-                        // TODO Log
+                        broadcaster.Broadcast(LACK_MONEY_TO_CAPTURE_NOTIFY);
                     } else {
                         Events.Invoke(Events.M_CAPTURE_BASE, new object[] {robot.atBase, Summary.team.teamColor});
                     }
                 } else {
                     if (Summary.team.coins < Constants.TOWER_TEMPLATES["BaseTower"].cost) {
-                        // TODO Log
+                        broadcaster.Broadcast(LACK_MONEY_TO_BUILD_TOWER_NOTIFY);
                     } else {
                         var pos3 = GameObject.Find($"Robot_{controllingRobot}").transform.position;
                         var pos2 = new Vector2(pos3.x, pos3.z);
@@ -95,6 +104,14 @@ namespace UI {
                     }
                 }
             }
+        }
+
+        private void OnWeakConnection(object[] args) {
+            if (controllingRobot == (int) args[0]) broadcaster.AddLongTermMessage(CONNECTION_WEAK_NOTIFY);
+        }
+
+        private void OnConnectionRepair(object[] args) {
+            if (controllingRobot == (int) args[0]) broadcaster.RemoveLongTermMessage(CONNECTION_WEAK_NOTIFY);
         }
     }
 }

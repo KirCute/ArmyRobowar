@@ -8,7 +8,7 @@ namespace UI {
     public class MTViewShop : MonoBehaviourPun {
         private const int VIEW_SHOP_ID = 0;
         private const float VIEW_SHOP_WIDTH = 0.8F;
-        private const float VIEW_SHOP_HEIGHT = 0.8F;
+        private const float VIEW_SHOP_HEIGHT = 0.7F;
         private const string VIEW_SHOP_TITLE = "";
         private Vector2 scroll = Vector2.zero;
         private int baseId = 6;
@@ -35,10 +35,10 @@ namespace UI {
             );
             GUILayout.Window(VIEW_SHOP_ID, dim, _ => {
                 GUILayout.BeginHorizontal();
-                GUILayout.Label($"当前机器人出生基地：{baseId}");
-                if (GUILayout.Button(">")) SwitchNextBase();
+                GUILayout.Label($"当前机器人出生基地：{baseId}", GUILayout.ExpandWidth(false));
+                if (GUILayout.Button(">", GUILayout.ExpandWidth(false))) SwitchNextBase();
                 GUILayout.Label("", GUILayout.ExpandWidth(true));
-                GUILayout.Label($"剩余货币：{Summary.team.coins,-8}");
+                GUILayout.Label($"剩余货币：{Summary.team.coins,-8}", GUILayout.ExpandWidth(false));
                 GUILayout.EndHorizontal();
                 scroll = GUILayout.BeginScrollView(scroll, false, false,
                     GUILayout.Height(Screen.height * VIEW_SHOP_HEIGHT));
@@ -59,9 +59,9 @@ namespace UI {
                     }
                     GUILayout.EndHorizontal();
                     GUILayout.BeginHorizontal();
-                    GUILayout.Label("命名:"); 
+                    GUILayout.Label("命名:", GUILayout.ExpandWidth(false)); 
                     robotNames[goods] = GUILayout.TextField(robotNames[goods], GUILayout.ExpandWidth(true));
-                    GUILayout.Label($"{robotNameErrors[goods], -16}");
+                    GUILayout.Label($"{robotNameErrors[goods], -16}", GUILayout.ExpandWidth(false));
                     GUILayout.EndHorizontal();
                     GUILayout.EndVertical();
                 }
@@ -80,7 +80,7 @@ namespace UI {
                 GUILayout.EndVertical();
                 GUILayout.EndScrollView();
             }, VIEW_SHOP_TITLE);
-            if (Input.GetKeyDown(KeyCode.Escape)) {
+            if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.E)) {
                 enabled = false;
                 GetComponent<MEMainCameraController>().active = true;
             }

@@ -50,7 +50,7 @@ namespace UI {
                     GUILayout.BeginVertical("Box"); // 单独的机器人条目
                     GUILayout.Label(robot.name);
                     var restTime = robot.template.makingTime + robot.createTime - PhotonNetwork.Time;
-                    GUILayout.Label(restTime > 0.0 ? $"制造中，剩余时间：{restTime:0.00}" : "发车点被挤占，正在等待清空发车点。");
+                    GUILayout.Label(restTime > 0.0 ? $"制造中，剩余时间：{restTime:0.00}s" : "发车点被挤占，正在等待清空发车点。");
                     GUILayout.EndVertical();
                 }
 
@@ -65,7 +65,7 @@ namespace UI {
                 GUILayout.EndScrollView();
             }, VIEW_ROBOTS_PAGE_TITLE);
 
-            if (Input.GetKeyDown(KeyCode.Escape)) {
+            if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.E)) {
                 enabled = false;
                 GetComponent<MEMainCameraController>().active = true;
             }
