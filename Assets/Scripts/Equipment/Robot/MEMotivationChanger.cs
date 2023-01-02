@@ -23,10 +23,12 @@ namespace Equipment.Robot {
 
         private void OnEnable() {
             Events.AddListener(Events.M_ROBOT_MOTIVATION_CHANGE, ChangeRobotMotivation);
+            Events.AddListener(Events.M_ROBOT_CONTROL, OnLoseControl);
         }
 
         private void OnDisable() {
             Events.RemoveListener(Events.M_ROBOT_MOTIVATION_CHANGE, ChangeRobotMotivation);
+            Events.RemoveListener(Events.M_ROBOT_CONTROL, OnLoseControl);
         }
 
         private void Update() {
@@ -68,6 +70,12 @@ namespace Equipment.Robot {
                 }
 
                 Events.Invoke(Events.F_ROBOT_MOTIVATION_CHANGED, args);
+            }
+        }
+
+        private void OnLoseControl(object[] args) {
+            if (identity.id == (int) args[0] && args[1] == null) {
+                Events.Invoke(Events.M_ROBOT_MOTIVATION_CHANGE, new object[] {identity.id, 0, Vector2.zero});
             }
         }
     }

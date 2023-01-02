@@ -16,11 +16,20 @@ namespace UI {
         private readonly Dictionary<string, string> robotNameErrors = new();
 
         private void OnEnable() {
-            if (baseId == 6) SwitchNextBase();
+            if (baseId == 6 || !Summary.team.bases.Keys.Contains(baseId)) SwitchNextBase();
             var robotNamesKey = robotNames.Keys.ToList();
             foreach (var key in robotNamesKey) robotNames[key] = "";
             var robotNameErrorsKey = robotNameErrors.Keys.ToList();
             foreach (var key in robotNameErrorsKey) robotNameErrors[key] = "";
+            Events.AddListener(Events.F_BASE_DESTROYED, OnBaseDestroyed);
+        }
+
+        private void OnDisable() {
+            Events.RemoveListener(Events.F_BASE_DESTROYED, OnBaseDestroyed);
+        }
+
+        private void OnBaseDestroyed(object[] args) {
+            if (baseId == (int) args[0]) SwitchNextBase();
         }
 
         private void OnGUI() {
