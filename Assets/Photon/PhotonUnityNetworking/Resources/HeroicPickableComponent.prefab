@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 468142334909971453}
   - component: {fileID: 5056855201612415101}
   - component: {fileID: 852925212256886498}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: HeroicPickableComponent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -179,5 +179,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fd3f5840e4e415fb30b781d8e23824a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameOnTechnologyTree: 
-  health: 0

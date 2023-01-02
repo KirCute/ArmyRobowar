@@ -73,14 +73,14 @@ public static class Events {
         if (data.Code >= COUNT_OF_EVENTS) return;
         if (data.CustomData is object[] args) {
 			EVENTS[data.Code]?.Invoke(args);
-            Debug.Log($"Remote Event Invoke: id={data.Code}, args={args.ToStringFull()}");
+            //Debug.Log($"Remote Event Invoke: id={data.Code}, args={args.ToStringFull()}");
 		}
     }
 
     public static bool Invoke(byte eventId, object[] args, bool reliable = true)
     {
         if (eventId >= COUNT_OF_EVENTS) return false;
-        Debug.Log($"Local Event Invoke: id={eventId}, args={args.ToStringFull()}");
+        //Debug.Log($"Local Event Invoke: id={eventId}, args={args.ToStringFull()}");
         PhotonNetwork.RaiseEvent(eventId, args, RaiseEventOptions.Default,
             reliable ? SendOptions.SendReliable : SendOptions.SendUnreliable);
         EVENTS[eventId]?.Invoke(args);

@@ -12,7 +12,10 @@ namespace Equipment.Tower {
             id = (int) photonView.InstantiationData[0];
             team = (int) photonView.InstantiationData[1];
             gameObject.name = $"Tower_{id}";
-            GetComponent<Renderer>().materials[3] = projectorMaterials[team];
+            var materials = GetComponent<MeshRenderer>().materials;
+            materials[1] = projectorMaterials[team];
+            materials[3] = projectorMaterials[team];
+            GetComponent<MeshRenderer>().materials = materials;
         }
 
         public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {

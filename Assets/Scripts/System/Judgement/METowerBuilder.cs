@@ -23,7 +23,7 @@ namespace System.Judgement {
                 if (Summary.isTeamLeader) {
                     var pos2d = (Vector2) args[2];
                     var pos = new Vector3(pos2d.x, TOWER_BUILD_HEIGHT, pos2d.y);
-                    PhotonNetwork.Instantiate(template.prefabName, pos, Quaternion.identity, 0,
+                    PhotonNetwork.Instantiate(template.prefabName, pos, Quaternion.Euler(180f, 0f, 0f), 0,
                         new object[] {nextTowerId, Summary.team.teamColor}
                     );
                 }

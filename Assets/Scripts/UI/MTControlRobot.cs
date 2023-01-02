@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace UI {
     public class MTControlRobot : MonoBehaviour {
-        private const float SENSITIVITY = 10f;
+        private const float SENSITIVITY = 7.5f;
         private const string FULL_INVENTORY_NOTIFY = "物品栏已满，无法捡拾新物品";
         private const string LACK_MONEY_TO_CAPTURE_NOTIFY = "货币不足，无法占领基地，请保留至少100货币";
         private const string LACK_MONEY_TO_BUILD_TOWER_NOTIFY = "货币不足，无法搭建信号塔，请保留至少20货币";

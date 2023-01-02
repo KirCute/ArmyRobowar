@@ -221,7 +221,7 @@ namespace UI
         }
 
         private void OnPlayerReady(object[] args) {
-            ready[(Player) args[0]] = true;
+            ready[(Player) args[0]] = (bool) args[1];
             SyncPlayerList();
         }
 
