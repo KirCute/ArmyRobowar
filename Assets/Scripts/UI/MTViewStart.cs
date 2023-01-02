@@ -139,14 +139,7 @@ namespace UI
                             }
                         }
                     }
-                    if (GUILayout.Button("交换队伍",style)) {
-                        if (myTeam == 0) {
-                            if (tempTestRed.Count == 5) {
-                                
-                            }
-                        }
-                        Events.Invoke(Events.M_CHANGE_TEAM, new object[] {PhotonNetwork.LocalPlayer, 1 - myTeam});
-                    }
+                    
 
                     if (GUILayout.Button("离开匹配",style)) {
                         Events.Invoke(Events.M_LEAVE_MATCHING, new object[] {PhotonNetwork.LocalPlayer});
