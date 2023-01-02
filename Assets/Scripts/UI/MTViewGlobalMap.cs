@@ -19,6 +19,11 @@ namespace UI {
         private Robot selectedRobot;
         private List<GameObject> blackMasks = new List<GameObject>();
 
+        private void OnEnable()
+        {
+            //throw new NotImplementedException();
+        }
+
         void OnGUI() {
             if(!Summary.isGameStarted) return;
             var dim = new Rect(0,0,Screen.width,Screen.height);
@@ -38,7 +43,7 @@ namespace UI {
                 Screen.height * VIEW_MAP_PAGE_HEIGHT ), Resources.Load<Texture>("map"));*/
             GameObject mapGameObject = Instantiate(map);
             mapGameObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
-            mapGameObject.active = true;
+            mapGameObject.SetActive(false); 
             ChangeMask();
             robotScroll = GUILayout.BeginScrollView(robotScroll, false, false);
             GUILayout.BeginHorizontal("Box");//未失联机器人列表
