@@ -34,7 +34,7 @@ namespace ASL.FogOfWar
         /// <summary>
         /// 迷雾纹理
         /// </summary>
-        private FOWMaskTexture m_MaskTexture;
+        private FOWMaskTexture m_MaskTexture; 
 
         //private float[] m_SortAngle = new float[4];
 
