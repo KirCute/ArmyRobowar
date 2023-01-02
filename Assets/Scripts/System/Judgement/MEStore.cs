@@ -1,4 +1,5 @@
-﻿using Photon.Pun;
+﻿using System.Linq;
+using Photon.Pun;
 
 namespace System.Judgement {
     public class MEStore : MonoBehaviourPun {
@@ -17,7 +18,7 @@ namespace System.Judgement {
         }
 
         private static void OnCreateRobot(object[] args) {
-            if (Summary.team.teamColor == (int) args[0]) {
+            if (Summary.team.bases.Keys.Contains((int) args[0])) {
                 Summary.team.coins -= Constants.ROBOT_TEMPLATES[(string) args[1]].cost;
             }
         }
@@ -40,7 +41,7 @@ namespace System.Judgement {
         }
 
         private static void OnCapturing(object[] args) {
-            if (Summary.team.teamColor == (int) args[0]) {
+            if (Summary.team.teamColor == (int) args[1]) {
                 Summary.team.coins -= Constants.BASE_CAPTURE_COST;
             }
         }

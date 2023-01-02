@@ -18,5 +18,13 @@ namespace Equipment.Basement.Updater {
                 Summary.team.robots[robot.id].atHome = robot.team == identity.flagColor;
             }
         }
+
+        private void OnTriggerExit(Collider other) {
+            var robot = other.GetComponent<MERobotIdentifier>();
+            if (robot != null && Summary.team.teamColor == robot.team) {
+                Summary.team.robots[robot.id].atBase = -1;
+                Summary.team.robots[robot.id].atHome = false;
+            }
+        }
     }
 }

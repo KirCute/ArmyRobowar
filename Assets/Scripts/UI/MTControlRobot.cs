@@ -10,6 +10,7 @@ namespace UI {
         private const string LACK_MONEY_TO_CAPTURE_NOTIFY = "货币不足，无法占领基地，请保留至少100货币";
         private const string LACK_MONEY_TO_BUILD_TOWER_NOTIFY = "货币不足，无法搭建信号塔，请保留至少20货币";
         private const string CONNECTION_WEAK_NOTIFY = "即将离开信号覆盖区";
+        private const string BUILD_FAILED_NOTIFY = "未装备工程配件，无法进行建造活动";
 
         public MEErrorBroadcaster broadcaster;
         private int controllingRobot { get; set; } = -1;
@@ -106,7 +107,7 @@ namespace UI {
                         }
                     }
                 } else {
-                    broadcaster.Broadcast("未装备工程配件，无法进行建造活动");
+                    broadcaster.Broadcast(BUILD_FAILED_NOTIFY);
                 }
             }
         }
