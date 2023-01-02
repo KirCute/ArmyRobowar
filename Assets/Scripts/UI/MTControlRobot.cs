@@ -88,20 +88,25 @@ namespace UI {
             }
 
             if (Input.GetKeyDown(KeyCode.B)) {
-                if (robot.atBase != -1) {
-                    if (Summary.team.coins < Constants.BASE_CAPTURE_COST) {
-                        broadcaster.Broadcast(LACK_MONEY_TO_CAPTURE_NOTIFY);
+                if (robot.allowBuild) {
+                    if (robot.atBase != -1) {
+                        if (Summary.team.coins < Constants.BASE_CAPTURE_COST) {
+                            broadcaster.Broadcast(LACK_MONEY_TO_CAPTURE_NOTIFY);
+                        } else {
+                            Events.Invoke(Events.M_CAPTURE_BASE, new object[] {robot.atBase, Summary.team.teamColor});
+                        }
                     } else {
-                        Events.Invoke(Events.M_CAPTURE_BASE, new object[] {robot.atBase, Summary.team.teamColor});
+                        if (Summary.team.coins < Constants.TOWER_TEMPLATES["BaseTower"].cost) {
+                            broadcaster.Broadcast(LACK_MONEY_TO_BUILD_TOWER_NOTIFY);
+                        } else {
+                            var pos3 = GameObject.Find($"Robot_{controllingRobot}").transform.position;
+                            var pos2 = new Vector2(pos3.x, pos3.z);
+                            Events.Invoke(Events.M_CREATE_TOWER,
+                                new object[] {Summary.team.teamColor, "BaseTower", pos2});
+                        }
                     }
                 } else {
-                    if (Summary.team.coins < Constants.TOWER_TEMPLATES["BaseTower"].cost) {
-                        broadcaster.Broadcast(LACK_MONEY_TO_BUILD_TOWER_NOTIFY);
-                    } else {
-                        var pos3 = GameObject.Find($"Robot_{controllingRobot}").transform.position;
-                        var pos2 = new Vector2(pos3.x, pos3.z);
-                        Events.Invoke(Events.M_CREATE_TOWER, new object[] {Summary.team.teamColor, "BaseTower", pos2});
-                    }
+                    broadcaster.Broadcast("未装备工程配件，无法进行建造活动");
                 }
             }
         }
