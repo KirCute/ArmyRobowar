@@ -6,10 +6,16 @@ namespace Equipment.Sensor.Gun {
         private const float MAX_SHOOT_DISTANCE = 20f;
         private const int SHOOT_MASK = (1 << 3) + (1 << 6) + (1 << 7) + (1 << 8) + (1 << 9);  // Terrain, Body, Component, Tower, Diamond
         
+        [SerializeField] private int damage = 3;
+        public double loadingTime = 4.0;
         private MEComponentIdentifier identity;
         private double lastShoot;
-        [SerializeField] private int damage = 3;
-        [SerializeField] private double loadingTime = 4.0;
+        public float loadProcess {
+            get {
+                var p = (float) ((PhotonNetwork.Time - lastShoot) / loadingTime);
+                return p > 1.0f ? 1.0f : p;
+            }
+        }
 
         private void Awake() {
             identity = GetComponent<MEComponentIdentifier>();
