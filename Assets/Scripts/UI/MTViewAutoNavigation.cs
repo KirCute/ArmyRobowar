@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Map.Navigation;
 using UnityEngine;
 
@@ -12,18 +11,18 @@ namespace UI {
         private int selectedRobotId;
 
         private void OnGUI() {
-            if (GetComponent<MTSelectNavigationRobot>().SET_NAVIGATION_PATH) {
-                
+            if (GetComponent<MTSelectNavigationRobot>().setNavigationPath) {
                 selectedRobotId = GetComponent<MTSelectNavigationRobot>().selectedRobotId;
-                var mapRect = new Rect((Screen.width - SKETCH_MAP_WIDTH) / 2, (Screen.height - SKETCH_MAP_HEIGHT) / 2, 
+                var mapRect = new Rect((Screen.width - SKETCH_MAP_WIDTH) / 2, (Screen.height - SKETCH_MAP_HEIGHT) / 2,
                     SKETCH_MAP_WIDTH, SKETCH_MAP_HEIGHT);
                 Texture map = Resources.Load<Texture>("map");
                 //TODO,换成小地图
-                GUI.Label(mapRect,map);
+                GUI.Label(mapRect, map);
 
                 this.enabled = true;
                 if (Input.GetMouseButtonDown(0)) {
-                    Vector2 mousePosition = new Vector2((Input.mousePosition.x - (Screen.width - SKETCH_MAP_WIDTH) / 2) / 20,
+                    Vector2 mousePosition = new Vector2(
+                        (Input.mousePosition.x - (Screen.width - SKETCH_MAP_WIDTH) / 2) / 20,
                         (SKETCH_MAP_HEIGHT - (Input.mousePosition.y - (Screen.height - SKETCH_MAP_HEIGHT) / 2)) / 20);
                     positionInSketchMap.Add(mousePosition);
                 }
@@ -40,7 +39,7 @@ namespace UI {
                             (positionInSketchMap[i].y - 17) / 17 * 82);
                         positionInWorld.Add(position);
                     }
-                    
+
                     List<Vector2> path = MDNavigationCenter.GetInstance().GetFinalPath(positionInWorld);
                     var input = new object[path.Count + 2];
                     input[0] = selectedRobotId;

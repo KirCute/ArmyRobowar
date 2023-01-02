@@ -1,9 +1,6 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Model.Equipment;
-//using Map.Navigation;
-//using Model.Equipment;
 using UnityEngine;
 
 namespace UI {
@@ -18,7 +15,7 @@ namespace UI {
         
         private Vector2 scroll = Vector2.zero;
 
-        public bool SET_NAVIGATION_PATH = false;
+        public bool setNavigationPath;
         private void OnGUI() {
             if(!Summary.isGameStarted) return;
             var dim = new Rect(Screen.width * (1 - PICK_ROBOTS_PAGE_WIDTH) / 2,
@@ -26,14 +23,11 @@ namespace UI {
                 Screen.width * PICK_ROBOTS_PAGE_WIDTH,
                 Screen.height * PICK_ROBOTS_PAGE_HEIGHT);
             GUILayout.Window(PICK_ROBOTS_PAGE_ID, dim, ViewAutoNavigation,PICK_ROBOTS_PAGE_TITLE);
-            if (GUI.Button(new Rect(Screen.width - 10, Screen.height - 10, 10, 10), "下一步，设置导航路径")) {
-                
-            }
 
-            /*if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.E)) {
+            if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.E)) {
                 enabled = false;
                 GetComponent<MEMainCameraController>().active = true;
-            }*/
+            }
         }
 
         private void ViewAutoNavigation(int id) {
@@ -58,8 +52,8 @@ namespace UI {
             GUILayout.EndHorizontal();
 
             if (GUILayout.Button("下一步，设置导航路径")) {
-                SET_NAVIGATION_PATH = true;
-                this.enabled = false;
+                setNavigationPath = true;
+                enabled = false;
             }
             
             GUILayout.EndScrollView();
