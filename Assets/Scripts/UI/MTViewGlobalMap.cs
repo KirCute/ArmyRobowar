@@ -41,9 +41,10 @@ namespace UI {
                 Screen.height * (1 - VIEW_MAP_PAGE_HEIGHT) / 2,
                 Screen.width * VIEW_MAP_PAGE_WIDTH,
                 Screen.height * VIEW_MAP_PAGE_HEIGHT ), Resources.Load<Texture>("map"));*/
-            GameObject mapGameObject = Instantiate(map);
+            GameObject mapGameObject = Instantiate(map,GetComponent<RectTransform>());
+            Debug.Log("666");
             mapGameObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
-            mapGameObject.SetActive(false); 
+            mapGameObject.SetActive(true); 
             ChangeMask();
             robotScroll = GUILayout.BeginScrollView(robotScroll, false, false);
             GUILayout.BeginHorizontal("Box");//未失联机器人列表
@@ -63,7 +64,7 @@ namespace UI {
         void ChangeMask() {
             for (int i = 0; i < 34; i++) {
                 for (int j = 0; j < 46; j++) {
-                    blackMasks[i*46+j] = Instantiate(blackMask);
+                    blackMasks[i*46+j] = Instantiate(blackMask,GetComponent<RectTransform>());
                     blackMasks[i * 46 + j].GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
                     blackMasks[i * 46 + j].SetActive(true);
                 }
