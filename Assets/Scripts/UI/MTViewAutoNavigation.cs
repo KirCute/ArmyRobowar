@@ -17,7 +17,7 @@ namespace UI {
                 selectedRobotId = GetComponent<MTSelectNavigationRobot>().selectedRobotId;
                 var mapRect = new Rect((Screen.width - SKETCH_MAP_WIDTH) / 2, (Screen.height - SKETCH_MAP_HEIGHT) / 2, 
                     SKETCH_MAP_WIDTH, SKETCH_MAP_HEIGHT);
-                Texture map = Resources.Load<Texture>("地图俯瞰正交图");
+                Texture map = Resources.Load<Texture>("map");
                 //TODO,换成小地图
                 GUI.Label(mapRect,map);
 
