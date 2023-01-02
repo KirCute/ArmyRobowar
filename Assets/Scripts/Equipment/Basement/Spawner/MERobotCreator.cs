@@ -6,10 +6,13 @@ using UnityEngine;
 
 namespace Equipment.Basement.Spawner {
     public class MERobotCreator : MonoBehaviourPun {
+        private const float SPAWN_WAIT = 1.0F;
+        
         private static int nextRobotID = -1;
         private MEBaseFlag identity;
         private int crowd;
         private readonly List<int> creatingIds = new();
+        private float wait;
 
         private void Awake() {
             identity = GetComponentInParent<MEBaseFlag>();
@@ -18,8 +21,8 @@ namespace Equipment.Basement.Spawner {
         private void Update() {
             if (!Summary.isGameStarted || creatingIds.Count == 0 || Summary.team.teamColor != identity.flagColor) return;
             var robot = Summary.team.robots[creatingIds[0]];
-            if (PhotonNetwork.Time - robot.createTime < robot.template.makingTime || crowd > 0) return;
-            robot.manufacturing = false;
+            wait = Mathf.Max(wait - Time.deltaTime, 0.0f);
+            if (wait > .0f || PhotonNetwork.Time - robot.createTime < robot.template.makingTime || crowd > 0) return;
             if (Summary.isTeamLeader) {
                 PhotonNetwork.Instantiate(robot.template.prefabName, transform.position, transform.rotation, 0,
                     new object[] {creatingIds[0], Summary.team.teamColor}
@@ -28,6 +31,7 @@ namespace Equipment.Basement.Spawner {
             }
 
             creatingIds.RemoveAt(0);
+            wait = SPAWN_WAIT;
         }
 
         private void OnTriggerEnter(Collider other) {

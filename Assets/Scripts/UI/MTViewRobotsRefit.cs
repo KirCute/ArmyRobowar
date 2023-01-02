@@ -54,7 +54,7 @@ namespace UI {
                         GUILayout.BeginHorizontal("Box");
                         GUILayout.Label($"{i} - {(component == null ? "空" : component.template.name)}",
                             GUILayout.ExpandWidth(true));
-                        if (GUILayout.Button("拆卸", GUILayout.ExpandWidth(false))) {
+                        if (component != null && GUILayout.Button("拆卸", GUILayout.ExpandWidth(false))) {
                             Events.Invoke(Events.M_ROBOT_UNINSTALL_COMPONENT, new object[] {
                                 Summary.team.teamColor, myRobot.id, i
                             });

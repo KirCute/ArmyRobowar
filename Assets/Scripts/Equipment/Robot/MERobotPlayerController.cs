@@ -1,9 +1,10 @@
 ﻿using System;
 using Photon.Pun;
 using Photon.Realtime;
+using UnityEngine;
 
 namespace Equipment.Robot {
-    public class MERobotPlayerController : MonoBehaviourPun, IPunObservable {
+    public class MERobotPlayerController : MonoBehaviourPun {
         private MERobotIdentifier identity;
 
         private void Awake() {
@@ -19,18 +20,8 @@ namespace Equipment.Robot {
         }
 
         private void OnControlled(object[] args) {
-            if (identity.id == (int) args[0] && photonView.IsMine) {
+            if (identity.id == (int) args[0] && Summary.team.teamColor == identity.team) {
                 Summary.team.robots[identity.id].controller = (Player) args[1];
-            }
-        }
-        
-        public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
-            if (Summary.team.teamColor == identity.team) {
-                if (stream.IsWriting) {
-                    stream.SendNext(Summary.team.robots[identity.id].controller);
-                } else {
-                    Summary.team.robots[identity.id].controller = (Player) stream.ReceiveNext();
-                }
             }
         }
     }

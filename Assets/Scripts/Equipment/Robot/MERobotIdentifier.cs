@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
 
@@ -19,6 +20,8 @@ namespace Equipment.Robot {
             foreach (var lightRenderer in GetComponentsInChildren<Light>()) {
                 lightRenderer.color = lightColors[team];
             }
+
+            if (Summary.team.teamColor == team) Summary.team.robots[id].manufacturing = false;
 
             transform.Find("Body").Find("平面.006").GetComponent<Renderer>().material = planeMaterials[team];
             transform.Find("Body").Find("平面.007").GetComponent<Renderer>().material = planeMaterials[team];

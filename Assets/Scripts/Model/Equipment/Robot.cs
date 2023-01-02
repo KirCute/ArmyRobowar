@@ -24,7 +24,7 @@ namespace Model.Equipment {
         public bool manufacturing { get; set; }  // peer-to-peer
         public bool allowBuild { get; set; }  // peer-to-peer
         public int inventoryCapacity { get; set; }  // peer-to-peer
-        public Player controller { get; set; }  // client-server
+        public Player controller { get; set; }  // peer-to-peer
         public double lastRecoveryTime { get; set; }  // peer-to-peer
         public byte status => manufacturing ? STATUS_MANUFACTURING : (connection > 0 ? STATUS_ACTIVE : STATUS_MISSING);
 
