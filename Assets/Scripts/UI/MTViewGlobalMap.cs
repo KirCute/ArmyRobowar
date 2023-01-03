@@ -5,12 +5,19 @@ using Map.Navigation;
 using Model.Equipment;
 using UnityEngine;
 using UnityEngine.UI;
+using UI;
 
 namespace UI {
     public class MTViewGlobalMap : MonoBehaviour {
         public GameObject blackMask;
         public GameObject map;
-
+        public GameObject Base0;
+        public GameObject Base1;
+        public GameObject Base2;
+        public GameObject Base3;
+        public GameObject Base4;
+        public GameObject Base5;
+        
         private const int VIEW_MAP_PAGE_ID = 0;
         private const float VIEW_MAP_PAGE_WIDTH = 0.8F;
         private const float VIEW_MAP_PAGE_HEIGHT = 0.8F;
@@ -23,11 +30,17 @@ namespace UI {
         private List<Vector2> positionInWorld = new List<Vector2>();
 //        private int m = 0, n = 0;
 
-        private void Awake() {
-            mapGameObject = Instantiate(map,transform.Find("Canvas").Find("Naviga").gameObject.GetComponent<RectTransform>());
+        private void Awake()
+        {
+            mapGameObject = Instantiate(map,
+                transform.Find("Canvas").Find("Naviga").gameObject.GetComponent<RectTransform>());
+            
             mapGameObject.GetComponent<RectTransform>().localPosition = new Vector2(0, 0);
             mapGameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(460, 340);
             mapGameObject.SetActive(false);
+            
+            CreateBase();
+            
             CreateMask();
         }
 
@@ -115,16 +128,60 @@ namespace UI {
         
         void CreateMask() {
             for (int m = 0; m < 34; m++) {
-                for (int n = 0; n < 46; n++) {
-                    GameObject temp = Instantiate(blackMask,transform.Find("Canvas").Find("Naviga").gameObject.GetComponent<RectTransform>());
+                for (int n = 0; n < 46; n++)
+                {
+                    GameObject temp = Instantiate(blackMask,
+                        transform.Find("Canvas").Find("Naviga").gameObject.GetComponent<RectTransform>());
                     blackMasks[m * 46 + n] = temp;
                     blackMasks[m * 46 + n].name = "blackMask_" + (m * 46 + n);
-                    blackMasks[m * 46 + n].GetComponent<RectTransform>().localPosition = new Vector2(-230+5+n*10, -170+5+m*10);
+                    blackMasks[m * 46 + n].GetComponent<RectTransform>().localPosition =
+                        new Vector2(-230 + 5 + n * 10, -170 + 5 + m * 10);
                     blackMasks[m * 46 + n].GetComponent<RectTransform>().sizeDelta = new Vector2(10, 10);
                     blackMasks[m * 46 + n].SetActive(false);
-                    AddListener(transform.Find("Canvas").Find("Naviga").Find("blackMask_" + (m * 46 + n)).GetComponent<Button>(),m,n);
+                    AddListener(
+                        transform.Find("Canvas").Find("Naviga").Find("blackMask_" + (m * 46 + n))
+                            .GetComponent<Button>(), m, n);
                 }
             }
+        }
+
+        void CreateBase()
+        {
+            GameObject Base_0 = Instantiate(Base0, GetComponent<RectTransform>());
+            int[] mapPose=MTGlobalMapPoint.World2Map(-60.0, -40.0);
+            Base_0.GetComponent<RectTransform>().anchoredPosition =
+                new Vector2(mapPose[0], mapPose[1]);
+            Base_0.SetActive(true);
+            
+            GameObject Base_1 = Instantiate(Base1, GetComponent<RectTransform>());
+            mapPose=MTGlobalMapPoint.World2Map(-60.0, 5.0);
+            Base_1.GetComponent<RectTransform>().anchoredPosition =
+                new Vector2(mapPose[0], mapPose[1]);
+            Base_1.SetActive(true);
+            
+            GameObject Base_2 = Instantiate(Base2, GetComponent<RectTransform>());
+            mapPose=MTGlobalMapPoint.World2Map(-40.0, 45.0);
+            Base_2.GetComponent<RectTransform>().anchoredPosition =
+                new Vector2(mapPose[0], mapPose[1]);
+            Base_2.SetActive(true);
+            
+            GameObject Base_3 = Instantiate(Base3, GetComponent<RectTransform>());
+            mapPose=MTGlobalMapPoint.World2Map(60.0, -25.0);
+            Base_3.GetComponent<RectTransform>().anchoredPosition =
+                new Vector2(mapPose[0], mapPose[1]);
+            Base_3.SetActive(true);
+            
+            GameObject Base_4 = Instantiate(Base4, GetComponent<RectTransform>());
+            mapPose=MTGlobalMapPoint.World2Map(18.0, -45.0);
+            Base_4.GetComponent<RectTransform>().anchoredPosition =
+                new Vector2(mapPose[0], mapPose[1]);
+            Base_4.SetActive(true);
+            
+            GameObject Base_5 = Instantiate(Base5, GetComponent<RectTransform>());
+            mapPose=MTGlobalMapPoint.World2Map(43.0, 35.0);
+            Base_5.GetComponent<RectTransform>().anchoredPosition =
+                new Vector2(mapPose[0], mapPose[1]);
+            Base_5.SetActive(true);
         }
 
         void TransformPosition(int m,int n) {
@@ -138,5 +195,6 @@ namespace UI {
         {
             button.onClick.AddListener(delegate { TransformPosition(m,n); });
         }
+        
     }
 }

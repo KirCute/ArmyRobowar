@@ -34,7 +34,6 @@ namespace UI
             if (Summary.team.teamColor == (int)args[0])
             {
                 enemyList.Add((int)args[1]);
-                //GameObject.Find($"Robot_{(int)args[1]}");
             }
         }
 
@@ -49,7 +48,6 @@ namespace UI
                         enemyList.Remove(enemy);
                     }
                 }
-                enemyList.Add((int)args[1]);
             }
         }
         
@@ -61,8 +59,8 @@ namespace UI
                 if (Summary.team.robots[k] != null && Summary.team.robots[k].connection >= 0)   //己方有这辆车且未失联
                 {
                     
-                    int[] mapPose = World2Map(GameObject.Find($"Robot_{Summary.team.robots[k].id}").transform.position.x,
-                        GameObject.Find($"Robot_{Summary.team.robots[k].id}").transform.position.y);
+                    int[] mapPose = World2Map(GameObject.Find($"Robot_{Summary.team.robots[k].id}").transform.position.z,
+                        GameObject.Find($"Robot_{Summary.team.robots[k].id}").transform.position.x);
                     
                     GameObject friendPointGameObject = Instantiate(friendPoint, GetComponent<RectTransform>());
                     
@@ -74,11 +72,11 @@ namespace UI
         }
         
         //世界坐标转换到地图坐标
-        public int[] World2Map(double worldX,double worldY)
+        public static int[] World2Map(double worldZ,double worldX)
         {
             int[] pose = new int[2];
-            pose[0] = (int)(worldX / K_X);
-            pose[1] = (int)(worldY / K_Y);
+            pose[0] = (int)(worldZ / K_X);
+            pose[1] = (int)(-(worldX) / K_Y);
             return pose;
         }
 
@@ -87,8 +85,8 @@ namespace UI
         {
             foreach (int enemy in enemyList)
             {
-                int[] mapPose = World2Map(GameObject.Find($"Robot_{enemy}").transform.position.x,
-                    GameObject.Find($"Robot_{enemy}").transform.position.y);
+                int[] mapPose = World2Map(GameObject.Find($"Robot_{enemy}").transform.position.z,
+                    GameObject.Find($"Robot_{enemy}").transform.position.x);
                 
                 GameObject enemyPointGameObject = Instantiate(enemyPoint, GetComponent<RectTransform>());
                 
