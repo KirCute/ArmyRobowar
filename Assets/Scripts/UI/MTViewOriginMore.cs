@@ -12,8 +12,6 @@ namespace UI
         private const int VIEW_ORIGIN_MORE_PAGE_ID = 0;
         private const string VIEW_ORIGIN_MORE_PAGE_TITLE = "";
         private string _nickname = "";
-        private GUIStyle text_style = new GUIStyle();
-        private GUIStyle label_style = new GUIStyle();
 
         public static MTViewOriginMore getInstance() {
             return _instance;
@@ -33,19 +31,21 @@ namespace UI
                 0,
                 Screen.width, Screen.height), _ =>
             {
-                text_style = GUI.skin.textField;
+                GUIStyle text_style = new GUIStyle(GUI.skin.textField);
+                GUIStyle label_style = new GUIStyle(GUI.skin.label);
+                
                 text_style.normal.textColor = Color.white;
                 text_style.fontSize = 30;
-                label_style = GUI.skin.label;
+                
                 label_style.normal.textColor = Color.white;
                 label_style.fontSize = 30;
                 GUILayout.BeginVertical("Box");
                 GUILayout.Label("",GUILayout.ExpandHeight(true));
                 //GUILayout.Label("请输入你的名字:",GUILayout.ExpandHeight(false));
                 GUILayout.BeginHorizontal();
-                GUILayout.Label("请输入你的名字:            ",label_style);
+                GUILayout.Label("请输入你的名字:",label_style);
                 _nickname =  GUILayout.TextField(_nickname,text_style,GUILayout.ExpandHeight(false),GUILayout.ExpandWidth(true),GUILayout.Width(Screen.width/3),GUILayout.Height(Screen.height/8));
-                GUILayout.Label("(不少于两个字)             ");
+                GUILayout.Label("(不少于两个字)                             ");
                 GUILayout.EndHorizontal();
                 GUILayout.BeginHorizontal();
                 GUILayout.Label("");

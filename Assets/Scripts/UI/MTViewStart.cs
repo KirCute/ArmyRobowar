@@ -15,7 +15,7 @@ namespace UI
 
         private const string VIEW_START_PAGE_TITLE = "";
         
-        private readonly GUIStyle style = new(); //定义控件
+        
 
         private readonly List<Player> tempTestRed = new();  // 1, client-server
         private readonly List<Player> tempTestBlue = new();  // 0, client-server
@@ -64,12 +64,14 @@ namespace UI
         }
         
         private void Start() {
-            style.alignment = TextAnchor.MiddleCenter;
-            style.fontSize = 24;
+       
         }
         
         private void OnGUI() {
             if (Summary.isGameStarted) return;
+            GUIStyle style = new GUIStyle(GUI.skin.button); //定义控件
+            style.alignment = TextAnchor.MiddleCenter; 
+            style.fontSize = 24;
             GUILayout.Window(VIEW_START_PAGE_ID, new Rect(0,
                     0 ,
                     Screen.width , Screen.height), _ =>
@@ -153,7 +155,7 @@ namespace UI
                     GUILayout.BeginVertical("Box");
                     foreach (var player in tempTestBlue) {
                         if (ready[player]) {
-                            GUIStyle styleTemp = new GUIStyle();
+                            GUIStyle styleTemp = new GUIStyle(GUI.skin.box);
                             styleTemp.alignment = TextAnchor.MiddleCenter;
                             styleTemp.fontSize = 24;
                             styleTemp.normal.textColor = Color.green;
@@ -165,18 +167,18 @@ namespace UI
                     }
 
                     for (int i = 0; i < 5-tempTestBlue.Count; i++) {
-                        GUIStyle styleTemp = new GUIStyle();
+                        GUIStyle styleTemp = new GUIStyle(GUI.skin.box);
                         styleTemp.alignment = TextAnchor.MiddleCenter;
                         styleTemp.fontSize = 24;
                         styleTemp.normal.textColor = Color.magenta;
-                        GUILayout.Box("NULL",styleTemp,GUILayout.ExpandHeight(true));
+                        GUILayout.Box("",styleTemp,GUILayout.ExpandHeight(true));
                     }
                     GUILayout.EndVertical();
                     
                     GUILayout.BeginVertical("Box");
                     foreach (var player in tempTestRed) {
                         if (ready[player]) {
-                            GUIStyle styleTemp = new GUIStyle();
+                            GUIStyle styleTemp = new GUIStyle(GUI.skin.box);
                             styleTemp.alignment = TextAnchor.MiddleCenter;
                             styleTemp.fontSize = 24;
                             styleTemp.normal.textColor = Color.green;
@@ -188,11 +190,11 @@ namespace UI
                     }
 
                     for (int i = 0; i < 5-tempTestRed.Count; i++) {
-                        GUIStyle styleTemp = new GUIStyle();
+                        GUIStyle styleTemp = new GUIStyle(GUI.skin.box);
                         styleTemp.alignment = TextAnchor.MiddleCenter;
                         styleTemp.fontSize = 24;
                         styleTemp.normal.textColor = Color.magenta;
-                        GUILayout.Box("NULL",styleTemp,GUILayout.ExpandHeight(true));
+                        GUILayout.Box("",styleTemp,GUILayout.ExpandHeight(true));
                     }
                     GUILayout.EndVertical();
                     

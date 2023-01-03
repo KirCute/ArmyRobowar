@@ -13,13 +13,13 @@ namespace UI {
             Cursor.lockState = CursorLockMode.None;
             GUILayout.Window(VIEW_END_PAGE_ID, new Rect(0, 0, Screen.width, Screen.height), _ => {
                 GUILayout.BeginVertical();
-                GUIStyle style = new GUIStyle();
+                GUIStyle style = new GUIStyle(GUI.skin.label);
                 style.alignment = TextAnchor.MiddleCenter;
                 style.fontSize = 100;
                 GUILayout.Label("");
                 style.normal.textColor = Color.white;
                 GUILayout.Label("游戏结束", style);
-                GUIStyle styleTemp = new GUIStyle();
+                GUIStyle styleTemp = new GUIStyle(GUI.skin.label);
                 styleTemp.alignment = TextAnchor.MiddleCenter;
                 styleTemp.fontSize = 100;
                 styleTemp.normal.textColor = winner == 0 ? Color.blue : Color.red;
