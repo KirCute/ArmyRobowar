@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Equipment.Basement;
 using Model;
 using Photon.Pun;
 using Photon.Realtime;
@@ -11,8 +12,17 @@ namespace System {
         public static Team team { get; private set; }
 
         private void Start() {
+            team = new Team();
+        }
+
+        private void OnEnable() {
             Events.AddListener(Events.F_GAME_START, OnGameStart);
             Events.AddListener(Events.F_RESTART, OnRestart);
+        }
+
+        private void OnDisable() {
+            Events.RemoveListener(Events.F_GAME_START, OnGameStart);
+            Events.RemoveListener(Events.F_RESTART, OnRestart);
         }
 
         private static void OnGameStart(object[] args) {
@@ -35,19 +45,18 @@ namespace System {
             }
             
             var teamId = team0Players.Contains(PhotonNetwork.LocalPlayer) ? 0 : 1;
+            team.teamColor = teamId;
+            team.startTime = startTime;
             if (teamId == 0) {
-                team = new Team(teamId, team0Players, startTime);
-                if (team0Players[0].Equals(PhotonNetwork.LocalPlayer)) {
-                    isTeamLeader = true;
-                    Events.Invoke(Events.M_CAPTURE_BASE, new object[] {base0, 0});
-                } else isTeamLeader = false;
+                foreach (var player in team0Players) team.members.Add(player);
+                isTeamLeader = team0Players[0].Equals(PhotonNetwork.LocalPlayer);
             } else {
-                team = new Team(teamId, team1Players, startTime);
-                if (team1Players[0].Equals(PhotonNetwork.LocalPlayer)) {
-                    isTeamLeader = true;
-                    Events.Invoke(Events.M_CAPTURE_BASE, new object[] {base1, 1});
-                } else isTeamLeader = false;
+                foreach (var player in team1Players) team.members.Add(player);
+                isTeamLeader = team1Players[0].Equals(PhotonNetwork.LocalPlayer);
             }
+            
+            GameObject.Find($"Base_{base0}").GetComponentInChildren<MEBaseFlag>().CaptureBy(0);
+            GameObject.Find($"Base_{base1}").GetComponentInChildren<MEBaseFlag>().CaptureBy(1);
         }
 
         private static void OnRestart(object[] _) {

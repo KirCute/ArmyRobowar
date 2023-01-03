@@ -19,6 +19,7 @@ namespace Equipment.Sensor.Gun {
 
         private void Awake() {
             identity = GetComponent<MEComponentIdentifier>();
+            lastShoot = PhotonNetwork.Time;
         }
 
         private void OnEnable() {

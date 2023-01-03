@@ -19,7 +19,6 @@ namespace UI {
         private void OnEnable() {
             Events.AddListener(Events.F_BODY_HEALTH_CHANGED, ChangeBodyHealth);
             Events.AddListener(Events.M_ROBOT_MONITOR, OnMonitor);
-            //Events.AddListener(Events.F_GAME_OVER, OnGameOver);
         }
 
         private void OnDisable() {
@@ -46,11 +45,5 @@ namespace UI {
                 robotSlider.maxValue = Summary.team.robots[robotId].maxHealth;
             }
         }
-        /*private void OnGameOver(object[] args) {
-            if (args.Length != 0) {
-                this.enabled = false;
-            }
-        }*/
-        
     }
 }

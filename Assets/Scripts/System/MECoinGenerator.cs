@@ -11,15 +11,12 @@ namespace System {
         private double lastGenerate;
 
         private void OnEnable() {
-            Events.AddListener(Events.F_GAME_START, OnGameStart);
+            if (photonView.IsMine) Events.AddListener(Events.F_GAME_START, OnGameStart);
         }
 
         private void OnGameStart(object[] args) {
-            if (photonView.IsMine) {
-                rand ??= new Random(Guid.NewGuid().GetHashCode());
-                lastGenerate = (double) args[0] - rand.NextDouble() * GENERATE_TIME_INTERVAL;
-            }
-
+            rand ??= new Random(Guid.NewGuid().GetHashCode());
+            lastGenerate = (double) args[0] - rand.NextDouble() * GENERATE_TIME_INTERVAL;
             Events.RemoveListener(Events.F_GAME_START, OnGameStart);
         }
 
