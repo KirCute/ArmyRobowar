@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using Model.Equipment;
 using Model.Equipment.Template;
+using Photon.Pun;
 using UnityEngine;
 
 namespace UI {
-    public class MTViewRobotsRefit : MonoBehaviour {
+    public class MTViewRobotsRefit : MonoBehaviourPunCallbacks {
         private const int VIEW_REFIT_PAGE_ID = 0;
         private const float VIEW_REFIT_PAGE_WIDTH = 0.8F;
         private const float VIEW_REFIT_PAGE_HEIGHT = 0.8F;
@@ -136,6 +137,16 @@ namespace UI {
                 myRobot = null;
                 GetComponent<MEMainCameraController>().active = true;
             }
+        }
+        private void OnGameOver(object[] args) {
+            if (args.Length != 0) {
+                this.enabled = false;
+            }
+        }
+
+        public override void OnEnable() {
+            base.OnEnable();
+            Events.AddListener(Events.F_GAME_OVER, OnGameOver);
         }
     }
 }

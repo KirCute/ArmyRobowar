@@ -142,6 +142,8 @@ namespace UI
                     
 
                     if (GUILayout.Button("离开匹配",style)) {
+                        this.enabled = false;
+                        MTViewOrigin.getInstance().enabled = true;
                         Events.Invoke(Events.M_LEAVE_MATCHING, new object[] {PhotonNetwork.LocalPlayer});
                     }
                     GUILayout.EndHorizontal();

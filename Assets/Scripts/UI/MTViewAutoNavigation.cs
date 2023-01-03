@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using Map.Navigation;
+using Photon.Pun;
 using UnityEngine;
 
 namespace UI {
-    public class MTViewAutoNavigation : MonoBehaviour {
+    public class MTViewAutoNavigation : MonoBehaviourPunCallbacks {
         private const int SKETCH_MAP_WIDTH = 920;
         private const int SKETCH_MAP_HEIGHT = 680;
         private readonly List<Vector2> positionInSketchMap = new();
@@ -48,6 +49,16 @@ namespace UI {
                     Events.Invoke(Events.M_ROBOT_NAVIGATION, input);
                 }
             }
+        }
+        private void OnGameOver(object[] args) {
+            if (args.Length != 0) {
+                this.enabled = false;
+            }
+        }
+
+        public override void OnEnable() {
+            base.OnEnable();
+            Events.AddListener(Events.F_GAME_OVER, OnGameOver);
         }
     }
 }

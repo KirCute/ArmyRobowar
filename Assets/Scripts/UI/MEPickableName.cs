@@ -16,6 +16,7 @@ namespace UI {
             Events.AddListener(Events.M_ROBOT_MONITOR, OnMonitor);
             Events.AddListener(Events.F_ROBOT_FOUND_PICKABLE, OnFound);
             Events.AddListener(Events.F_ROBOT_LOST_FOUND_PICKABLE, OnLost);
+            Events.AddListener(Events.F_GAME_OVER, OnGameOver);
         }
 
         private void OnDisable() {
@@ -44,6 +45,12 @@ namespace UI {
                     robotId = -1;
                     text.text = "";
                 }
+            }
+        }
+        
+        private void OnGameOver(object[] args) {
+            if (args.Length != 0) {
+                this.enabled = false;
             }
         }
     }

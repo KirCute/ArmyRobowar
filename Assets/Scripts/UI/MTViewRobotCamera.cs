@@ -19,6 +19,7 @@ namespace UI {
         private void OnEnable() {
             Events.AddListener(Events.M_ROBOT_MONITOR, OnMonitored);
             Events.AddListener(Events.F_ROBOT_LOST_CONNECTION, OnLostConnection);
+            Events.AddListener(Events.F_GAME_OVER, OnGameOver);
         }
 
         private void OnDisable() {
@@ -65,5 +66,12 @@ namespace UI {
                 Events.Invoke(Events.M_ROBOT_MONITOR, new object[] {viewingRobot, PhotonNetwork.LocalPlayer, false});
             }
         }
+        private void OnGameOver(object[] args) {
+            if (args.Length != 0) {
+                this.enabled = false;
+            }
+        }
+
+        
     }
 }

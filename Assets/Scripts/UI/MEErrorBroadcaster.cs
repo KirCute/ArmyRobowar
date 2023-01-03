@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace UI {
-    public class MEErrorBroadcaster : MonoBehaviour {
+    public class MEErrorBroadcaster : MonoBehaviourPunCallbacks {
         private const float SINGLE_BROADCAST_TIME = 1.0F;
         
         private readonly List<string> longTermMessage = new();
@@ -47,6 +48,17 @@ namespace UI {
             if (broadcastingLongTerm == -1) broadcastingLongTerm = 0;
             lastBroadcastTime = Time.time;
             text.text = message;
+        }
+        
+        private void OnGameOver(object[] args) {
+            if (args.Length != 0) {
+                this.enabled = false;
+            }
+        }
+
+        public override void OnEnable() {
+            base.OnEnable();
+            Events.AddListener(Events.F_GAME_OVER, OnGameOver);
         }
     }
 }

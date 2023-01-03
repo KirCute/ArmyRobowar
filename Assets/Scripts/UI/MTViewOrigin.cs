@@ -135,5 +135,15 @@ namespace UI
             base.OnCreateRoomFailed(returnCode, message);
             createFail = "此房间已存在";
         }
+        private void OnGameOver(object[] args) {
+            if (args.Length != 0) {
+                this.enabled = false;
+            }
+        }
+
+        public override void OnEnable() {
+            base.OnEnable();
+            Events.AddListener(Events.F_GAME_OVER, OnGameOver);
+        }
     }
 }

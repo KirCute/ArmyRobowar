@@ -6,7 +6,7 @@ using Photon.Pun;
 using UnityEngine;
 
 namespace UI {
-    public class MTViewRobotsPage : MonoBehaviour {
+    public class MTViewRobotsPage : MonoBehaviourPunCallbacks {
         private const int VIEW_ROBOTS_PAGE_ID = 0;
         private const float VIEW_ROBOTS_PAGE_WIDTH = 0.8F;
         private const float VIEW_ROBOTS_PAGE_HEIGHT = 0.8F;
@@ -69,6 +69,16 @@ namespace UI {
                 enabled = false;
                 GetComponent<MEMainCameraController>().active = true;
             }
+        }
+        private void OnGameOver(object[] args) {
+            if (args.Length != 0) {
+                this.enabled = false;
+            }
+        }
+
+        public override void OnEnable() {
+            base.OnEnable();
+            Events.AddListener(Events.F_GAME_OVER, OnGameOver);
         }
     }
 }

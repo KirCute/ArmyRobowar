@@ -22,6 +22,8 @@ namespace UI {
             var robotNameErrorsKey = robotNameErrors.Keys.ToList();
             foreach (var key in robotNameErrorsKey) robotNameErrors[key] = "";
             Events.AddListener(Events.F_BASE_DESTROYED, OnBaseDestroyed);
+            Events.AddListener(Events.F_GAME_OVER, OnGameOver);
+         
         }
 
         private void OnDisable() {
@@ -105,5 +107,11 @@ namespace UI {
 
             baseId = minBigger == Constants.BASE_COUNT ? min : minBigger;
         }
+        private void OnGameOver(object[] args) {
+            if (args.Length != 0) {
+                this.enabled = false;
+            }
+        }
+        
     }
 }
