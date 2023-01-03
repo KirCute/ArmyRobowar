@@ -16,7 +16,7 @@ namespace UI
         private const string VIEW_ORIGIN_PAGE_TITLE = "";
         private string roomNameCreate = "";
         private string roomNameJoin = "";
-        private GUIStyle text_style = new GUIStyle();
+    
         private TypedLobby typedLobby;
         private Dictionary<string, RoomInfo> myRoomList = new Dictionary<string, RoomInfo>();
         private string roomExistCreate = "";
@@ -34,7 +34,7 @@ namespace UI
         }
 
         private void OnGUI() {
-            text_style = GUI.skin.textField;
+            GUIStyle text_style = new GUIStyle(GUI.skin.textField);
             text_style.normal.textColor = Color.white;
             text_style.fontSize = 75;
              GUILayout.Window(VIEW_ORIGIN_PAGE_ID, new Rect(0,

@@ -12,8 +12,6 @@ namespace UI
         private const int VIEW_ORIGIN_MORE_PAGE_ID = 0;
         private const string VIEW_ORIGIN_MORE_PAGE_TITLE = "";
         private string _nickname = "";
-        private GUIStyle text_style = new GUIStyle();
-        private GUIStyle label_style = new GUIStyle();
 
         public static MTViewOriginMore getInstance() {
             return _instance;
@@ -33,10 +31,12 @@ namespace UI
                 0,
                 Screen.width, Screen.height), _ =>
             {
-                text_style = GUI.skin.textField;
+                GUIStyle text_style = new GUIStyle(GUI.skin.textField);
+                GUIStyle label_style = new GUIStyle(GUI.skin.label);
+                
                 text_style.normal.textColor = Color.white;
                 text_style.fontSize = 30;
-                label_style = GUI.skin.label;
+                
                 label_style.normal.textColor = Color.white;
                 label_style.fontSize = 30;
                 GUILayout.BeginVertical("Box");

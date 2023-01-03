@@ -26,6 +26,7 @@ namespace UI {
 
                 foreach (var tech in Constants.TECHNOLOGY.Keys.Where(tech =>
                              !Summary.team.achievedTechnics.Contains(tech))) {
+                    GUILayout.BeginVertical("Box");
                     GUILayout.BeginHorizontal("Box");
 
                     GUILayout.Label($"{Constants.TECHNOLOGY[tech].name} ({Constants.TECHNOLOGY[tech].cost:0.00})");
@@ -40,6 +41,11 @@ namespace UI {
                     }
 
                     GUILayout.EndHorizontal();
+                    GUIStyle styleTemp = new GUIStyle(GUI.skin.label);
+                    styleTemp.fontSize = 15;
+                    styleTemp.normal.textColor = Color.yellow;
+                    GUILayout.Label(Constants.TECHNOLOGY[tech].description,styleTemp);
+                    GUILayout.EndVertical();
                 }
 
                 foreach (var tech in Summary.team.achievedTechnics) {

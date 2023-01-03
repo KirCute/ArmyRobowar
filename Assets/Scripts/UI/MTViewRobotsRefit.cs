@@ -27,72 +27,76 @@ namespace UI {
             GUILayout.Window(VIEW_REFIT_PAGE_ID, dim, _ => {
                 GUILayout.BeginHorizontal("Box");
                 GUILayout.BeginVertical();
-                GUILayout.BeginVertical("Box");
+                
                 robotScroll = GUILayout.BeginScrollView(robotScroll, false, false,
-                    GUILayout.Height(Screen.height * VIEW_REFIT_PAGE_HEIGHT / 2F));
+                    GUILayout.Height(Screen.height * VIEW_REFIT_PAGE_HEIGHT / 2F),GUILayout.Width(Screen.width * VIEW_REFIT_PAGE_WIDTH/2));
+                GUILayout.BeginVertical("Box");
                 foreach (var robot in Summary.team.robots.Values.Where(r => r.atHome)) {
-                    GUILayout.BeginVertical("Box");
+                    GUILayout.BeginVertical();
+                    GUILayout.BeginHorizontal("Box");
                     GUILayout.Label(robot.name, GUILayout.ExpandWidth(true));
                     if (GUILayout.Button("查看机器人", GUILayout.ExpandWidth(false))) {
                         myRobot = robot;
                     }
-
-                    GUILayout.EndVertical();
-                }
-
-                GUILayout.EndScrollView();
-                GUILayout.EndVertical();
-
-                if (myRobot != null) {
-                    GUILayout.BeginVertical("Box");
-                    detailScroll = GUILayout.BeginScrollView(detailScroll, false, false,
-                        GUILayout.Height(Screen.height * VIEW_REFIT_PAGE_HEIGHT / 2F));
-                    GUILayout.Label(myRobot.name);
-                    GUILayout.BeginVertical("Box");
-                    GUILayout.Label("已安装配件：", GUILayout.ExpandWidth(true));
-                    for (var i = 0; i < myRobot.equippedComponents.Length; i++) {
-                        var component = myRobot.equippedComponents[i];
-                        GUILayout.BeginHorizontal("Box");
-                        GUILayout.Label($"{i} - {(component == null ? "空" : component.template.name)}",
-                            GUILayout.ExpandWidth(true));
-                        if (component != null && GUILayout.Button("拆卸", GUILayout.ExpandWidth(false))) {
-                            Events.Invoke(Events.M_ROBOT_UNINSTALL_COMPONENT, new object[] {
-                                Summary.team.teamColor, myRobot.id, i
-                            });
-                        }
-
-                        GUILayout.EndHorizontal();
-                    }
-
-                    GUILayout.EndVertical();
-                    if (myRobot.inventoryCapacity > 0) {
+                    GUILayout.EndHorizontal();
+                    if (myRobot != null) {
                         GUILayout.BeginVertical("Box");
-                        GUILayout.BeginHorizontal();
-                        GUILayout.Label($"物品栏 (容量: {myRobot.inventoryCapacity})：", GUILayout.ExpandWidth(true));
-                        if (GUILayout.Button("卸货", GUILayout.ExpandWidth(false))) {
-                            Events.Invoke(Events.M_ROBOT_RELEASE_INVENTORY, new object[] {
-                                Summary.team.teamColor, myRobot.id
-                            });
-                        }
-
-                        GUILayout.EndHorizontal();
-                        for (var i = 0; i < myRobot.inventory.Count; i++) {
+                        detailScroll = GUILayout.BeginScrollView(detailScroll, false, false,
+                            GUILayout.Height(Screen.height * VIEW_REFIT_PAGE_HEIGHT / 2F));
+                        GUILayout.BeginVertical("Box");
+                        GUILayout.Label("已安装配件：", GUILayout.ExpandWidth(true));
+                        for (var i = 0; i < myRobot.equippedComponents.Length; i++) {
+                            var component = myRobot.equippedComponents[i];
                             GUILayout.BeginHorizontal("Box");
-                            GUILayout.Label($"{i} - {myRobot.inventory[i].name}", GUILayout.ExpandWidth(true));
+                            GUIStyle styleTemp = new GUIStyle(GUI.skin.label);
+                            styleTemp.fontSize = 20;
+                            GUILayout.Label($"{i} - {(component == null ? "空" : component.template.name)}",styleTemp,
+                                GUILayout.ExpandWidth(true));
+                            if (component != null && GUILayout.Button("拆卸", GUILayout.ExpandWidth(false))) {
+                                Events.Invoke(Events.M_ROBOT_UNINSTALL_COMPONENT, new object[] {
+                                    Summary.team.teamColor, myRobot.id, i
+                                });
+                            }
+
                             GUILayout.EndHorizontal();
                         }
 
                         GUILayout.EndVertical();
+                        if (myRobot.inventoryCapacity > 0) {
+                            GUILayout.BeginVertical("Box");
+                            GUILayout.BeginHorizontal();
+                            GUILayout.Label($"物品栏 (容量: {myRobot.inventoryCapacity})：", GUILayout.ExpandWidth(true));
+                            if (GUILayout.Button("卸货", GUILayout.ExpandWidth(false))) {
+                                Events.Invoke(Events.M_ROBOT_RELEASE_INVENTORY, new object[] {
+                                    Summary.team.teamColor, myRobot.id
+                                });
+                            }
+
+                            GUILayout.EndHorizontal();
+                            for (var i = 0; i < myRobot.inventory.Count; i++) {
+                                GUILayout.BeginHorizontal("Box");
+                                GUILayout.Label($"{i} - {myRobot.inventory[i].name}", GUILayout.ExpandWidth(true));
+                                GUILayout.EndHorizontal();
+                            }
+
+                            GUILayout.EndVertical();
+                        }
+
+                        GUILayout.EndScrollView();
+                        GUILayout.EndVertical();
                     }
 
-                    GUILayout.EndScrollView();
                     GUILayout.EndVertical();
                 }
+                GUILayout.EndVertical();
+                GUILayout.EndScrollView();
+                
 
+                
                 GUILayout.EndVertical();
 
                 componentScroll = GUILayout.BeginScrollView(componentScroll, false, false,
-                    GUILayout.Height(Screen.height * VIEW_REFIT_PAGE_HEIGHT));
+                    GUILayout.Height(Screen.height * VIEW_REFIT_PAGE_HEIGHT),GUILayout.Width(Screen.width * VIEW_REFIT_PAGE_WIDTH/2));
                 GUILayout.BeginVertical("Box");
 
                 for (var i = 0; i < Summary.team.components.Count; i++) {

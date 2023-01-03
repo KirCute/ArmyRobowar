@@ -73,14 +73,23 @@ namespace UI {
                     }
                     GUILayout.EndHorizontal();
                     GUILayout.BeginHorizontal();
-                    GUILayout.Label("命名:", GUILayout.ExpandWidth(false)); 
-                    robotNames[goods] = GUILayout.TextField(robotNames[goods], GUILayout.ExpandWidth(true));
+                    GUILayout.Label("命名:", GUILayout.ExpandWidth(false));
+                    GUIStyle styleTemp = new GUIStyle(GUI.skin.textField);
+                    styleTemp.fontSize = 30;
+                    robotNames[goods] = GUILayout.TextField(robotNames[goods],9,styleTemp, GUILayout.ExpandWidth(true));
                     GUILayout.Label($"{robotNameErrors[goods], -16}", GUILayout.ExpandWidth(false));
+                    GUILayout.EndHorizontal();
+                    GUILayout.BeginHorizontal("Box");
+                    GUIStyle styleTempForLabel = new GUIStyle(GUI.skin.label);
+                    styleTempForLabel.normal.textColor = Color.yellow;
+                    styleTempForLabel.fontSize = 15;
+                    GUILayout.Label(Constants.TECHNOLOGY[goods].description,styleTempForLabel);
                     GUILayout.EndHorizontal();
                     GUILayout.EndVertical();
                 }
 
                 foreach (var goods in Summary.team.availableSensorTemplates) {
+                    GUILayout.BeginVertical("Box");
                     GUILayout.BeginHorizontal("Box");
                     var template = Constants.SENSOR_TEMPLATES[goods];
                     GUILayout.Label($"{template.name} (${template.cost})", GUILayout.ExpandWidth(true));
@@ -89,6 +98,11 @@ namespace UI {
                     }
 
                     GUILayout.EndHorizontal();
+                    GUIStyle styleTempForLabel = new GUIStyle(GUI.skin.label);
+                    styleTempForLabel.normal.textColor = Color.yellow;
+                    styleTempForLabel.fontSize = 15;
+                    GUILayout.Label(Constants.TECHNOLOGY[goods].description,styleTempForLabel);
+                    GUILayout.EndVertical();
                 }
 
                 GUILayout.EndVertical();
