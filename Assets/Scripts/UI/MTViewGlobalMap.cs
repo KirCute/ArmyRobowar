@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Map.Navigation;
 using Model.Equipment;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,9 +17,11 @@ namespace UI {
         private const string VIEW_MAP_PAGE_TITLE = "自主导航路径设置";
         
         private Vector2 robotScroll = Vector2.zero;
-        private Robot selectedRobot;
+        private int selectedRobot;
         private static GameObject[] blackMasks = new GameObject[46 * 34];
         private GameObject mapGameObject;
+        private List<Vector2> positionInWorld = new List<Vector2>();
+//        private int m = 0, n = 0;
 
         private void Awake() {
             mapGameObject = Instantiate(map,transform.Find("Canvas").Find("Naviga").gameObject.GetComponent<RectTransform>());
@@ -51,6 +54,7 @@ namespace UI {
                         blackMasks[temp].SetActive(false);
                     }
                 }
+                positionInWorld.Clear();
                 GetComponent<MEMainCameraController>().active = true;
             }
         }
@@ -66,17 +70,21 @@ namespace UI {
             mapGameObject.SetActive(true); 
             ChangeMask();*/
             mapGameObject.SetActive(true);
+            //bool last = true;
             for (int i = 0; i < 34; i++) {
                 for (int j = 0; j < 46; j++) {
                     int temp = i * 46 + j;
+                    //last = !last;
+                    //Summary.team.teamMap[temp] = last;
                     if (Summary.team.teamMap[temp]) {
-                        blackMasks[temp].SetActive(true);
+                        blackMasks[temp].SetActive(false);
                     }
                     else {
-                        blackMasks[temp].SetActive(false);
+                        blackMasks[temp].SetActive(true);
                     }
                 }
             }
+            
             robotScroll = GUILayout.BeginScrollView(robotScroll, false, false);
             GUILayout.BeginVertical("Box");//未失联机器人列表
             foreach (var robot in Summary.team.robots.Values.Where(r => r.status == Robot.STATUS_ACTIVE)) {
@@ -84,26 +92,51 @@ namespace UI {
                 GUILayout.BeginVertical("Box");//单个机器人
                 GUILayout.Label(robot.name, GUILayout.ExpandWidth(true));
                 if (GUILayout.Button("选择机器人", GUILayout.ExpandWidth(false))) {
-                    selectedRobot = robot;
+                    selectedRobot = robot.id;
                 }
                 GUILayout.EndVertical();
+            }
+
+            if (GUILayout.Button("开始导航")) {
+                var temp = GameObject.Find($"Robot_{selectedRobot}");
+                positionInWorld.Insert(0,new Vector2(temp.transform.position.x,temp.transform.position.z));
+                List<Vector2> path = MDNavigationCenter.GetInstance().GetFinalPath(positionInWorld);
+                var input = new object[path.Count + 2];
+                input[0] = selectedRobot;
+                input[1] = path.Count;
+                for (var i = 2; i < path.Count + 2; i++) input[i] = path[1 - 2];
+                Events.Invoke(Events.M_ROBOT_NAVIGATION, input);
             }
             GUILayout.EndVertical();
             GUILayout.EndScrollView();
             GUILayout.EndHorizontal();
         }
 
+        
         void CreateMask() {
-            for (int i = 0; i < 34; i++) {
-                for (int j = 0; j < 46; j++) {
+            for (int m = 0; m < 34; m++) {
+                for (int n = 0; n < 46; n++) {
                     GameObject temp = Instantiate(blackMask,transform.Find("Canvas").Find("Naviga").gameObject.GetComponent<RectTransform>());
-                    blackMasks[i * 46 + j] = temp;
-                    blackMasks[i * 46 + j].name = "blackMask_" + (i * 46 + j);
-                    blackMasks[i * 46 + j].GetComponent<RectTransform>().localPosition = new Vector2(-230+5+j*10, -170+5+i*10);
-                    blackMasks[i * 46 + j].GetComponent<RectTransform>().sizeDelta = new Vector2(10, 10);
-                    blackMasks[i * 46 + j].SetActive(false);
+                    blackMasks[m * 46 + n] = temp;
+                    blackMasks[m * 46 + n].name = "blackMask_" + (m * 46 + n);
+                    blackMasks[m * 46 + n].GetComponent<RectTransform>().localPosition = new Vector2(-230+5+n*10, -170+5+m*10);
+                    blackMasks[m * 46 + n].GetComponent<RectTransform>().sizeDelta = new Vector2(10, 10);
+                    blackMasks[m * 46 + n].SetActive(false);
+                    AddListener(transform.Find("Canvas").Find("Naviga").Find("blackMask_" + (m * 46 + n)).GetComponent<Button>(),m,n);
                 }
             }
+        }
+
+        void TransformPosition(int m,int n) {
+            //屏幕坐标转化为世界坐标
+            Vector2 temp = new Vector2(-61 + 61 / 17 * 2 + m * 61 / 17, -82 + 82 / 23 * 2 + n * 82 / 23);
+            positionInWorld.Add(temp);
+            Debug.Log("clickPosition " + m + "," + n);
+        }
+        
+        void AddListener(Button button, int m,int n)
+        {
+            button.onClick.AddListener(delegate { TransformPosition(m,n); });
         }
     }
 }
