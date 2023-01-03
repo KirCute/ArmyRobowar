@@ -120,10 +120,5 @@ namespace UI {
         private void OnConnectionRepair(object[] args) {
             if (controllingRobot == (int) args[0]) broadcaster.RemoveLongTermMessage(CONNECTION_WEAK_NOTIFY);
         }
-        /*private void OnGameOver(object[] args) {
-            if (args.Length != 0) {
-                this.enabled = false;
-            }
-        }*/
     }
 }

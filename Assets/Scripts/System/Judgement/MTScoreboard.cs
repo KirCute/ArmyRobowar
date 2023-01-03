@@ -2,7 +2,7 @@ using Photon.Pun;
 
 namespace System.Judgement {
     public class MTScoreboard : MonoBehaviourPun {
-        private int cntBase;
+        private int cntBase = 1;
         
         private void OnEnable() {
             Events.AddListener(Events.M_CAPTURE_BASE, OnBaseCaptured);

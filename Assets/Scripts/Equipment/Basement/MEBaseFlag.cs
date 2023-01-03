@@ -18,16 +18,7 @@ namespace Equipment.Basement {
 
         private void OnCapture(object[] args) {
             if (baseId == (int) args[0]) {
-                flagColor = (int) args[1];
-                if (flagColor == Summary.team.teamColor) {
-                    Summary.team.bases.Add(baseId, new Model.Equipment.Basement(baseId));
-
-                    if (Summary.isTeamLeader) {
-                        foreach (var photon in GetComponentsInChildren<PhotonView>()) {
-                            photon.TransferOwnership(PhotonNetwork.LocalPlayer);
-                        }
-                    }
-                }
+                CaptureBy((int) args[1]);
             }
         }
 
@@ -49,6 +40,19 @@ namespace Equipment.Basement {
 
         public override int GetTeamId() {
             return flagColor;
+        }
+
+        public void CaptureBy(int team) {
+            flagColor = team;
+            if (flagColor == Summary.team.teamColor) {
+                Summary.team.bases.Add(baseId, new Model.Equipment.Basement(baseId));
+
+                if (Summary.isTeamLeader) {
+                    foreach (var photon in GetComponentsInChildren<PhotonView>()) {
+                        photon.TransferOwnership(PhotonNetwork.LocalPlayer);
+                    }
+                }
+            }
         }
     }
 }

@@ -12,6 +12,11 @@ namespace Equipment.Sensor {
         }
 
         private void Update() {
+            if (Summary.team.robots[identity.robotId].equippedComponents[identity.index] == null) {
+                broken = true;
+                return; // 配件应该是被拆卸了，此时什么也不用做，静等脚本销毁
+            }
+
             if (identity.team == Summary.team.teamColor &&
                 Summary.team.robots[identity.robotId].equippedComponents[identity.index].health <= 0) {
                 Summary.team.robots[identity.robotId].equippedComponents[identity.index]

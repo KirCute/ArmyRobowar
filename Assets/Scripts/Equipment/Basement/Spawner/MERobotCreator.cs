@@ -44,10 +44,12 @@ namespace Equipment.Basement.Spawner {
 
         private void OnEnable() {
             Events.AddListener(Events.M_CREATE_ROBOT, OnRobotCreating);
+            Events.RemoveListener(Events.F_BASE_DESTROYED, OnConquered);
         }
 
         private void OnDisable() {
             Events.RemoveListener(Events.M_CREATE_ROBOT, OnRobotCreating);
+            Events.RemoveListener(Events.F_BASE_DESTROYED, OnConquered);
         }
 
         private void OnRobotCreating(object[] args) {
@@ -62,5 +64,14 @@ namespace Equipment.Basement.Spawner {
                 }
             }
         }
+
+        private void OnConquered(object[] args) {
+            if (identity.baseId == (int) args[0] && Summary.team.teamColor == (int) args[1]) {
+                foreach (var fetus in creatingIds) {
+                    Summary.team.robots[fetus].manufacturing = false;
+                }
+                creatingIds.Clear();
+            }
+        } 
     }
 }

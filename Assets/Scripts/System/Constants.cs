@@ -126,21 +126,30 @@ namespace System {
                     "iInventory", new SensorTemplate("iInventory", "小型载物架", "机器人的最大载物量+2。", 
                         SensorTemplate.SENSOR_TYPE_INVENTORY, 1, 20, 0.3,
                         (_, id, _, _) => Summary.team.robots[id].inventoryCapacity += 2,
-                        (_, id, _, _) => Summary.team.robots[id].inventoryCapacity -= 2,
+                        (_, id, _, send) => {
+                            if (send) Events.Invoke(Events.M_ROBOT_RELEASE_INVENTORY, new object[] { Summary.team.teamColor, id });
+                            Summary.team.robots[id].inventoryCapacity -= 2;
+                        },
                         SensorTemplate.COMMON_COMPONENT_PREFAB
                     )
                 }, {
                     "iiInventory", new SensorTemplate("iiInventory", "中型载物架", "机器人的最大载物量+3。", 
                         SensorTemplate.SENSOR_TYPE_INVENTORY, 1, 30, 0.3,
                         (_, id, _, _) => Summary.team.robots[id].inventoryCapacity += 3,
-                        (_, id, _, _) => Summary.team.robots[id].inventoryCapacity -= 3,
+                        (_, id, _, send) => {
+                            if (send) Events.Invoke(Events.M_ROBOT_RELEASE_INVENTORY, new object[] {Summary.team.teamColor, id});
+                            Summary.team.robots[id].inventoryCapacity -= 3;
+                        },
                         SensorTemplate.RARE_COMPONENT_PREFAB
                     )
                 }, {
                     "iiiInventory", new SensorTemplate("iiiInventory", "大型载物架", "机器人的最大载物量+4。", 
                         SensorTemplate.SENSOR_TYPE_INVENTORY, 1, 40, 0.3,
                         (_, id, _, _) => Summary.team.robots[id].inventoryCapacity += 4,
-                        (_, id, _, _) => Summary.team.robots[id].inventoryCapacity -= 4,
+                        (_, id, _, send) => {
+                            if (send) Events.Invoke(Events.M_ROBOT_RELEASE_INVENTORY, new object[] {Summary.team.teamColor, id});
+                            Summary.team.robots[id].inventoryCapacity -= 4;
+                        },
                         SensorTemplate.HEROIC_COMPONENT_PREFAB
                     )
                 }, {

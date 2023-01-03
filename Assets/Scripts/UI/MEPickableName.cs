@@ -16,13 +16,14 @@ namespace UI {
             Events.AddListener(Events.M_ROBOT_MONITOR, OnMonitor);
             Events.AddListener(Events.F_ROBOT_FOUND_PICKABLE, OnFound);
             Events.AddListener(Events.F_ROBOT_LOST_FOUND_PICKABLE, OnLost);
-            //Events.AddListener(Events.F_GAME_OVER, OnGameOver);
+            Events.AddListener(Events.M_ROBOT_PICK, OnLost);
         }
 
         private void OnDisable() {
             Events.RemoveListener(Events.M_ROBOT_MONITOR, OnMonitor);
             Events.RemoveListener(Events.F_ROBOT_FOUND_PICKABLE, OnFound);
             Events.RemoveListener(Events.F_ROBOT_LOST_FOUND_PICKABLE, OnLost);
+            Events.RemoveListener(Events.M_ROBOT_PICK, OnLost);
         }
 
         private void OnFound(object[] args) {
@@ -47,11 +48,5 @@ namespace UI {
                 }
             }
         }
-        
-        /*private void OnGameOver(object[] args) {
-            if (args.Length != 0) {
-                this.enabled = false;
-            }
-        }*/
     }
 }

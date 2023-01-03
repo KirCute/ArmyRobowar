@@ -27,12 +27,11 @@ namespace UI {
             }
 
             var pos = GameObject.Find($"Robot_{robotId}").transform.position;
-            minimapCamera.transform.position = new Vector3(pos.x, lidarLevel * 10f, pos.z);
+            minimapCamera.transform.position = new Vector3(pos.x, lidarLevel * 20f, pos.z);
         }
 
         private void OnEnable() {
             Events.AddListener(Events.M_ROBOT_MONITOR, OnMonitored);
-            //Events.AddListener(Events.F_GAME_OVER, OnGameOver);
         }
 
         private void OnDisable() {
@@ -60,11 +59,5 @@ namespace UI {
                 }
             }
         }
-        /*private void OnGameOver(object[] args) {
-            if (args.Length != 0) {
-                this.enabled = false;
-            }
-        }*/
-        
     }
 }

@@ -6,9 +6,12 @@
             identity = GetComponentInParent<MERobotIdentifier>();
         }
         
-        public override void PlusSignal(int signal, int team) {
-            if (identity.team != team) return;
+        public override void PlusSignal(int signal) {
             Events.Invoke(Events.M_ROBOT_CHANGE_CONNECTION, new object[] {identity.id, signal});
+        }
+
+        public override int GetTeamId() {
+            return identity.team;
         }
     }
 }
