@@ -8283,7 +8283,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 544287682}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 61.8, y: 0, z: 83.7}
   m_LocalScale: {x: 62, y: 1, z: 83}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -27603,6 +27603,13 @@ MonoBehaviour:
   blackMask: {fileID: 1112484188667574675, guid: 14b856d6e7e157a43963bc1abad55620,
     type: 3}
   map: {fileID: 5859234938240738562, guid: 0b942136ac0ef7c48a3a5de847f480fa, type: 3}
+  Base0: {fileID: 5620707832179406888, guid: 8d98ff26b3a2bf4409b235e730e42565, type: 3}
+  Base1: {fileID: 7903883428256399903, guid: 8ab6ef7fed78a264aa58bef5e8375225, type: 3}
+  Base2: {fileID: 5185449142714829865, guid: bd44e108ff9c384439dd6f9d01c5b690, type: 3}
+  Base3: {fileID: 6702851707337925230, guid: b333fc2aea61e9d4586520f2a494d3cb, type: 3}
+  Base4: {fileID: 9160744681244948288, guid: 5561972775e3227489230c9f68ad84ca, type: 3}
+  Base5: {fileID: 7484687940103583877, guid: 1d115c995784d454c8f93c884146f8cd, type: 3}
+  NavMark: {fileID: 5925631619938338444, guid: b1536bb584cbe4146a751c99fefcca30, type: 3}
 --- !u!114 &1964602110
 MonoBehaviour:
   m_ObjectHideFlags: 0
