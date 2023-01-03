@@ -32,7 +32,7 @@ namespace UI {
 
         private void OnEnable() {
             Events.AddListener(Events.M_ROBOT_MONITOR, OnMonitored);
-            Events.AddListener(Events.F_GAME_OVER, OnGameOver);
+            //Events.AddListener(Events.F_GAME_OVER, OnGameOver);
         }
 
         private void OnDisable() {
@@ -60,11 +60,11 @@ namespace UI {
                 }
             }
         }
-        private void OnGameOver(object[] args) {
+        /*private void OnGameOver(object[] args) {
             if (args.Length != 0) {
                 this.enabled = false;
             }
-        }
+        }*/
         
     }
 }

@@ -28,6 +28,7 @@ namespace UI {
 
         private void OnDisable() {
             Events.RemoveListener(Events.F_BASE_DESTROYED, OnBaseDestroyed);
+            Events.RemoveListener(Events.F_GAME_OVER, OnGameOver);
         }
 
         private void OnBaseDestroyed(object[] args) {
@@ -66,6 +67,8 @@ namespace UI {
                             robotNameErrors[goods] = "该名称已被使用";
                         } else {
                             Events.Invoke(Events.M_CREATE_ROBOT, new object[] {baseId, goods, robotNames[goods]});
+                            robotNameErrors[goods] = "";
+                            robotNames[goods] = "";
                         }
                     }
                     GUILayout.EndHorizontal();

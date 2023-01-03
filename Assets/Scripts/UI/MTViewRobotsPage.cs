@@ -80,5 +80,10 @@ namespace UI {
             base.OnEnable();
             Events.AddListener(Events.F_GAME_OVER, OnGameOver);
         }
+
+        public override void OnDisable() {
+            base.OnDisable();
+            Events.RemoveListener(Events.F_GAME_OVER, OnGameOver);
+        }
     }
 }

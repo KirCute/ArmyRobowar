@@ -25,6 +25,7 @@ namespace UI {
         private void OnDisable() {
             Events.RemoveListener(Events.M_ROBOT_MONITOR, OnMonitored);
             Events.RemoveListener(Events.F_ROBOT_LOST_CONNECTION, OnLostConnection);
+            Events.RemoveListener(Events.F_GAME_OVER, OnGameOver);
         }
 
         private void Update() {

@@ -15,7 +15,7 @@ namespace UI {
                 foresightObject.SetActive(Cursor.lockState == CursorLockMode.Locked);
             }
         }
-        private void OnGameOver(object[] args) {
+        /*private void OnGameOver(object[] args) {
             if (args.Length != 0) {
                 this.enabled = false;
             }
@@ -23,7 +23,7 @@ namespace UI {
 
         public override void OnEnable() {
             base.OnEnable();
-            Events.AddListener(Events.F_GAME_OVER, OnGameOver);
-        }
+            Events.AddListener(Events.F_GAME_OVER, OnGameOver);*/
+        //}
     }
 }

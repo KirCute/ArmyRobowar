@@ -60,6 +60,7 @@ namespace UI
                 Events.RemoveListener(Events.F_PLAYER_LIST_UPDATED, OnPlayerListSync);
             }
             Events.RemoveListener(Events.F_GAME_START, OnGameStart);
+            
         }
         
         private void Start() {
@@ -288,5 +289,6 @@ namespace UI
         private void OnGameStart(object[] args) {
             enabled = false;
         }
+        
     }
 }
