@@ -2,7 +2,7 @@
 
 namespace UI {
     public class MEMainCameraController : MonoBehaviour {
-        private const float SENSITIVITY = 10.0f;
+        private const float SENSITIVITY = 7.5f;
         private const int CLICK_LAYER_MASK = 1 << 5;
         
         [SerializeField] private Camera mainCamera;
@@ -20,6 +20,7 @@ namespace UI {
 
         private void OnEnable() {
             Events.AddListener(Events.F_GAME_START, OnGameStart);
+           // Events.AddListener(Events.F_GAME_OVER, OnGameOver);
         }
 
         private void OnDisable() {
@@ -55,5 +56,11 @@ namespace UI {
                 }
             }
         }
+        /*private void OnGameOver(object[] args) {
+            if (args.Length != 0) {
+                this.enabled = false;
+            }
+        }*/
+        
     }
 }

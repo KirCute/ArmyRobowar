@@ -22,10 +22,13 @@ namespace UI {
             var robotNameErrorsKey = robotNameErrors.Keys.ToList();
             foreach (var key in robotNameErrorsKey) robotNameErrors[key] = "";
             Events.AddListener(Events.F_BASE_DESTROYED, OnBaseDestroyed);
+            Events.AddListener(Events.F_GAME_OVER, OnGameOver);
+         
         }
 
         private void OnDisable() {
             Events.RemoveListener(Events.F_BASE_DESTROYED, OnBaseDestroyed);
+            Events.RemoveListener(Events.F_GAME_OVER, OnGameOver);
         }
 
         private void OnBaseDestroyed(object[] args) {
@@ -64,6 +67,8 @@ namespace UI {
                             robotNameErrors[goods] = "该名称已被使用";
                         } else {
                             Events.Invoke(Events.M_CREATE_ROBOT, new object[] {baseId, goods, robotNames[goods]});
+                            robotNameErrors[goods] = "";
+                            robotNames[goods] = "";
                         }
                     }
                     GUILayout.EndHorizontal();
@@ -105,5 +110,11 @@ namespace UI {
 
             baseId = minBigger == Constants.BASE_COUNT ? min : minBigger;
         }
+        private void OnGameOver(object[] args) {
+            if (args.Length != 0) {
+                this.enabled = false;
+            }
+        }
+        
     }
 }

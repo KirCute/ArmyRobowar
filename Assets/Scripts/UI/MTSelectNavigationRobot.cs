@@ -1,10 +1,11 @@
 using System;
 using System.Linq;
 using Model.Equipment;
+using Photon.Pun;
 using UnityEngine;
 
 namespace UI {
-    public class MTSelectNavigationRobot : MonoBehaviour{
+    public class MTSelectNavigationRobot : MonoBehaviourPunCallbacks{
         
         private const int PICK_ROBOTS_PAGE_ID = 0;//TODO
         private const float PICK_ROBOTS_PAGE_WIDTH = 0.8F;
@@ -57,6 +58,16 @@ namespace UI {
             }
             
             GUILayout.EndScrollView();
+        }
+        private void OnGameOver(object[] args) {
+            if (args.Length != 0) {
+                this.enabled = false;
+            }
+        }
+
+        public override void OnEnable() {
+            base.OnEnable();
+            Events.AddListener(Events.F_GAME_OVER, OnGameOver);
         }
     }
 }

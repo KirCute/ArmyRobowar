@@ -23,7 +23,7 @@ namespace Equipment.Sensor {
         }
 
         private void OnTowardsChanging(object[] args) {
-            if (identity.id == (int) args[0] && photonView.IsMine) {
+            if (identity.id == (int) args[0]) {
                 var rotationY = transform.localEulerAngles.y;
                 var rotationZ = transform.localEulerAngles.z;
                 switch ((int) args[1]) {

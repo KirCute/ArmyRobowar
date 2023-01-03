@@ -30,13 +30,17 @@ namespace Equipment.Sensor.Gun {
         }
 
         private void OnFire(object[] args) {
-            if (identity.robotId == (int) args[0] && PhotonNetwork.Time - lastShoot > loadingTime && photonView.IsMine) {
-                if (Physics.Raycast(transform.position, transform.forward, out var hit, MAX_SHOOT_DISTANCE, SHOOT_MASK)) {
-                    var hurt = hit.collider.GetComponent<AbstractMTHurt>();
-                    if (hurt != null) hurt.Hurt(damage, identity.team);
+            if (identity.robotId == (int) args[0] && PhotonNetwork.Time - lastShoot > loadingTime) {
+                if (photonView.IsMine) {
+                    if (Physics.Raycast(transform.position, transform.forward, out var hit, MAX_SHOOT_DISTANCE,
+                            SHOOT_MASK)) {
+                        var hurt = hit.collider.GetComponent<AbstractMTHurt>();
+                        if (hurt != null) hurt.Hurt(damage, identity.team);
+                    }
+
+                    Events.Invoke(Events.F_ROBOT_FIRED, new object[] {identity.robotId, transform.position, hit.point});
                 }
 
-                Events.Invoke(Events.F_ROBOT_FIRED, new object[] {identity.robotId, transform.position, hit.point});
                 lastShoot = PhotonNetwork.Time;
             }
         }

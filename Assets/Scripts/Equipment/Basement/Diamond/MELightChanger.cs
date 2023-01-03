@@ -30,9 +30,9 @@ namespace Equipment.Basement.Diamond {
                 }
 
                 foreach (var meshRenderer in GetComponentsInChildren<MeshRenderer>()) {
-                    meshRenderer.materials[2] = memorizingFlag == -1
-                        ? neutralProjectorMaterial
-                        : projectorMaterials[memorizingFlag];
+                    var materials = meshRenderer.materials;
+                    materials[2] = memorizingFlag == -1 ? neutralProjectorMaterial : projectorMaterials[memorizingFlag];
+                    meshRenderer.materials = materials;
                 }
             }
         }

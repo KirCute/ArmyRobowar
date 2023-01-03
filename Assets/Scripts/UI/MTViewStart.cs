@@ -60,6 +60,7 @@ namespace UI
                 Events.RemoveListener(Events.F_PLAYER_LIST_UPDATED, OnPlayerListSync);
             }
             Events.RemoveListener(Events.F_GAME_START, OnGameStart);
+            
         }
         
         private void Start() {
@@ -139,16 +140,11 @@ namespace UI
                             }
                         }
                     }
-                    if (GUILayout.Button("交换队伍",style)) {
-                        if (myTeam == 0) {
-                            if (tempTestRed.Count == 5) {
-                                
-                            }
-                        }
-                        Events.Invoke(Events.M_CHANGE_TEAM, new object[] {PhotonNetwork.LocalPlayer, 1 - myTeam});
-                    }
+                    
 
                     if (GUILayout.Button("离开匹配",style)) {
+                        this.enabled = false;
+                        MTViewOrigin.getInstance().enabled = true;
                         Events.Invoke(Events.M_LEAVE_MATCHING, new object[] {PhotonNetwork.LocalPlayer});
                     }
                     GUILayout.EndHorizontal();
@@ -208,8 +204,6 @@ namespace UI
 
         private void OnPlayerAttend(object[] args) {
             var player = (Player) args[0];
-            Debug.Log(player);
-            Debug.Log(player.IsMasterClient);
             if (player.IsMasterClient) {
                 ready.Add(player, true);
                 tempTestBlue.Add(player);
@@ -221,7 +215,7 @@ namespace UI
         }
 
         private void OnPlayerReady(object[] args) {
-            ready[(Player) args[0]] = true;
+            ready[(Player) args[0]] = (bool) args[1];
             SyncPlayerList();
         }
 
@@ -295,5 +289,6 @@ namespace UI
         private void OnGameStart(object[] args) {
             enabled = false;
         }
+        
     }
 }
