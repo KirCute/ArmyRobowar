@@ -43,9 +43,9 @@ namespace UI
                 GUILayout.Label("",GUILayout.ExpandHeight(true));
                 //GUILayout.Label("请输入你的名字:",GUILayout.ExpandHeight(false));
                 GUILayout.BeginHorizontal();
-                GUILayout.Label("请输入你的名字:            ",label_style);
+                GUILayout.Label("请输入你的名字:",label_style);
                 _nickname =  GUILayout.TextField(_nickname,text_style,GUILayout.ExpandHeight(false),GUILayout.ExpandWidth(true),GUILayout.Width(Screen.width/3),GUILayout.Height(Screen.height/8));
-                GUILayout.Label("(不少于两个字)             ");
+                GUILayout.Label("(不少于两个字)                             ");
                 GUILayout.EndHorizontal();
                 GUILayout.BeginHorizontal();
                 GUILayout.Label("");
