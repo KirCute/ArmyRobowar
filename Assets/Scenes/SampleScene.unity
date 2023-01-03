@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18300867, g: 0.22638348, b: 0.29334506, a: 1}
+  m_IndirectSpecularColor: {r: 0.1830082, g: 0.22638273, b: 0.29334402, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -27450,6 +27450,7 @@ GameObject:
   - component: {fileID: 1964602108}
   - component: {fileID: 1964602109}
   - component: {fileID: 1964602110}
+  - component: {fileID: 1964602111}
   m_Layer: 0
   m_Name: UI
   m_TagString: Untagged
@@ -27614,6 +27615,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d397c0a1cf844029bf04e828c1afee08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1964602111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1964602097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39ee44b908e04bea949c53743a3c1e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  friendPoint: {fileID: 136602806098478205, guid: 3495acb7596c3cb4cb4d1e0b0cf7ef8d,
+    type: 3}
+  enemyPoint: {fileID: 8818427488977562989, guid: 4518364d47f789e44bfa5ed0c3afe07b,
+    type: 3}
 --- !u!114 &1968126464 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2253440904856303723, guid: 285e3f8f231a3704b859c7a7b6982605,

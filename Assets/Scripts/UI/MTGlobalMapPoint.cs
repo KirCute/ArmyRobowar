@@ -15,8 +15,10 @@ namespace UI
         
         private const double K_X = 164 / 640;
         private const double K_Y = 122 / 340;
-        private List<int> enemyList;    //包含所有检测到的敌车的ID
-       
+        private List<int> enemyList = new List<int>();    //包含所有检测到的敌车的ID
+        private List<int> friendList = new List<int>();
+        private bool[] friendPointIsCreate = new bool[1000];
+
         private void OnEnable()
         {
             Events.AddListener(Events.F_ROBOT_SEIZE_ENEMY, AddEnemy);
@@ -27,6 +29,15 @@ namespace UI
         {
             Events.RemoveListener(Events.F_ROBOT_SEIZE_ENEMY, AddEnemy);
             Events.RemoveListener(Events.F_ROBOT_LOST_SEIZE_ENEMY, DleteEnemy);
+        }
+
+        private void Update() {
+            if (Summary.isGameStarted) {
+                FriendPoint();
+                EnemyPoint();
+                DestroyAllPoint();
+            }
+            
         }
 
         void AddEnemy(object[] args)
@@ -56,17 +67,20 @@ namespace UI
         {
             for (int k = 0; k < Summary.team.robots.Count; k++)
             {
-                if (Summary.team.robots[k] != null && Summary.team.robots[k].connection >= 0)   //己方有这辆车且未失联
+                if (Summary.team.robots[k] != null && Summary.team.robots[k].connection >= 0 && Summary.team.robots[k].status == Robot.STATUS_ACTIVE)   //己方有这辆车且未失联
                 {
-                    
+   
                     int[] mapPose = World2Map(GameObject.Find($"Robot_{Summary.team.robots[k].id}").transform.position.z,
                         GameObject.Find($"Robot_{Summary.team.robots[k].id}").transform.position.x);
+
                     
-                    GameObject friendPointGameObject = Instantiate(friendPoint, GetComponent<RectTransform>());
+                    GameObject friendPointGameObject = Instantiate(friendPoint,transform.Find("Canvas").Find("Naviga").gameObject.GetComponent<RectTransform>());
                     
-                    friendPointGameObject.GetComponent<RectTransform>().anchoredPosition =
+                    friendPointGameObject.GetComponent<RectTransform>().localPosition =
                         new Vector2(mapPose[0], mapPose[1]);
                     friendPointGameObject.SetActive(true);
+                    friendPointIsCreate[k] = true;
+                    friendList.Add(Summary.team.robots[k].id);
                 }
             }
         }
@@ -88,11 +102,20 @@ namespace UI
                 int[] mapPose = World2Map(GameObject.Find($"Robot_{enemy}").transform.position.z,
                     GameObject.Find($"Robot_{enemy}").transform.position.x);
                 
-                GameObject enemyPointGameObject = Instantiate(enemyPoint, GetComponent<RectTransform>());
+                GameObject enemyPointGameObject = Instantiate(enemyPoint, transform.Find("Canvas").Find("Naviga").gameObject.GetComponent<RectTransform>());
                 
-                enemyPointGameObject.GetComponent<RectTransform>().anchoredPosition =
+                enemyPointGameObject.GetComponent<RectTransform>().localPosition =
                     new Vector2(mapPose[0], mapPose[1]);
                 enemyPointGameObject.SetActive(true);
+            }
+        }
+
+        void DestroyAllPoint() {
+            foreach (int friend in friendList) {
+                Destroy(GameObject.Find($"Robot_{Summary.team.robots[friend].id}"));
+            }
+            foreach (int enemy in enemyList) {
+                Destroy(GameObject.Find($"Robot_{Summary.team.robots[enemy].id}"));
             }
         }
     }
