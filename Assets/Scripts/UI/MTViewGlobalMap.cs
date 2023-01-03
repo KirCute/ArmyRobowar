@@ -9,12 +9,12 @@ namespace UI {
     public class MTViewGlobalMap : MonoBehaviour {
         public GameObject blackMask;
         public GameObject map;
-        
+
         private const int VIEW_MAP_PAGE_ID = 0;
         private const float VIEW_MAP_PAGE_WIDTH = 0.8F;
         private const float VIEW_MAP_PAGE_HEIGHT = 0.8F;
         private const string VIEW_MAP_PAGE_TITLE = "自主导航路径设置";
-        
+
         private Vector2 robotScroll = Vector2.zero;
         private Robot selectedRobot;
         private List<GameObject> blackMasks = new List<GameObject>();
@@ -32,6 +32,7 @@ namespace UI {
             if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.E)) {
                 enabled = false;
                 GetComponent<MEMainCameraController>().active = true;
+                
             }
         }
 
@@ -64,6 +65,7 @@ namespace UI {
         void ChangeMask() {
             for (int i = 0; i < 34; i++) {
                 for (int j = 0; j < 46; j++) {
+                   
                     blackMasks[i*46+j] = Instantiate(blackMask,GetComponent<RectTransform>());
                     blackMasks[i * 46 + j].GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
                     blackMasks[i * 46 + j].SetActive(true);
