@@ -13,11 +13,11 @@ namespace UI
         public GameObject friendPoint;
         public GameObject enemyPoint;
         
-        private const double K_X = 164 / 640;
-        private const double K_Y = 122 / 340;
-        private List<int> enemyList = new List<int>();    //包含所有检测到的敌车的ID
-        private List<int> friendList = new List<int>();
-        private bool[] friendPointIsCreate = new bool[1000];
+        private const double K_X =  640.0 / 166.0 ;
+        private const double K_Y =  340.0 / 124.0 ;
+        public static List<int> enemyList = new List<int>();    //包含所有检测到的敌车的ID
+        public static List<int> friendList = new List<int>();
+
 
         private void OnEnable()
         {
@@ -75,11 +75,9 @@ namespace UI
 
                     
                     GameObject friendPointGameObject = Instantiate(friendPoint,transform.Find("Canvas").Find("Naviga").gameObject.GetComponent<RectTransform>());
-                    
                     friendPointGameObject.GetComponent<RectTransform>().localPosition =
                         new Vector2(mapPose[0], mapPose[1]);
-                    friendPointGameObject.SetActive(true);
-                    friendPointIsCreate[k] = true;
+                    friendPointGameObject.SetActive(false);
                     friendList.Add(Summary.team.robots[k].id);
                 }
             }
@@ -89,8 +87,8 @@ namespace UI
         public static int[] World2Map(double worldZ,double worldX)
         {
             int[] pose = new int[2];
-            pose[0] = (int)(worldZ / K_X);
-            pose[1] = (int)(-(worldX) / K_Y);
+            pose[0] = (int)(worldZ * K_X);
+            pose[1] = (int)(-(worldX) * K_Y);
             return pose;
         }
 
@@ -106,7 +104,7 @@ namespace UI
                 
                 enemyPointGameObject.GetComponent<RectTransform>().localPosition =
                     new Vector2(mapPose[0], mapPose[1]);
-                enemyPointGameObject.SetActive(true);
+                enemyPointGameObject.SetActive(false);
             }
         }
 
