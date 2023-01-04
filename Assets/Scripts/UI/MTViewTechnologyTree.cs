@@ -11,7 +11,6 @@ namespace UI {
         private const string VIEW_TECH_PAGE_TITLE = "";
         private Vector2 scroll = Vector2.zero;
 
-
         private void OnGUI() {
             var dim = new Rect(
                 Screen.width * (1 - VIEW_TECH_PAGE_WIDTH) / 2, Screen.height * (1 - VIEW_TECH_PAGE_WIDTH) / 2,
@@ -44,7 +43,7 @@ namespace UI {
                     GUIStyle styleTemp = new GUIStyle(GUI.skin.label);
                     styleTemp.fontSize = 15;
                     styleTemp.normal.textColor = Color.yellow;
-                    GUILayout.Label(Constants.TECHNOLOGY[tech].description,styleTemp);
+                    GUILayout.Label(Constants.TECHNOLOGY[tech].description, styleTemp);
                     GUILayout.EndVertical();
                 }
 
@@ -63,6 +62,7 @@ namespace UI {
                 GetComponent<MEMainCameraController>().active = true;
             }
         }
+
         private void OnGameOver(object[] args) {
             if (args.Length != 0) {
                 this.enabled = false;

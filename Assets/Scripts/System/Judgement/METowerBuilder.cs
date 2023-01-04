@@ -7,6 +7,10 @@ namespace System.Judgement {
         private const float TOWER_BUILD_HEIGHT = 4F;
         private static int nextTowerId = -1;
 
+        private void Awake() {
+            nextTowerId = -1;
+        }
+
         private void OnEnable() {
             Events.AddListener(Events.M_CREATE_TOWER, OnTowerCreating);
         }

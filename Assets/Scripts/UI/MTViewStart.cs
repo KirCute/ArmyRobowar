@@ -6,28 +6,24 @@ using Photon.Realtime;
 using UnityEngine;
 using Random = System.Random;
 
-namespace UI
-{
-    public class MTViewStart : MonoBehaviourPunCallbacks
-    {
+namespace UI {
+    public class MTViewStart : MonoBehaviourPunCallbacks {
         private static MTViewStart instance;
         private const int VIEW_START_PAGE_ID = 0;
-
         private const string VIEW_START_PAGE_TITLE = "";
-        
-        
 
-        private readonly List<Player> tempTestRed = new();  // 1, client-server
-        private readonly List<Player> tempTestBlue = new();  // 0, client-server
-        private readonly Dictionary<Player, bool> ready = new();  // client-server
+        private readonly List<Player> tempTestRed = new(); // 1, client-server
+        private readonly List<Player> tempTestBlue = new(); // 0, client-server
+        private readonly Dictionary<Player, bool> ready = new(); // client-server
         private static readonly Random RANDOM = new Random();
         private int blueHome;
         private int redHome;
-        private int myTeam;  // client-server
+        private int myTeam; // client-server
 
         public static MTViewStart GetInstance() {
             return instance;
         }
+
         private void Awake() {
             instance = this;
             do {
@@ -46,6 +42,7 @@ namespace UI
             } else {
                 Events.AddListener(Events.F_PLAYER_LIST_UPDATED, OnPlayerListSync);
             }
+
             Events.AddListener(Events.F_GAME_START, OnGameStart);
         }
 
@@ -59,23 +56,20 @@ namespace UI
             } else {
                 Events.RemoveListener(Events.F_PLAYER_LIST_UPDATED, OnPlayerListSync);
             }
+
             Events.RemoveListener(Events.F_GAME_START, OnGameStart);
-            
         }
-        
-        private void Start() {
-       
-        }
-        
+
+        private void Start() { }
+
         private void OnGUI() {
             if (Summary.isGameStarted) return;
             GUIStyle style = new GUIStyle(GUI.skin.button); //定义控件
-            style.alignment = TextAnchor.MiddleCenter; 
+            style.alignment = TextAnchor.MiddleCenter;
             style.fontSize = 24;
             GUILayout.Window(VIEW_START_PAGE_ID, new Rect(0,
-                    0 ,
-                    Screen.width , Screen.height), _ =>
-                {
+                    0,
+                    Screen.width, Screen.height), _ => {
                     GUILayout.BeginVertical("Box");
                     GUILayout.BeginHorizontal("Box");
                     if (PhotonNetwork.IsMasterClient) {
@@ -90,70 +84,69 @@ namespace UI
                                 foreach (var player in tempTestBlue) {
                                     input[index++] = player;
                                 }
+
                                 input[index++] = tempTestRed.Count;
                                 foreach (var player in tempTestRed) {
                                     input[index++] = player;
                                 }
+
                                 PhotonNetwork.CurrentRoom.IsOpen = false;
                                 Events.Invoke(Events.F_GAME_START, input);
                             }
                         }
-                    }
-                    else{
+                    } else {
                         if (!ready.ContainsKey(PhotonNetwork.LocalPlayer) ||
                             !ready[PhotonNetwork.LocalPlayer]) //按下准备后切换按钮，if里面放的是个人是否准备
                         {
                             if (GUILayout.Button("准备游戏", style)) {
-                                Events.Invoke(Events.M_PLAYER_READY, new object[] { PhotonNetwork.LocalPlayer, true });
+                                Events.Invoke(Events.M_PLAYER_READY, new object[] {PhotonNetwork.LocalPlayer, true});
                             }
-                        }
-                        else {
+                        } else {
                             if (GUILayout.Button("取消准备", style)) {
-                                Events.Invoke(Events.M_PLAYER_READY, new object[] { PhotonNetwork.LocalPlayer, false });
+                                Events.Invoke(Events.M_PLAYER_READY, new object[] {PhotonNetwork.LocalPlayer, false});
                             }
                         }
                     }
+
                     if (myTeam == 0) {
                         if (tempTestRed.Count == 5) {
-                            if (GUILayout.Button("队伍已满",style)) {}
-                        }
-                        else {
-                            if (GUILayout.Button("交换队伍",style)) {
+                            if (GUILayout.Button("队伍已满", style)) { }
+                        } else {
+                            if (GUILayout.Button("交换队伍", style)) {
                                 if (myTeam == 0) {
-                                    if (tempTestRed.Count == 5) {
-                                
-                                    }
+                                    if (tempTestRed.Count == 5) { }
                                 }
-                                Events.Invoke(Events.M_CHANGE_TEAM, new object[] {PhotonNetwork.LocalPlayer, 1 - myTeam});
-                            }
-                        }
-                    }
-                    else {
-                        if (tempTestBlue.Count == 5) {
-                            if (GUILayout.Button("队伍已满",style)) {}
-                        }
-                        else {
-                            if (GUILayout.Button("交换队伍",style)) {
-                                if (myTeam == 0) {
-                                    if (tempTestRed.Count == 5) {
-                                
-                                    }
-                                }
-                                Events.Invoke(Events.M_CHANGE_TEAM, new object[] {PhotonNetwork.LocalPlayer, 1 - myTeam});
-                            }
-                        }
-                    }
-                    
 
-                    if (GUILayout.Button("离开匹配",style)) {
+                                Events.Invoke(Events.M_CHANGE_TEAM,
+                                    new object[] {PhotonNetwork.LocalPlayer, 1 - myTeam});
+                            }
+                        }
+                    } else {
+                        if (tempTestBlue.Count == 5) {
+                            if (GUILayout.Button("队伍已满", style)) { }
+                        } else {
+                            if (GUILayout.Button("交换队伍", style)) {
+                                if (myTeam == 0) {
+                                    if (tempTestRed.Count == 5) { }
+                                }
+
+                                Events.Invoke(Events.M_CHANGE_TEAM,
+                                    new object[] {PhotonNetwork.LocalPlayer, 1 - myTeam});
+                            }
+                        }
+                    }
+
+
+                    if (GUILayout.Button("离开匹配", style)) {
                         this.enabled = false;
                         MTViewOrigin.getInstance().enabled = true;
                         Events.Invoke(Events.M_LEAVE_MATCHING, new object[] {PhotonNetwork.LocalPlayer});
                         //  PhotonNetwork.ConnectUsingSettings();
                     }
+
                     GUILayout.EndHorizontal();
                     GUILayout.BeginHorizontal();
-                    
+
                     GUILayout.BeginVertical("Box");
                     foreach (var player in tempTestBlue) {
                         if (ready[player]) {
@@ -161,22 +154,22 @@ namespace UI
                             styleTemp.alignment = TextAnchor.MiddleCenter;
                             styleTemp.fontSize = 24;
                             styleTemp.normal.textColor = Color.green;
-                            GUILayout.Box(player.NickName,styleTemp,GUILayout.ExpandHeight(true));
-                        }
-                        else {
-                            GUILayout.Box(player.NickName,style,GUILayout.ExpandHeight(true));
+                            GUILayout.Box(player.NickName, styleTemp, GUILayout.ExpandHeight(true));
+                        } else {
+                            GUILayout.Box(player.NickName, style, GUILayout.ExpandHeight(true));
                         }
                     }
 
-                    for (int i = 0; i < 5-tempTestBlue.Count; i++) {
+                    for (int i = 0; i < 5 - tempTestBlue.Count; i++) {
                         GUIStyle styleTemp = new GUIStyle(GUI.skin.box);
                         styleTemp.alignment = TextAnchor.MiddleCenter;
                         styleTemp.fontSize = 24;
                         styleTemp.normal.textColor = Color.magenta;
-                        GUILayout.Box("",styleTemp,GUILayout.ExpandHeight(true));
+                        GUILayout.Box("", styleTemp, GUILayout.ExpandHeight(true));
                     }
+
                     GUILayout.EndVertical();
-                    
+
                     GUILayout.BeginVertical("Box");
                     foreach (var player in tempTestRed) {
                         if (ready[player]) {
@@ -184,22 +177,22 @@ namespace UI
                             styleTemp.alignment = TextAnchor.MiddleCenter;
                             styleTemp.fontSize = 24;
                             styleTemp.normal.textColor = Color.green;
-                            GUILayout.Box(player.NickName,styleTemp,GUILayout.ExpandHeight(true));
-                        }
-                        else {
-                            GUILayout.Box(player.NickName,style,GUILayout.ExpandHeight(true));
+                            GUILayout.Box(player.NickName, styleTemp, GUILayout.ExpandHeight(true));
+                        } else {
+                            GUILayout.Box(player.NickName, style, GUILayout.ExpandHeight(true));
                         }
                     }
 
-                    for (int i = 0; i < 5-tempTestRed.Count; i++) {
+                    for (int i = 0; i < 5 - tempTestRed.Count; i++) {
                         GUIStyle styleTemp = new GUIStyle(GUI.skin.box);
                         styleTemp.alignment = TextAnchor.MiddleCenter;
                         styleTemp.fontSize = 24;
                         styleTemp.normal.textColor = Color.magenta;
-                        GUILayout.Box("",styleTemp,GUILayout.ExpandHeight(true));
+                        GUILayout.Box("", styleTemp, GUILayout.ExpandHeight(true));
                     }
+
                     GUILayout.EndVertical();
-                    
+
                     GUILayout.EndHorizontal();
                     GUILayout.EndVertical();
                 },
@@ -215,6 +208,7 @@ namespace UI
                 ready.Add(player, false);
                 (tempTestBlue.Count > tempTestRed.Count ? tempTestRed : tempTestBlue).Add(player);
             }
+
             SyncPlayerList();
         }
 
@@ -259,6 +253,7 @@ namespace UI
                 ready.Add(player, playerReady);
                 if (Equals(player, PhotonNetwork.LocalPlayer)) myTeam = 0;
             }
+
             var teamRedCount = (int) args[index++];
             for (var i = 0; i < teamRedCount; i++) {
                 var player = (Player) args[index++];
@@ -277,6 +272,7 @@ namespace UI
                 output[index++] = t;
                 output[index++] = ready[t];
             }
+
             output[index++] = tempTestRed.Count;
             foreach (var t in tempTestRed) {
                 output[index++] = t;
@@ -293,6 +289,5 @@ namespace UI
         private void OnGameStart(object[] args) {
             enabled = false;
         }
-        
     }
 }

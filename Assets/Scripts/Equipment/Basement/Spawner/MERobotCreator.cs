@@ -16,6 +16,7 @@ namespace Equipment.Basement.Spawner {
 
         private void Awake() {
             identity = GetComponentInParent<MEBaseFlag>();
+            nextRobotID = -1;
         }
 
         private void Update() {
