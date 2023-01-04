@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Photon.Pun;
+using UnityEngine;
 
 namespace Equipment.Sensor.Lidar {
     public class MTMapBuilder : MonoBehaviourPun {
@@ -29,8 +30,8 @@ namespace Equipment.Sensor.Lidar {
 
         private void Update() {
             if (photonView.IsMine) {
-                var fCellX = (int) ((transform.position.z + MAP_WORLD_CELL_WIDTH) / MAP_WORLD_CELL_WIDTH + 0.5f);
-                var fCellY = (int) ((transform.position.x + MAP_WORLD_CELL_HEIGHT) / MAP_WORLD_CELL_HEIGHT + 0.5f);
+                var fCellX = (int) ((transform.position.z + MAP_WORLD_HALF_WIDTH) / MAP_WORLD_CELL_WIDTH + 0.5f);
+                var fCellY = MAP_CELL_ROW_CNT - (int) ((transform.position.x + MAP_WORLD_HALF_HEIGHT) / MAP_WORLD_CELL_HEIGHT + 0.5f);
                 if (fCellX != lastPositionX || fCellY != lastPositionY) {
                     for (var i = fCellX - scanLayer; i < fCellX + scanLayer; i++) {
                         for (var j = fCellY - scanLayer; j < fCellY + scanLayer; j++) {

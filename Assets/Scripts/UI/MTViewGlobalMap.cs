@@ -157,7 +157,7 @@ namespace UI {
                 var input = new object[path.Count + 2];
                 input[0] = selectedRobot;
                 input[1] = path.Count;
-                for (var i = 2; i < path.Count + 2; i++) input[i] = path[1 - 2];
+                for (var i = 2; i < path.Count + 2; i++) input[i] = path[i - 2];
                 Events.Invoke(Events.M_ROBOT_NAVIGATION, input);
             }
             GUILayout.EndArea();

@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace UI {
-    public class MELoadingBar : MonoBehaviourPunCallbacks {
+    public class MELoadingBar : MonoBehaviour {
         [SerializeField] private Color filledColor;
         [SerializeField] private Color loadingColor;
         private GameObject ringObject;
