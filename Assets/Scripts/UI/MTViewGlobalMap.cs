@@ -91,6 +91,13 @@ namespace UI {
                         enemy.Value.SetActive(false);
                     }
                 }
+                
+                if (GetComponent<MTGlobalMapPoint>().TPList != null)
+                {
+                    foreach (var tower in GetComponent<MTGlobalMapPoint>().TPList) {
+                        tower.Value.SetActive(false);
+                    }
+                }
 
                 positionInWorld.Clear();
                 GetComponent<MEMainCameraController>().active = true;
@@ -133,6 +140,13 @@ namespace UI {
             {
                 foreach (var enemy in GetComponent<MTGlobalMapPoint>().EPList) {
                     enemy.Value.SetActive(true);
+                }
+            }
+            
+            if (GetComponent<MTGlobalMapPoint>().TPList != null)
+            {
+                foreach (var tower in GetComponent<MTGlobalMapPoint>().TPList) {
+                    tower.Value.SetActive(true);
                 }
             }
             
@@ -223,6 +237,7 @@ namespace UI {
             Base_5.GetComponent<RectTransform>().localPosition =
                 new Vector2(mapPose[0], mapPose[1]);
             Base_5.SetActive(false);
+            
         }
 
         void TransformPosition(int m,int n) {
