@@ -27,7 +27,7 @@ namespace UI {
 
         private Vector2 robotScroll = Vector2.zero;
         private int selectedRobot;
-        private static GameObject[] blackMasks = new GameObject[46 * 34];
+        private GameObject[] blackMasks = new GameObject[46 * 34];
         private GameObject mapGameObject;
         private List<Vector2> positionInWorld = new List<Vector2>();
         private GameObject Base_0;
@@ -37,6 +37,7 @@ namespace UI {
         private GameObject Base_4;
         private GameObject Base_5;
         private List<GameObject> navMarkList = new List<GameObject>();
+        private bool isSelecteRobot = false;
 
 
         private void Awake()
@@ -61,6 +62,7 @@ namespace UI {
             if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.E)) {
                 enabled = false;
                 mapGameObject.SetActive(false);
+                isSelecteRobot = false;
                 for (int i = 0; i < 34; i++) {
                     for (int j = 0; j < 46; j++) {
                         int temp = i * 46 + j;
@@ -74,26 +76,21 @@ namespace UI {
                 Base_3.SetActive(false);
                 Base_4.SetActive(false);
                 Base_5.SetActive(false);
-
-                if (MTGlobalMapPoint.FPList != null)
+                
+                if (GetComponent<MTGlobalMapPoint>().FPList != null)
                 {
-                    foreach (var friend in MTGlobalMapPoint.FPList) {
+                    foreach (var friend in GetComponent<MTGlobalMapPoint>().FPList) {
                         friend.Value.SetActive(false);
                     }
                 }
 
-                if (MTGlobalMapPoint.EPList != null)
+                if (GetComponent<MTGlobalMapPoint>().EPList != null)
                 {
-                    foreach (var enemy in MTGlobalMapPoint.EPList) {
+                    foreach (var enemy in GetComponent<MTGlobalMapPoint>().EPList) {
                         enemy.Value.SetActive(false);
                     }
                 }
-                
 
-                foreach (var nav in navMarkList) {
-                    Destroy(nav);
-                }
-                
                 positionInWorld.Clear();
                 GetComponent<MEMainCameraController>().active = true;
                 
@@ -115,6 +112,7 @@ namespace UI {
                 for (int j = 0; j < 46; j++) {
                     int temp = (33-i)*46+j;//坐标系不同
                     
+                    Debug.Log(temp + " "+Summary.team.teamMap[temp]);
                     if (Summary.team.teamMap[temp]) {
                         blackMasks[temp].SetActive(false);
                     }
@@ -124,16 +122,16 @@ namespace UI {
                 }
             }
 
-            if (MTGlobalMapPoint.FPList != null)
+            if (GetComponent<MTGlobalMapPoint>().FPList != null)
             {
-                foreach (var friend in MTGlobalMapPoint.FPList) {
+                foreach (var friend in GetComponent<MTGlobalMapPoint>().FPList) {
                     friend.Value.SetActive(true);
                 }
             }
 
-            if (MTGlobalMapPoint.EPList != null)
+            if (GetComponent<MTGlobalMapPoint>().EPList != null)
             {
-                foreach (var enemy in MTGlobalMapPoint.EPList) {
+                foreach (var enemy in GetComponent<MTGlobalMapPoint>().EPList) {
                     enemy.Value.SetActive(true);
                 }
             }
@@ -146,6 +144,7 @@ namespace UI {
                 GUILayout.Label(robot.name, GUILayout.ExpandWidth(true));
                 if (GUILayout.Button("选择机器人", GUILayout.ExpandWidth(false))) {
                     selectedRobot = robot.id;
+                    isSelecteRobot = true;
                 }
                 GUILayout.EndVertical();
             }
@@ -157,8 +156,11 @@ namespace UI {
                 var input = new object[path.Count + 2];
                 input[0] = selectedRobot;
                 input[1] = path.Count;
-                for (var i = 2; i < path.Count + 2; i++) input[i] = path[1 - 2];
+                for (var i = 2; i < path.Count + 2; i++) input[i] = path[i - 2];
                 Events.Invoke(Events.M_ROBOT_NAVIGATION, input);
+                foreach (var nav in navMarkList) {
+                    Destroy(nav);
+                }
             }
             GUILayout.EndArea();
             GUILayout.EndScrollView();
@@ -229,10 +231,13 @@ namespace UI {
             //屏幕坐标转化为世界坐标
             Vector2 temp = new Vector2(first,second);
             positionInWorld.Add(temp);
-            GameObject navMark = Instantiate(NavMark,
-                transform.Find("Canvas").Find("Naviga").gameObject.GetComponent<RectTransform>());
-            navMarkList.Add(navMark);
-            navMark.GetComponent<RectTransform>().localPosition = new Vector2(10*n+5-230,(10*m+5-170));
+            if (isSelecteRobot)
+            {
+                GameObject navMark = Instantiate(NavMark,
+                    transform.Find("Canvas").Find("Naviga").gameObject.GetComponent<RectTransform>());
+                navMarkList.Add(navMark);
+                navMark.GetComponent<RectTransform>().localPosition = new Vector2(10*n+5-230,(10*m+5-170));
+            }
         }
         
         void AddListener(Button button, int m,int n)

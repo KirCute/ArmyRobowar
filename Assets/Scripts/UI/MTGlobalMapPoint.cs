@@ -13,13 +13,13 @@ namespace UI
         public GameObject friendPoint;
         public GameObject enemyPoint;
 
-        private const double K_X = 500.0 / 166.0;   //测试阶段调整
-        private const double K_Y = 340.0 / 124.0;
-        public static List<int> enemyList = new List<int>(); //包含所有检测到的敌车的ID
-        private bool[] isCreatedF = new bool[1000];
-        private bool[] isCreatedE = new bool[1000];
-        public static Dictionary<int, GameObject> FPList = new Dictionary<int, GameObject>();
-        public static Dictionary<int, GameObject> EPList = new Dictionary<int, GameObject>();
+        private const double K_X = 500.0 / 166.0;   //map像素长度与世界场景长度之比
+        private const double K_Y = 340.0 / 124.0;   //map像素宽度与世界场景宽度之比
+        public  List<int> enemyList = new List<int>(); //存放所有检测到的敌车的ID
+        private HashSet<int> isCreatedF = new();    //友方车辆是否已在map上标出
+        private HashSet<int> isCreatedE = new();    //敌方车辆是否已在map上标出
+        public Dictionary<int, GameObject> FPList = new Dictionary<int, GameObject>();
+        public Dictionary<int, GameObject> EPList = new Dictionary<int, GameObject>();
 
         private void OnEnable()
         {
@@ -56,11 +56,12 @@ namespace UI
         {
             if (Summary.team.teamColor == (int)args[0])
             {
-                foreach (int enemy in enemyList)
+                for (int i = 0; i < enemyList.Count; i++)
                 {
+                    int enemy = enemyList[i];
                     if (enemy == (int)args[1])
                     {
-                        enemyList.Remove(enemy);
+                        enemyList.RemoveAt(i--);
                         
                         //删除enemyList中的ID时同时删除该ID对应的point（GameObject）及EPList中的key
                         foreach (var ep in EPList)
@@ -71,7 +72,7 @@ namespace UI
                             }
                         }
                         EPList.Remove(enemy);
-                        isCreatedE[enemy] = false;
+                        isCreatedE.Remove(enemy);
                     }
                 }
             }
@@ -81,12 +82,12 @@ namespace UI
         //在地图上标出友方车辆
         void FriendPoint()
         {
-            for (int k = 0; k < Summary.team.robots.Count; k++)
+            foreach (var k in Summary.team.robots.Keys)
             {
                 if (Summary.team.robots[k] != null && Summary.team.robots[k].status == Robot.STATUS_ACTIVE) //己方有这辆车且未失联
                 {
                     //如果未生成对应point则生成point
-                    if (!isCreatedF[k])
+                    if (!isCreatedF.Contains(k))
                     {
                         int[] mapPose = World2Map(
                             GameObject.Find($"Robot_{Summary.team.robots[k].id}").transform.position.z,
@@ -103,13 +104,13 @@ namespace UI
                         
                         FPList.Add(Summary.team.robots[k].id, friendPointGameObject);
                         //对应置为true
-                        isCreatedF[k] = true;
+                        isCreatedF.Add(k);
                     }
                     
                     //已创建后，有信号更新无信号删除
-                    else if (isCreatedF[k])
+                    else if (isCreatedF.Contains(k))
                     {
-                        if (Summary.team.robots[k].connection > 0)
+                        if (Summary.team.robots[k].connection > 1)
                         {
                             foreach (var fp in FPList)
                             {
@@ -124,7 +125,7 @@ namespace UI
                                 }
                             }
                         }
-                        else if (Summary.team.robots[k].connection <= 0)
+                        else if (Summary.team.robots[k].connection <= 1)
                         {
                             foreach (var fp in FPList)
                             {
@@ -133,7 +134,7 @@ namespace UI
                                     
                                     Destroy(fp.Value);
                                     //删除对应point后置为false
-                                    isCreatedF[k] = false;
+                                    isCreatedF.Remove(k);
                                 }
                             }
                             FPList.Remove(Summary.team.robots[k].id);
@@ -158,7 +159,7 @@ namespace UI
             foreach (int enemy in enemyList)
             {
                 //未生成对应point则创建point
-                if (!isCreatedE[enemy])
+                if (!isCreatedE.Contains(enemy))
                 {
                     int[] mapPose = World2Map(GameObject.Find($"Robot_{enemy}").transform.position.z,
                         GameObject.Find($"Robot_{enemy}").transform.position.x);
@@ -170,10 +171,10 @@ namespace UI
                         new Vector2(mapPose[0], mapPose[1]);
                     enemyPointGameObject.SetActive(false);
                     EPList.Add(enemy,enemyPointGameObject);
-                    isCreatedF[enemy] = true;
+                    isCreatedE.Add(enemy);
                 }
                 //已有对应point则更新位置
-                else if(isCreatedF[enemy])
+                else if(isCreatedF.Contains(enemy))
                 {
                     foreach (var ep in EPList)
                     {
