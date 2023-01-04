@@ -4,7 +4,6 @@ using System.Linq;
 using Model.Equipment;
 using Model.Equipment.Template;
 using Photon.Pun;
-using UnityEditor;
 using UnityEngine;
 
 namespace UI {
@@ -182,14 +181,14 @@ namespace UI {
         public override void OnEnable() {
             base.OnEnable();
             Events.AddListener(Events.F_GAME_OVER, OnGameOver);
-            armorImg = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Resources/image/armor.png");
-            cameraImg = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Resources/image/camera.png");
-            gunImg = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Resources/image/gun.png");
-            inventoryImg = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Resources/image/inventory.png");
-            lidarImg = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Resources/image/lidar.png");
-            robotImg = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Resources/image/robot.png");
-            towerImg = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Resources/image/tower.png");
-            engineerImg = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Resources/image/engineer.png");
+            armorImg = Resources.Load("image/armor") as Texture2D;
+            cameraImg = Resources.Load("image/camera") as Texture2D;
+            gunImg = Resources.Load("image/gun") as Texture2D;
+            inventoryImg = Resources.Load("image/inventory") as Texture2D;
+            lidarImg = Resources.Load("image/lidar") as Texture2D;
+            robotImg = Resources.Load("image/robot") as Texture2D;
+            towerImg = Resources.Load("image/tower") as Texture2D;
+            engineerImg = Resources.Load("image/engineer") as Texture2D;
         }
 
         public override void OnDisable() {
