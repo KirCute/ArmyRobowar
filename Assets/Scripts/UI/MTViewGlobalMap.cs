@@ -74,13 +74,21 @@ namespace UI {
                 Base_3.SetActive(false);
                 Base_4.SetActive(false);
                 Base_5.SetActive(false);
+
+                if (MTGlobalMapPoint.FPList != null)
+                {
+                    foreach (var friend in MTGlobalMapPoint.FPList) {
+                        friend.Value.SetActive(false);
+                    }
+                }
+
+                if (MTGlobalMapPoint.EPList != null)
+                {
+                    foreach (var enemy in MTGlobalMapPoint.EPList) {
+                        enemy.Value.SetActive(false);
+                    }
+                }
                 
-                foreach (int friend in MTGlobalMapPoint.friendList) {
-                    GameObject.Find($"Robot_{Summary.team.robots[friend].id}").SetActive(false);
-                }
-                foreach (int enemy in MTGlobalMapPoint.friendList) {
-                    GameObject.Find($"Robot_{Summary.team.robots[enemy].id}").SetActive(false);
-                }
 
                 foreach (var nav in navMarkList) {
                     Destroy(nav);
@@ -103,12 +111,10 @@ namespace UI {
             Base_4.SetActive(true);
             Base_5.SetActive(true);
             
-            bool last = true;
             for (int i = 0; i < 34; i++) {
                 for (int j = 0; j < 46; j++) {
                     int temp = (33-i)*46+j;//坐标系不同
-                    last = !last;
-                    Summary.team.teamMap[temp] = last;
+                    
                     if (Summary.team.teamMap[temp]) {
                         blackMasks[temp].SetActive(false);
                     }
@@ -118,13 +124,20 @@ namespace UI {
                 }
             }
 
-            foreach (int friend in MTGlobalMapPoint.friendList) {
-                GameObject.Find($"Robot_{Summary.team.robots[friend].id}").SetActive(true);
-            }
-            foreach (int enemy in MTGlobalMapPoint.friendList) {
-                GameObject.Find($"Robot_{Summary.team.robots[enemy].id}").SetActive(true);
+            if (MTGlobalMapPoint.FPList != null)
+            {
+                foreach (var friend in MTGlobalMapPoint.FPList) {
+                    friend.Value.SetActive(true);
+                }
             }
 
+            if (MTGlobalMapPoint.EPList != null)
+            {
+                foreach (var enemy in MTGlobalMapPoint.EPList) {
+                    enemy.Value.SetActive(true);
+                }
+            }
+            
             robotScroll = GUILayout.BeginScrollView(robotScroll, false, false);
             GUILayout.BeginArea(new Rect(608,0,148,Screen.height));
             GUILayout.BeginVertical("Box");//未失联机器人列表
@@ -176,13 +189,13 @@ namespace UI {
             Base_0 = Instantiate(Base0, transform.Find("Canvas").Find("Naviga").gameObject.GetComponent<RectTransform>());
             int[] mapPose=MTGlobalMapPoint.World2Map(-60.0, -40.0);
             Base_0.GetComponent<RectTransform>().localPosition =
-                new Vector2((mapPose[0] + 30), mapPose[1]);
+                new Vector2((mapPose[0]), mapPose[1]);
             Base_0.SetActive(false);
             
             Base_1 = Instantiate(Base1, transform.Find("Canvas").Find("Naviga").gameObject.GetComponent<RectTransform>());
             mapPose=MTGlobalMapPoint.World2Map(-60.0, 5.0);
             Base_1.GetComponent<RectTransform>().localPosition =
-                new Vector2(mapPose[0] + 30, mapPose[1]);
+                new Vector2(mapPose[0], mapPose[1]);
             Base_1.SetActive(false);
             
             Base_2 = Instantiate(Base2, transform.Find("Canvas").Find("Naviga").gameObject.GetComponent<RectTransform>());
@@ -194,7 +207,7 @@ namespace UI {
             Base_3 = Instantiate(Base3, transform.Find("Canvas").Find("Naviga").gameObject.GetComponent<RectTransform>());
             mapPose=MTGlobalMapPoint.World2Map(60.0, -25.0);
             Base_3.GetComponent<RectTransform>().localPosition =
-                new Vector2(mapPose[0] - 30, mapPose[1]);
+                new Vector2(mapPose[0], mapPose[1]);
             Base_3.SetActive(false);
             
             Base_4 = Instantiate(Base4, transform.Find("Canvas").Find("Naviga").gameObject.GetComponent<RectTransform>());
