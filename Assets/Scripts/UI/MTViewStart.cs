@@ -94,6 +94,7 @@ namespace UI
                                 foreach (var player in tempTestRed) {
                                     input[index++] = player;
                                 }
+                                PhotonNetwork.CurrentRoom.IsOpen = false;
                                 Events.Invoke(Events.F_GAME_START, input);
                             }
                         }
@@ -148,6 +149,7 @@ namespace UI
                         this.enabled = false;
                         MTViewOrigin.getInstance().enabled = true;
                         Events.Invoke(Events.M_LEAVE_MATCHING, new object[] {PhotonNetwork.LocalPlayer});
+                        //  PhotonNetwork.ConnectUsingSettings();
                     }
                     GUILayout.EndHorizontal();
                     GUILayout.BeginHorizontal();

@@ -27,6 +27,8 @@ namespace UI
         }
 
         private void OnGUI() {
+            GUIStyle labelStyle = GUI.skin.label;
+            labelStyle.fontSize = 15;
             GUILayout.Window(VIEW_ORIGIN_MORE_PAGE_ID, new Rect(0,
                 0,
                 Screen.width, Screen.height), _ =>
