@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Photon.Pun;
+using UnityEditor;
 
 namespace UI {
     public class MTViewShop : MonoBehaviourPun {
@@ -14,7 +15,9 @@ namespace UI {
         private int baseId = 6;
         private readonly Dictionary<string, string> robotNames = new();
         private readonly Dictionary<string, string> robotNameErrors = new();
-
+       // private Texture2D a;
+        
+        
         private void OnEnable() {
             if (baseId == 6 || !Summary.team.bases.Keys.Contains(baseId)) SwitchNextBase();
             var robotNamesKey = robotNames.Keys.ToList();
@@ -29,6 +32,7 @@ namespace UI {
         private void OnDisable() {
             Events.RemoveListener(Events.F_BASE_DESTROYED, OnBaseDestroyed);
             Events.RemoveListener(Events.F_GAME_OVER, OnGameOver);
+           // a = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Scripts/UI/image/Lider.png");
         }
 
         private void OnBaseDestroyed(object[] args) {
@@ -47,6 +51,7 @@ namespace UI {
             );
             GUILayout.Window(VIEW_SHOP_ID, dim, _ => {
                 GUILayout.BeginHorizontal();
+                //GUILayout.Label(a);
                 GUILayout.Label($"当前机器人出生基地：{baseId}", GUILayout.ExpandWidth(false));
                 if (GUILayout.Button(">", GUILayout.ExpandWidth(false))) SwitchNextBase();
                 GUILayout.Label("", GUILayout.ExpandWidth(true));

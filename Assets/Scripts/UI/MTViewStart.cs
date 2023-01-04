@@ -149,7 +149,7 @@ namespace UI
                         this.enabled = false;
                         MTViewOrigin.getInstance().enabled = true;
                         Events.Invoke(Events.M_LEAVE_MATCHING, new object[] {PhotonNetwork.LocalPlayer});
-                        //PhotonNetwork.ConnectUsingSettings();
+                        //  PhotonNetwork.ConnectUsingSettings();
                     }
                     GUILayout.EndHorizontal();
                     GUILayout.BeginHorizontal();
