@@ -19,6 +19,7 @@ namespace UI {
         public GameObject Base4;
         public GameObject Base5;
         public GameObject NavMark;
+        public GameObject selectedText;
         
         private const int VIEW_MAP_PAGE_ID = 0;
         private const float VIEW_MAP_PAGE_WIDTH = 0.8F;
@@ -112,7 +113,6 @@ namespace UI {
                 for (int j = 0; j < 46; j++) {
                     int temp = (33-i)*46+j;//坐标系不同
                     
-                    Debug.Log(temp + " "+Summary.team.teamMap[temp]);
                     if (Summary.team.teamMap[temp]) {
                         blackMasks[temp].SetActive(false);
                     }

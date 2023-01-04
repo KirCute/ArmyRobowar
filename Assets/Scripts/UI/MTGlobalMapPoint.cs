@@ -87,7 +87,7 @@ namespace UI
                 if (Summary.team.robots[k] != null && Summary.team.robots[k].status == Robot.STATUS_ACTIVE) //己方有这辆车且未失联
                 {
                     //如果未生成对应point则生成point
-                    if (!isCreatedF.Contains(k))
+                    if (!isCreatedF.Contains(k) && Summary.team.robots[k].connection > 1)
                     {
                         int[] mapPose = World2Map(
                             GameObject.Find($"Robot_{Summary.team.robots[k].id}").transform.position.z,
@@ -131,7 +131,8 @@ namespace UI
                             {
                                 if (fp.Key == Summary.team.robots[k].id)
                                 {
-                                    
+                                    Debug.Log(Summary.team.robots[k].connection);
+
                                     Destroy(fp.Value);
                                     //删除对应point后置为false
                                     isCreatedF.Remove(k);
@@ -159,7 +160,7 @@ namespace UI
             foreach (int enemy in enemyList)
             {
                 //未生成对应point则创建point
-                if (!isCreatedE.Contains(enemy))
+                if (!isCreatedE.Contains(enemy) && Summary.team.robots[enemy].connection > 1)
                 {
                     int[] mapPose = World2Map(GameObject.Find($"Robot_{enemy}").transform.position.z,
                         GameObject.Find($"Robot_{enemy}").transform.position.x);
