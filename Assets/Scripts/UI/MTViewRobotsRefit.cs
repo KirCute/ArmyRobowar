@@ -182,14 +182,14 @@ namespace UI {
         public override void OnEnable() {
             base.OnEnable();
             Events.AddListener(Events.F_GAME_OVER, OnGameOver);
-            armorImg = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Scripts/UI/image/armor.png");
-            cameraImg = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Scripts/UI/image/camera.png");
-            gunImg = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Scripts/UI/image/gun.png");
-            inventoryImg = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Scripts/UI/image/inventory.png");
-            lidarImg = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Scripts/UI/image/lidar.png");
-            robotImg = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Scripts/UI/image/robot.png");
-            towerImg = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Scripts/UI/image/tower.png");
-            engineerImg = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Scripts/UI/image/engineer.png");
+            armorImg = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Resources/UI/image/armor.png");
+            cameraImg = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Resources/UI/image/camera.png");
+            gunImg = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Resources/UI/image/gun.png");
+            inventoryImg = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Resources/UI/image/inventory.png");
+            lidarImg = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Resources/UI/image/lidar.png");
+            robotImg = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Resources/UI/image/robot.png");
+            towerImg = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Resources/UI/image/tower.png");
+            engineerImg = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Resources/UI/image/engineer.png");
         }
 
         public override void OnDisable() {
