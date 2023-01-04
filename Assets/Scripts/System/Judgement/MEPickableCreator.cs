@@ -5,6 +5,10 @@ namespace System.Judgement {
     public class MEPickableCreator : MonoBehaviour {
         private static int nextPickableId;
 
+        private void Awake() {
+            nextPickableId = 0;
+        }
+
         private void OnEnable() {
             Events.AddListener(Events.M_CREATE_PICKABLE_COINS, OnCoinsCreating);
             Events.AddListener(Events.M_CREATE_PICKABLE_COMPONENT, OnComponentCreating);
