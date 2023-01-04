@@ -4,6 +4,7 @@ using System.Linq;
 using Model.Equipment;
 using Model.Equipment.Template;
 using Photon.Pun;
+using UnityEditor;
 using UnityEngine;
 
 namespace UI {
@@ -17,6 +18,14 @@ namespace UI {
         private Vector2 componentScroll = Vector2.zero;
         private Robot myRobot;
         private int componentPos;
+        private Texture2D armorImg;
+        private Texture2D cameraImg;
+        private Texture2D gunImg;
+        private Texture2D lidarImg;
+        private Texture2D inventoryImg;
+        private Texture2D robotImg;
+        private Texture2D towerImg;
+        private Texture2D engineerImg;
 
         private void OnGUI() {
             if (!Summary.isGameStarted) return; //游戏未开始
@@ -34,6 +43,7 @@ namespace UI {
                 foreach (var robot in Summary.team.robots.Values.Where(r => r.atHome)) {
                     
                     GUILayout.BeginHorizontal("Box");
+                    GUILayout.Label(robotImg,GUILayout.ExpandWidth(false));
                     GUILayout.Label(robot.name, GUILayout.ExpandWidth(true));
                     if (GUILayout.Button("查看机器人", GUILayout.ExpandWidth(false))) {
                         myRobot = robot;
@@ -54,6 +64,7 @@ namespace UI {
                     for (var i = 0; i < myRobot.equippedComponents.Length; i++) {
                         var component = myRobot.equippedComponents[i];
                         GUILayout.BeginHorizontal("Box");
+                        //GUILayout.Label(getImage(component.template.type),GUILayout.ExpandWidth(false));
                         GUIStyle styleTemp = new GUIStyle(GUI.skin.label);
                         styleTemp.fontSize = 20;
                         GUILayout.Label($"{i} - {(component == null ? "空" : component.template.name)}",styleTemp,
@@ -102,7 +113,8 @@ namespace UI {
                 for (var i = 0; i < Summary.team.components.Count; i++) {
                     var component = Summary.team.components[i];
                     GUILayout.BeginHorizontal("Box");
-                    GUILayout.Label(component.template.name, GUILayout.ExpandWidth(true)); //配件名字（或者是贴图）未解决
+                    GUILayout.Label(getImage(component.template.type),GUILayout.ExpandWidth(false));
+                    GUILayout.Label(component.template.name, GUILayout.ExpandWidth(true)); 
                     if (myRobot != null && GUILayout.Button("装配", GUILayout.ExpandWidth(false))) {
                         var componentType = new List<int>();
                         var firstNull = -1;
@@ -142,6 +154,25 @@ namespace UI {
                 GetComponent<MEMainCameraController>().active = true;
             }
         }
+        private Texture2D getImage(int tech) {
+        switch (tech) {
+                case 0:
+                    return cameraImg;
+                case 1:
+                    return gunImg;
+                case 2:
+                    return lidarImg;
+                case 3:
+                    return inventoryImg;
+                case 4:
+                    return armorImg;
+                case 5:
+                    return engineerImg;
+                default:
+                    return null;
+            }
+           
+        }
         private void OnGameOver(object[] args) {
             if (args.Length != 0) {
                 this.enabled = false;
@@ -151,6 +182,14 @@ namespace UI {
         public override void OnEnable() {
             base.OnEnable();
             Events.AddListener(Events.F_GAME_OVER, OnGameOver);
+            armorImg = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Scripts/UI/image/armor.png");
+            cameraImg = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Scripts/UI/image/camera.png");
+            gunImg = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Scripts/UI/image/gun.png");
+            inventoryImg = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Scripts/UI/image/inventory.png");
+            lidarImg = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Scripts/UI/image/lidar.png");
+            robotImg = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Scripts/UI/image/robot.png");
+            towerImg = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Scripts/UI/image/tower.png");
+            engineerImg = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Scripts/UI/image/engineer.png");
         }
 
         public override void OnDisable() {
