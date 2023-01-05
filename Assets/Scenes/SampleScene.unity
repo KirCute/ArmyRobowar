@@ -27610,6 +27610,7 @@ MonoBehaviour:
   Base4: {fileID: 9160744681244948288, guid: 5561972775e3227489230c9f68ad84ca, type: 3}
   Base5: {fileID: 7484687940103583877, guid: 1d115c995784d454c8f93c884146f8cd, type: 3}
   NavMark: {fileID: 5925631619938338444, guid: b1536bb584cbe4146a751c99fefcca30, type: 3}
+  selectedText: {fileID: 0}
 --- !u!114 &1964602110
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27638,6 +27639,9 @@ MonoBehaviour:
     type: 3}
   enemyPoint: {fileID: 8818427488977562989, guid: 4518364d47f789e44bfa5ed0c3afe07b,
     type: 3}
+  towerPoint: {fileID: 4519732078912630725, guid: 118bcf9eacf845b4a84ab2268486724a,
+    type: 3}
+  enemyList: 
 --- !u!114 &1968126464 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2253440904856303723, guid: 285e3f8f231a3704b859c7a7b6982605,

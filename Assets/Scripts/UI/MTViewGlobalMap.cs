@@ -19,6 +19,7 @@ namespace UI {
         public GameObject Base4;
         public GameObject Base5;
         public GameObject NavMark;
+        public GameObject selectedText;
         
         private const int VIEW_MAP_PAGE_ID = 0;
         private const float VIEW_MAP_PAGE_WIDTH = 0.8F;
@@ -90,6 +91,13 @@ namespace UI {
                         enemy.Value.SetActive(false);
                     }
                 }
+                
+                if (GetComponent<MTGlobalMapPoint>().TPList != null)
+                {
+                    foreach (var tower in GetComponent<MTGlobalMapPoint>().TPList) {
+                        tower.Value.SetActive(false);
+                    }
+                }
 
                 positionInWorld.Clear();
                 GetComponent<MEMainCameraController>().active = true;
@@ -112,7 +120,6 @@ namespace UI {
                 for (int j = 0; j < 46; j++) {
                     int temp = (33-i)*46+j;//坐标系不同
                     
-                    Debug.Log(temp + " "+Summary.team.teamMap[temp]);
                     if (Summary.team.teamMap[temp]) {
                         blackMasks[temp].SetActive(false);
                     }
@@ -133,6 +140,13 @@ namespace UI {
             {
                 foreach (var enemy in GetComponent<MTGlobalMapPoint>().EPList) {
                     enemy.Value.SetActive(true);
+                }
+            }
+            
+            if (GetComponent<MTGlobalMapPoint>().TPList != null)
+            {
+                foreach (var tower in GetComponent<MTGlobalMapPoint>().TPList) {
+                    tower.Value.SetActive(true);
                 }
             }
             
@@ -223,6 +237,7 @@ namespace UI {
             Base_5.GetComponent<RectTransform>().localPosition =
                 new Vector2(mapPose[0], mapPose[1]);
             Base_5.SetActive(false);
+            
         }
 
         void TransformPosition(int m,int n) {
