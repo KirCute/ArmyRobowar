@@ -42,12 +42,20 @@ namespace UI {
             }
         }
 
+        /// <summary>
+        /// 索敌后记录敌人ID
+        /// </summary>
+        /// <param name="args"></param>
         private void AddEnemy(object[] args) {
             if (Summary.team.teamColor == (int) args[0]) {
                 enemyList.Add((int) args[1]);
             }
         }
 
+        /// <summary>
+        /// 失去索敌后删除敌人ID
+        /// </summary>
+        /// <param name="args"></param>
         private void DeleteEnemy(object[] args) {
             if (Summary.team.teamColor == (int) args[0]) {
                 for (var i = 0; i < enemyList.Count; i++) {
@@ -67,6 +75,10 @@ namespace UI {
             }
         }
 
+        /// <summary>
+        /// 敌人死亡后删去敌人ID
+        /// </summary>
+        /// <param name="args"></param>
         private void DeleteDestroyedEnemy(object[] args) {
             for (var i = 0; i < enemyList.Count; i++) {
                 var enemy = enemyList[i];
@@ -83,6 +95,10 @@ namespace UI {
             }
         }
 
+        /// <summary>
+        /// 信号塔被摧毁后销毁对应标记
+        /// </summary>
+        /// <param name="args"></param>
         private void DeleteDestroyedTower(object[] args) {
             foreach (var tp in towerPointList.Where(tp => tp.Key == (int) args[0])) {
                 Destroy(tp.Value);
@@ -91,7 +107,9 @@ namespace UI {
             towerPointList.Remove((int) args[0]);
         }
 
-        //在地图上标出友方车辆
+        /// <summary>
+        /// 在地图上标出友方车辆
+        /// </summary>
         private void UpdateFriendPoints() {
             foreach (var k in Summary.team.robots.Keys.Where(k =>
                          Summary.team.robots[k] != null &&
@@ -137,7 +155,12 @@ namespace UI {
             }
         }
 
-        //世界坐标转换到地图坐标
+        /// <summary>
+        /// 世界坐标转换到地图坐标
+        /// </summary>
+        /// <param name="worldZ">世界坐标z</param>
+        /// <param name="worldX">世界坐标x</param>
+        /// <returns>map坐标</returns>
         public static int[] World2Map(double worldZ, double worldX) {
             var pose = new int[2];
             pose[0] = (int) (worldZ * K_X);
@@ -145,7 +168,9 @@ namespace UI {
             return pose;
         }
 
-        //在地图上标出敌方方车辆
+        /// <summary>
+        /// 在地图上标出敌方方车辆
+        /// </summary>
         private void UpdateEnemyPoints() {
             foreach (var enemy in enemyList) {
                 //未生成对应point则创建point
@@ -170,6 +195,9 @@ namespace UI {
             }
         }
 
+        /// <summary>
+        /// 对于新Tower在地图上建立标记
+        /// </summary>
         private void UpdateTowerPoints() {
             foreach (var k in Summary.team.towers.Keys) {
                 if (Summary.team.towers[k] != null) {

@@ -70,6 +70,9 @@ namespace UI
             
         }
 
+        /// <summary>
+        /// 在页面开启时控制配件的active
+        /// </summary>
         private void OnGUI()
         {
             if (!Summary.isGameStarted) return;
@@ -145,6 +148,10 @@ namespace UI
             }
         }
 
+        /// <summary>
+        /// 页面布局
+        /// </summary>
+        /// <param name="id">页面ID</param>
         private void ViewGlobalMap(int id)
         {
             GUILayout.BeginHorizontal();
@@ -239,6 +246,9 @@ namespace UI
             GUILayout.EndHorizontal();
         }
 
+        /// <summary>
+        /// 创建地图迷雾
+        /// </summary>
         private void CreateMask()
         {
             for (var m = 0; m < MTMapBuilder.MAP_CELL_ROW_CNT; m++)
@@ -259,6 +269,9 @@ namespace UI
             }
         }
 
+        /// <summary>
+        /// 在地图上标出基地
+        /// </summary>
         private void CreateBase()
         {
             base0 = Instantiate(base0Prefab,
@@ -304,6 +317,9 @@ namespace UI
             base5.SetActive(false);
         }
 
+        /// <summary>
+        /// 创建导航按钮
+        /// </summary>
         private void CreateNavButton()
         {
             for (var m = 0; m < MTMapBuilder.MAP_CELL_ROW_CNT; m++)
@@ -328,6 +344,11 @@ namespace UI
             }
         }
 
+        /// <summary>
+        /// map坐标系到世界坐标系的转换
+        /// </summary>
+        /// <param name="m">行数</param>
+        /// <param name="n">列数</param>
         private void TransformPosition(int m, int n)
         {
             var first = (float)(-62 + 62.0 / (17.0 * MULTI * 2) + (34 * MULTI - 1 - m) * 62.0 / 17.0 * MULTI);
