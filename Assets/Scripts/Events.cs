@@ -1,7 +1,6 @@
 using ExitGames.Client.Photon;
 using Photon.Pun;
 using Photon.Realtime;
-using UnityEngine;
 
 public static class Events {
     private const int COUNT_OF_EVENTS = 54;

@@ -218,7 +218,7 @@ namespace System {
                 {"BaseTower", new TowerTemplate("BaseTower", "信号塔", "Tower", 45, 20)}
             };
 
-        public static readonly IReadOnlyDictionary<string, List<string>>  TECHNIC_TOPOLOGY = new Dictionary<string, List<string>> {
+        public static readonly IReadOnlyDictionary<string, IReadOnlyList<string>>  TECHNIC_TOPOLOGY = new Dictionary<string, IReadOnlyList<string>> {
             {"BaseRobot", new List<string>()},
             {"iLightRobot", new List<string> {"BaseRobot"}},
             {"iiLightRobot", new List<string> {"iLightRobot"}},
