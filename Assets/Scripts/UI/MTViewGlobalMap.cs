@@ -77,7 +77,7 @@ namespace UI {
                 Base_3.SetActive(false);
                 Base_4.SetActive(false);
                 Base_5.SetActive(false);
-                
+
                 if (GetComponent<MTGlobalMapPoint>().FPList != null)
                 {
                     foreach (var friend in GetComponent<MTGlobalMapPoint>().FPList) {
@@ -98,7 +98,7 @@ namespace UI {
                         tower.Value.SetActive(false);
                     }
                 }
-
+                
                 positionInWorld.Clear();
                 GetComponent<MEMainCameraController>().active = true;
                 
