@@ -10,8 +10,8 @@ namespace UI {
         public GameObject enemyPoint;
         public GameObject towerPoint;
 
-        private const double K_X = 500.0 / 166.0; //map像素长度与世界场景长度之比
-        private const double K_Y = 340.0 / 124.0; //map像素宽度与世界场景宽度之比
+        private const double K_X = 750.0 / 166.0; //map像素长度与世界场景长度之比
+        private const double K_Y = 510.0 / 124.0; //map像素宽度与世界场景宽度之比
         public List<int> enemyList = new(); //存放所有检测到的敌车的ID
         private readonly HashSet<int> createdFriends = new(); //友方车辆是否已在map上标出
         private readonly HashSet<int> createdEnemies = new(); //敌方车辆是否已在map上标出
@@ -68,12 +68,10 @@ namespace UI {
         }
 
         private void DeleteDestroyedEnemy(object[] args) {
-            Debug.Log("callback");
             for (var i = 0; i < enemyList.Count; i++) {
                 var enemy = enemyList[i];
                 if (enemy == (int) args[0]) {
                     enemyList.RemoveAt(i--);
-                    Debug.Log("11111");
                     //删除enemyList中的ID时同时删除该ID对应的point（GameObject）及EPList中的key
                     foreach (var ep in enemyPointList.Where(ep => ep.Key == enemy)) {
                         Destroy(ep.Value);
@@ -150,7 +148,6 @@ namespace UI {
         //在地图上标出敌方方车辆
         private void UpdateEnemyPoints() {
             foreach (var enemy in enemyList) {
-                Debug.Log(enemy);
                 //未生成对应point则创建point
                 if (!createdEnemies.Contains(enemy)) {
                     var robotPosition = GameObject.Find($"Robot_{enemy}").transform.position;
