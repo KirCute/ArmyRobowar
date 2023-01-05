@@ -13,7 +13,8 @@ namespace UI {
         private Vector2 scroll = Vector2.zero;
         private int baseId = 6;
         private readonly Dictionary<string, string> robotNames = new();
-        private readonly Dictionary<string, string> robotNameErrors = new();
+        private readonly Dictionary<string, string> robotErrors = new();
+        private readonly Dictionary<string, string> componentErrors = new();
         
         private Texture2D robotImg;
         private Texture2D cameraImg;
@@ -23,14 +24,15 @@ namespace UI {
         private Texture2D armorImg;
         private Texture2D engineerImg;
         private Texture2D towerImg;
-
-
+        
         private void OnEnable() {
             if (baseId == 6 || !Summary.team.bases.Keys.Contains(baseId)) SwitchNextBase();
             var robotNamesKey = robotNames.Keys.ToList();
             foreach (var key in robotNamesKey) robotNames[key] = "";
-            var robotNameErrorsKey = robotNameErrors.Keys.ToList();
-            foreach (var key in robotNameErrorsKey) robotNameErrors[key] = "";
+            var robotNameErrorsKey = robotErrors.Keys.ToList();
+            foreach (var key in robotNameErrorsKey) robotErrors[key] = "";
+            var componentErrorsKey = componentErrors.Keys.ToList();
+            foreach (var key in componentErrorsKey) componentErrors[key] = "";
             Events.AddListener(Events.F_BASE_DESTROYED, OnBaseDestroyed);
             Events.AddListener(Events.F_GAME_OVER, OnGameOver);
 
@@ -56,7 +58,10 @@ namespace UI {
         private void OnGUI() {
             foreach (var template in Summary.team.availableRobotTemplates) {
                 if (!robotNames.ContainsKey(template)) robotNames.Add(template, "");
-                if (!robotNameErrors.ContainsKey(template)) robotNameErrors.Add(template, "");
+                if (!robotErrors.ContainsKey(template)) robotErrors.Add(template, "");
+            }
+            foreach (var template in Summary.team.availableSensorTemplates) {
+                if (!componentErrors.ContainsKey(template)) componentErrors.Add(template, "");
             }
 
             var dim = new Rect(
@@ -83,12 +88,14 @@ namespace UI {
                     GUILayout.Label($"{template.name} (${template.cost})", GUILayout.ExpandWidth(true));
                     if (GUILayout.Button("购买", GUILayout.ExpandWidth(false))) {
                         if (robotNames[goods] == "") {
-                            robotNameErrors[goods] = "请输入机器人名称";
+                            robotErrors[goods] = "请输入机器人名称";
                         } else if (Summary.team.robots.Values.Any(robot => robot.name == robotNames[goods])) {
-                            robotNameErrors[goods] = "该名称已被使用";
+                            robotErrors[goods] = "该名称已被使用";
+                        } else if (Summary.team.coins < template.cost) {
+                            robotErrors[goods] = "货币不足";
                         } else {
                             Events.Invoke(Events.M_CREATE_ROBOT, new object[] {baseId, goods, robotNames[goods]});
-                            robotNameErrors[goods] = "";
+                            robotErrors[goods] = "";
                             robotNames[goods] = "";
                         }
                     }
@@ -101,7 +108,7 @@ namespace UI {
                     };
                     robotNames[goods] =
                         GUILayout.TextField(robotNames[goods], 9, styleTemp, GUILayout.ExpandWidth(true));
-                    GUILayout.Label($"{robotNameErrors[goods],-16}", GUILayout.ExpandWidth(false));
+                    GUILayout.Label($"{robotErrors[goods],-10}", GUILayout.ExpandWidth(false));
                     GUILayout.EndHorizontal();
                     GUILayout.BeginHorizontal("Box");
                     var styleTempForLabel = new GUIStyle(GUI.skin.label) {
@@ -124,7 +131,12 @@ namespace UI {
                     var template = Constants.SENSOR_TEMPLATES[goods];
                     GUILayout.Label($"{template.name} (${template.cost})", GUILayout.ExpandWidth(true));
                     if (GUILayout.Button("购买", GUILayout.ExpandWidth(false))) {
-                        Events.Invoke(Events.M_TEAM_BUY_COMPONENT, new object[] {Summary.team.teamColor, goods});
+                        if (Summary.team.coins < template.cost) {
+                            componentErrors[goods] = "货币不足";
+                        } else {
+                            componentErrors[goods] = "";
+                            Events.Invoke(Events.M_TEAM_BUY_COMPONENT, new object[] {Summary.team.teamColor, goods});
+                        }
                     }
 
                     GUILayout.EndHorizontal();
@@ -134,7 +146,10 @@ namespace UI {
                         },
                         fontSize = 15
                     };
-                    GUILayout.Label(Constants.TECHNOLOGY[goods].description, styleTempForLabel);
+                    GUILayout.BeginHorizontal();
+                    GUILayout.Label(Constants.TECHNOLOGY[goods].description, styleTempForLabel, GUILayout.ExpandWidth(true));
+                    GUILayout.Label($"{componentErrors[goods],-10}", GUILayout.ExpandWidth(false));
+                    GUILayout.EndHorizontal();
                     GUILayout.EndVertical();
                     GUILayout.EndHorizontal();
                 }
