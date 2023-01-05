@@ -3,6 +3,9 @@ using Photon.Pun;
 using UnityEngine;
 
 namespace Equipment.Tower {
+    /// <summary>
+    /// 用于记录信号塔ID和其所属团队，从而可以为正确的机器人附加信号
+    /// </summary>
     public class METowerIdentifier : AbstractMESignalIdentifier, IPunObservable {
         [SerializeField] private List<Material> projectorMaterials;
         public int id { get; private set; }

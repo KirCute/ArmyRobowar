@@ -2,6 +2,9 @@
 using UnityEngine;
 
 namespace System.Judgement {
+    /// <summary>
+    /// 团队获取配件和货币的应答脚本
+    /// </summary>
     public class METeamIncome : MonoBehaviour {
         private void OnEnable() {
             Events.AddListener(Events.F_TEAM_ACQUIRE_COINS, OnAcquireCoin);

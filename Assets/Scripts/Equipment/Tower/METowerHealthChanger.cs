@@ -3,6 +3,9 @@ using Photon.Pun;
 using UnityEngine;
 
 namespace Equipment.Tower {
+    /// <summary>
+    /// 用于处理信号塔的扣血，并同步血量数据（含发布信号塔损坏事件）
+    /// </summary>
     public class METowerHealthChanger : MonoBehaviourPun, IPunObservable {
         private METowerIdentifier identity;
 

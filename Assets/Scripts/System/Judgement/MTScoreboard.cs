@@ -1,6 +1,9 @@
 using Photon.Pun;
 
 namespace System.Judgement {
+    /// <summary>
+    /// 判定胜负的脚本
+    /// </summary>
     public class MTScoreboard : MonoBehaviourPun {
         private int cntBase = 1;
         

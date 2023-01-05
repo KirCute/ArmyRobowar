@@ -1,4 +1,7 @@
 ﻿namespace Equipment.Robot.Body {
+    /// <summary>
+    /// 当机器人被击中时生效，提供机器人的扣血方式
+    /// </summary>
     public class MTRobotHurt : AbstractMTHurt {
         private MERobotIdentifier identity;
         

@@ -2,6 +2,9 @@
 using Photon.Pun;
 
 namespace Equipment.Robot {
+    /// <summary>
+    /// 用于记录机器人的信号连接信号，发送弱信号警告和失联警告
+    /// </summary>
     public class MERobotConnection : MonoBehaviourPun, IPunObservable {
         private const int STRONG_CONNECTION_STANDARD = 10000;
         private MERobotIdentifier identity;
@@ -23,7 +26,7 @@ namespace Equipment.Robot {
                 var delta = (int) args[1];
                 var conn = Summary.team.robots[identity.id].connection;
                 Summary.team.robots[identity.id].connection += delta;
-                switch (conn + delta) {
+                switch (conn + delta) {  // 发送信号提示
                     case <= 0 when conn != 0:
                         Events.Invoke(Events.F_ROBOT_LOST_CONNECTION, new object[] {identity.id});
                         break;

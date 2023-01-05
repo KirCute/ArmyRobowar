@@ -1,4 +1,7 @@
 ﻿namespace Equipment.Sensor {
+    /// <summary>
+    /// 当配件被击中时生效，提供配件的扣血方式
+    /// </summary>
     public class MTComponentHurt : AbstractMTHurt {
         private MEComponentIdentifier identity;
         

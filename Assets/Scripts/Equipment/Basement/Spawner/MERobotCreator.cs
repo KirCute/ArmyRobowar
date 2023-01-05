@@ -5,14 +5,17 @@ using Photon.Pun;
 using UnityEngine;
 
 namespace Equipment.Basement.Spawner {
+    /// <summary>
+    /// 用于生成小车的脚本，当其长方体碰撞箱内已经有其它机器人时，会阻断新的机器人的生成进程
+    /// </summary>
     public class MERobotCreator : MonoBehaviourPun {
         private const float SPAWN_WAIT = 1.0F;
         
-        private static int nextRobotID = -1;
+        private static int nextRobotID = -1;  // 最后一辆机器人的id，用来保证全场机器人id不重复
         private MEBaseFlag identity;
-        private int crowd;
-        private readonly List<int> creatingIds = new();
-        private float wait;
+        private int crowd;  // 生成点当前的机器人数，理论上最大为1，当不为0时阻塞小车生成
+        private readonly List<int> creatingIds = new();  // 正在生成中的机器人id
+        private float wait;  // 生成小车后添加延迟，避免刚刚解阻塞马上所有阻塞中的机器人全部生成
 
         private void Awake() {
             identity = GetComponentInParent<MEBaseFlag>();
@@ -24,6 +27,7 @@ namespace Equipment.Basement.Spawner {
             var robot = Summary.team.robots[creatingIds[0]];
             wait = Mathf.Max(wait - Time.deltaTime, 0.0f);
             if (wait > .0f || PhotonNetwork.Time - robot.createTime < robot.template.makingTime || crowd > 0) return;
+            // 抵达此处时满足机器人生成条件
             if (Summary.isTeamLeader) {
                 PhotonNetwork.Instantiate(robot.template.prefabName, transform.position, transform.rotation, 0,
                     new object[] {creatingIds[0], Summary.team.teamColor}
@@ -68,6 +72,7 @@ namespace Equipment.Basement.Spawner {
 
         private void OnConquered(object[] args) {
             if (identity.baseId == (int) args[0] && Summary.team.teamColor == (int) args[1]) {
+                // 占领时取消生成所有正在生产的小车
                 foreach (var fetus in creatingIds) {
                     Summary.team.robots[fetus].manufacturing = false;
                 }

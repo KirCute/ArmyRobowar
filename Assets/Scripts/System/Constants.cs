@@ -4,10 +4,14 @@ using Model.Technology;
 using UnityEngine;
 
 namespace System {
+    /// <summary>
+    /// 获取全部静态数据的类
+    /// </summary>
     public static class Constants {
-        public const int BASE_COUNT = 6;
-        public const int BASE_CAPTURE_COST = 300;
+        public const int BASE_COUNT = 6;  // 基地数量
+        public const int BASE_CAPTURE_COST = 100;  // 基地占领开销
         
+        // 全部科技
         public static readonly IReadOnlyDictionary<string, Technic> TECHNOLOGY = new Dictionary<string, Technic> {
             {"BaseRobot", new Technic("基础底盘", "最基础的底盘，血量和机动中规中矩，可以携带三个配件。", 0.0, _ => { })},
             {"iLightRobot", new Technic("轻质底盘", "向机动特化的底盘，拥有更大的移动速度，转速和射界，但血量更低。", 2.0, team => team.availableRobotTemplates.Add("iLightRobot"))},
@@ -39,6 +43,7 @@ namespace System {
             {"BaseTower", new Technic("信号塔", "为一定范围内的机器人提供信号。", 0.0, _ => { })}
         };
 
+        // 全部机器人模板
         public static readonly IReadOnlyDictionary<string, RobotTemplate> ROBOT_TEMPLATES =
             new Dictionary<string, RobotTemplate> {
                 {"BaseRobot", new RobotTemplate("BaseRobot", "基础底盘", "BaseRobot", 3, 30, 20, 10.0f)},
@@ -50,6 +55,7 @@ namespace System {
                 {"iiHeavyRobot", new RobotTemplate("iiHeavyRobot", "超重型底盘", "iiHeavyRobot", 4, 50, 40, 30.0f)}
             };
 
+        // 全部配件模板
         public static readonly IReadOnlyDictionary<string, SensorTemplate> SENSOR_TEMPLATES =
             new Dictionary<string, SensorTemplate> {
                 {
@@ -213,11 +219,13 @@ namespace System {
                 }
             };
 
+        // 全部信号塔模板
         public static readonly IReadOnlyDictionary<string, TowerTemplate> TOWER_TEMPLATES =
             new Dictionary<string, TowerTemplate> {
                 {"BaseTower", new TowerTemplate("BaseTower", "信号塔", "Tower", 45, 20)}
             };
 
+        // 科技的依赖关系
         public static readonly IReadOnlyDictionary<string, IReadOnlyList<string>>  TECHNIC_TOPOLOGY = new Dictionary<string, IReadOnlyList<string>> {
             {"BaseRobot", new List<string>()},
             {"iLightRobot", new List<string> {"BaseRobot"}},

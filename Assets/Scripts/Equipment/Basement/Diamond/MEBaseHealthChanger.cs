@@ -3,6 +3,9 @@ using Photon.Pun;
 using UnityEngine;
 
 namespace Equipment.Basement.Diamond {
+    /// <summary>
+    /// 用于处理基地水晶的扣血，并同步血量数据（含发布基地摧毁事件）
+    /// </summary>
     public class MEBaseHealthChanger : MonoBehaviourPun, IPunObservable {
         private MEBaseFlag identity;
 

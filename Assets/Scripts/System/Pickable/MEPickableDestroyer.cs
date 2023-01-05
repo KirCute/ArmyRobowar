@@ -1,9 +1,12 @@
 ﻿using Photon.Pun;
 
 namespace System.Pickable {
+    /// <summary>
+    /// 用于处理拾取掉落物时掉落物的销毁，以及掉落物的自然销毁
+    /// </summary>
     public class MEPickableDestroyer : MonoBehaviourPun {
         private MEPickableIdentifier identity;
-        public double deadTime;
+        public double deadTime;  // 自然销毁发生事件，为0.0时永远不自然销毁，实际情况只有掉落的配件会自然销毁
 
         private void Awake() {
             identity = GetComponentInParent<MEPickableIdentifier>();

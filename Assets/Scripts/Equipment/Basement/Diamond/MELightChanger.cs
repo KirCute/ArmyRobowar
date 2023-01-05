@@ -3,6 +3,9 @@ using Photon.Pun;
 using UnityEngine;
 
 namespace Equipment.Basement.Diamond {
+    /// <summary>
+    /// 根据基地当前的所属情况更改基地灯光的颜色
+    /// </summary>
     public class MELightChanger : MonoBehaviourPun {
         [SerializeField] private Color neutralLightColor;
         [SerializeField] private Material neutralParticleMaterial;
@@ -10,8 +13,9 @@ namespace Equipment.Basement.Diamond {
         [SerializeField] private List<Color> lightColors;
         [SerializeField] private List<Material> particleMaterials;
         [SerializeField] private List<Material> projectorMaterials;
+        // 以上列表的索引为队伍号
         private MEBaseFlag identity;
-        private int memorizingFlag;
+        private int memorizingFlag;  // 上一帧基地所属的团队
 
         private void Awake() {
             identity = GetComponentInParent<MEBaseFlag>();

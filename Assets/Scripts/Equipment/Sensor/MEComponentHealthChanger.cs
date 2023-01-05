@@ -3,6 +3,9 @@ using Photon.Pun;
 using UnityEngine;
 
 namespace Equipment.Sensor {
+    /// <summary>
+    /// 用于处理配件的扣血，并同步血量数据（含发布配件损坏事件）
+    /// </summary>
     public class MEComponentHealthChanger : MonoBehaviourPun, IPunObservable {
         private MEComponentIdentifier identity;
         private bool broken;

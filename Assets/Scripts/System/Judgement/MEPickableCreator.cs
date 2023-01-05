@@ -2,6 +2,9 @@
 using UnityEngine;
 
 namespace System.Judgement {
+    /// <summary>
+    /// 创造掉落物事件应答脚本
+    /// </summary>
     public class MEPickableCreator : MonoBehaviour {
         private static int nextPickableId;
 
@@ -20,6 +23,7 @@ namespace System.Judgement {
         }
 
         private static void OnCoinsCreating(object[] args) {
+            // 创建掉落的货币
             if (PhotonNetwork.IsMasterClient) {
                 PhotonNetwork.Instantiate((string) args[0], (Vector3) args[1], Quaternion.identity, 0,
                     new object[] {nextPickableId++});
@@ -27,6 +31,7 @@ namespace System.Judgement {
         }
 
         private static void OnComponentCreating(object[] args) {
+            // 创建掉落的传感器
             if (PhotonNetwork.IsMasterClient) {
                 var prefab = Constants.SENSOR_TEMPLATES[(string) args[0]].pickablePrefabName;
                 PhotonNetwork.Instantiate(prefab, (Vector3) args[2], Quaternion.identity, 0,

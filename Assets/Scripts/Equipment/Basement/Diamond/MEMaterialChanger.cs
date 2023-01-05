@@ -3,6 +3,9 @@ using Photon.Pun;
 using UnityEngine;
 
 namespace Equipment.Basement.Diamond {
+    /// <summary>
+    /// 根据基地当前的所属情况更改基地水晶的颜色
+    /// </summary>
     public class MEMaterialChanger : MonoBehaviourPun {
         [SerializeField] private Material neutralFlagMaterial;
         [SerializeField] private List<Material> flagMaterials;

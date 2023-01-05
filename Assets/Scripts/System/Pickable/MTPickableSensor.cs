@@ -1,11 +1,14 @@
 ﻿using Photon.Pun;
 
 namespace System.Pickable {
+    /// <summary>
+    /// 掉落的配件
+    /// </summary>
     public class MTPickableSensor : AbstractMTPickable, IPunObservable {
         private const double PICKABLE_SENSOR_DEAD_TIME = 180.0;
-        private string nameOnTechnologyTree;
-        private int health;
-        private bool picked;
+        private string nameOnTechnologyTree;  // 配件在全体配件字典中的key
+        private int health;  // 当前血量
+        private bool picked;  // 是否已被捡起，防止二次捡起
         private MEPickableIdentifier identity;
         public override string pickableName => Constants.SENSOR_TEMPLATES[nameOnTechnologyTree].name;
 

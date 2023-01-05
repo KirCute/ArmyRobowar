@@ -2,6 +2,9 @@
 using UnityEngine;
 
 namespace Equipment.Sensor {
+    /// <summary>
+    /// 于记录配件所属机器人的ID和配件安装位置，从而可以从配件的GameObject反推其所属机器人和其安装位置
+    /// </summary>
     public class MEComponentIdentifier : MonoBehaviourPun, IPunObservable {
 		[SerializeField] private string installPosition;
         public int robotId { get; private set; }

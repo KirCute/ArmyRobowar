@@ -2,6 +2,9 @@
 using Photon.Pun;
 
 namespace Equipment.Tower {
+    /// <summary>
+    /// 用于处理信号塔的销毁
+    /// </summary>
     public class METowerDestroyer : MonoBehaviourPun {
         private METowerIdentifier identity;
 

@@ -3,6 +3,9 @@ using Photon.Pun;
 using UnityEngine;
 
 namespace Equipment.Robot.Body {
+    /// <summary>
+    /// 用于处理机器人的扣血，并同步血量数据（含发布机器人损坏事件）
+    /// </summary>
     public class MERobotHealthChanger : MonoBehaviourPun, IPunObservable {
         private MERobotIdentifier identity;
 

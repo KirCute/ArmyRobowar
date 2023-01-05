@@ -4,6 +4,9 @@ using Photon.Pun;
 using UnityEngine;
 
 namespace Equipment.Basement.Updater {
+    /// <summary>
+    /// 用于更新机器人的atHome和atBase字段，从而判定机器人能否改装和是否将要占领基地
+    /// </summary>
     public class MTPort : MonoBehaviourPun {
         private MEBaseFlag identity;
 

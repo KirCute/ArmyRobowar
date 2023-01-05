@@ -3,6 +3,9 @@ using Photon.Pun;
 using Photon.Realtime;
 
 namespace Equipment.Robot {
+    /// <summary>
+    /// 用于更新机器人的控制者数据
+    /// </summary>
     public class MERobotPlayerController : MonoBehaviourPun {
         private MERobotIdentifier identity;
 

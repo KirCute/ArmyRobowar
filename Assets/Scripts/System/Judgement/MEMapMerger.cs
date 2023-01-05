@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 
 namespace System.Judgement {
+    /// <summary>
+    /// 雷达同步事件应答脚本
+    /// </summary>
     public class MEMapMerger : MonoBehaviour {
         private void OnEnable() {
             Events.AddListener(Events.F_ROBOT_LIDAR_SYNC, OnLidarSync);

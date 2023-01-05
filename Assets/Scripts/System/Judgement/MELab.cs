@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 
 namespace System.Judgement {
+    /// <summary>
+    /// 研发科技点事件应答脚本
+    /// </summary>
     public class MELab : MonoBehaviour {
         private void OnEnable() {
             Events.AddListener(Events.M_TECHNOLOGY_RESEARCH, OnResearching);

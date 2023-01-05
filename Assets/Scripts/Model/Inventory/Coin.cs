@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace Model.Inventory {
     public class Coin : IItem{
+        /// <summary>
+        /// 货币
+        /// </summary>
         private readonly int value;
         public string name => $"金币 * {value}";
 

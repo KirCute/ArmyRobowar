@@ -10,9 +10,9 @@ namespace Equipment.Robot {
         [SerializeField] private float linearSpeed = 2.0f;
         [SerializeField] private float angularSpeed = 2.5f;
 
-        private Vector2 motivation;
-        private Vector2 target;
-        private int mode;
+        private Vector2 motivation;  // 直线速度和转速，模式1下无效
+        private Vector2 target;  // 目标点，模式0下无效
+        private int mode;  // 移动模式，0为直接控制速度，1位控制要到达的目标点
         private MERobotIdentifier identity;
         private Rigidbody rbody;
 
@@ -33,20 +33,20 @@ namespace Equipment.Robot {
 
         private void Update() {
             switch (mode) {
-                case 0:
+                case 0:  // 模式0
                     rbody.velocity = transform.forward * motivation.y * linearSpeed;
                     rbody.angularVelocity = new Vector3(0f, motivation.x * angularSpeed, 0f);
                     break;
-                case 1:
+                case 1:  // 模式1
                     var pos = new Vector2(transform.position.x, transform.position.z);
                     var dis = (target - pos).normalized;
                     var forward = new Vector2(transform.forward.x, transform.forward.z);
                     var angle = Vector2.Angle(forward, dis);
-                    if (angle > NAVIGATION_MOVE_ANGULAR_ERROR) {
+                    if (angle > NAVIGATION_MOVE_ANGULAR_ERROR) {  // 如果角度偏差太大，就先转角度
                         rbody.velocity = Vector3.zero;
                         rbody.angularVelocity =
                             new Vector3(0f, (Vector3.Cross(dis, forward).z > 0 ? 1f : -1f) * angularSpeed, 0f);
-                    } else {
+                    } else {  // 反之，向前移动
                         rbody.velocity = new Vector3(dis.x, 0f, dis.y) * linearSpeed;
                     }
 

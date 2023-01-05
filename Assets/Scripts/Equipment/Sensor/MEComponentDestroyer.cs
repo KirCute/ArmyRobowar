@@ -2,6 +2,9 @@
 using Photon.Pun;
 
 namespace Equipment.Sensor {
+    /// <summary>
+    /// 用于处理配件的销毁
+    /// </summary>
     public class MEComponentDestroyer : MonoBehaviourPun {
         private MEComponentIdentifier identity;
 

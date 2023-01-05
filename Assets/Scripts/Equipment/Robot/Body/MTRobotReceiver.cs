@@ -1,4 +1,7 @@
 ﻿namespace Equipment.Robot.Body {
+    /// <summary>
+    /// 用于接受来自信号塔和基地的信号
+    /// </summary>
     public class MTRobotReceiver : AbstractMTConnection {
         private MERobotIdentifier identity;
         

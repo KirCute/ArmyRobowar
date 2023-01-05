@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 
 namespace System.Judgement {
+    /// <summary>
+    /// 机器人改装和卸货事件应答脚本
+    /// </summary>
     public class MERobotUpdater : MonoBehaviour {
         private void OnEnable() {
             Events.AddListener(Events.M_ROBOT_RELEASE_INVENTORY, OnReleaseInventory);
@@ -44,7 +47,7 @@ namespace System.Judgement {
                 var id = (int) args[1];
                 var instIndex = (int) args[2];
                 var sensor = Summary.team.robots[id].equippedComponents[instIndex];
-                if (Summary.isTeamLeader) {
+                if (Summary.isTeamLeader) {  // 卸下的配件收入仓库
                     Events.Invoke(Events.F_TEAM_ACQUIRE_COMPONENT,
                         new object[] {team, sensor.template.nameOnTechnologyTree, sensor.health}
                     );

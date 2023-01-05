@@ -4,8 +4,11 @@ using UnityEngine;
 
 namespace Model.Inventory {
     public class SensorItemAdapter : IItem {
-        private readonly string nameOnTechnologyTree;
-        private readonly int health;
+        /// <summary>
+        /// 作为物品的传感器
+        /// </summary>
+        private readonly string nameOnTechnologyTree;  // 全部传感器字典上的key
+        private readonly int health;  // 血量
         public string name => Constants.SENSOR_TEMPLATES[nameOnTechnologyTree].name;
 
         public SensorItemAdapter(string nameOnTechnologyTree, int health) {

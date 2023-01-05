@@ -1,6 +1,9 @@
 ﻿using Photon.Pun;
 
 namespace Equipment.Sensor.Camera {
+    /// <summary>
+    /// 用于控制Camera组件是否启用
+    /// </summary>
     public class MECameraPlayerController : MonoBehaviourPun {
         private MEComponentIdentifier identity;
         private bool viewing;
@@ -25,7 +28,7 @@ namespace Equipment.Sensor.Camera {
         }
 
         private void OnDestroy() {
-            if (viewing) {
+            if (viewing) {  // 让客户端停止观察小车画面
                 Events.Invoke(Events.M_ROBOT_MONITOR, new object[] {identity.robotId, PhotonNetwork.LocalPlayer, false});
             }
         }

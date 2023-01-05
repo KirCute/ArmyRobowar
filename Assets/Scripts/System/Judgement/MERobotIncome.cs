@@ -2,6 +2,9 @@
 using Photon.Pun;
 
 namespace System.Judgement {
+    /// <summary>
+    /// 机器人获取掉落的货币和掉落的传感器事件应答脚本
+    /// </summary>
     public class MERobotIncome : MonoBehaviourPun {
         private void OnEnable() {
             Events.AddListener(Events.F_ROBOT_ACQUIRE_COINS, OnRobotAcquireCoins);
