@@ -1,8 +1,7 @@
-﻿using Equipment.Robot;
-using Photon.Pun;
+﻿using Photon.Pun;
 using UnityEngine;
 
-namespace Equipment.Sensor {
+namespace Equipment.Robot.Arm {
     public class METowardsChanger : MonoBehaviourPun {
         private MERobotIdentifier identity;
         [SerializeField] private Vector2 rotationYClamp = new(-20f, 45f);

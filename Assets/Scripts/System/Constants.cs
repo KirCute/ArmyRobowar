@@ -6,7 +6,7 @@ using UnityEngine;
 namespace System {
     public static class Constants {
         public const int BASE_COUNT = 6;
-        public const int BASE_CAPTURE_COST = 100;
+        public const int BASE_CAPTURE_COST = 300;
         
         public static readonly IReadOnlyDictionary<string, Technic> TECHNOLOGY = new Dictionary<string, Technic> {
             {"BaseRobot", new Technic("基础底盘", "最基础的底盘，血量和机动中规中矩，可以携带三个配件。", 0.0, _ => { })},

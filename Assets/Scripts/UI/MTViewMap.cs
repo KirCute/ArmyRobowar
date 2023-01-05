@@ -1,7 +1,5 @@
 ﻿using System;
 using UnityEngine;
-using UnityEngine.Rendering;
-using Vector2 = System.Numerics.Vector2;
 
 namespace UI {
     public class MTViewMap {

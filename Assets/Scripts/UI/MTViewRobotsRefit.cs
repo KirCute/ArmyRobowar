@@ -11,12 +11,19 @@ namespace UI {
         private const int VIEW_REFIT_PAGE_ID = 0;
         private const float VIEW_REFIT_PAGE_WIDTH = 0.8F;
         private const float VIEW_REFIT_PAGE_HEIGHT = 0.8F;
-        private const string VIEW_REFIT_PAGE_TITLE = "";
+        private const string VIEW_REFIT_PAGE_TITLE = "改装";
         private Vector2 robotScroll = Vector2.zero;
         private Vector2 detailScroll = Vector2.zero;
         private Vector2 componentScroll = Vector2.zero;
         private Robot myRobot;
         private int componentPos;
+        private Texture2D armorImg;
+        private Texture2D cameraImg;
+        private Texture2D gunImg;
+        private Texture2D lidarImg;
+        private Texture2D inventoryImg;
+        private Texture2D robotImg;
+        private Texture2D engineerImg;
 
         private void OnGUI() {
             if (!Summary.isGameStarted) return; //游戏未开始
@@ -34,6 +41,7 @@ namespace UI {
                 foreach (var robot in Summary.team.robots.Values.Where(r => r.atHome)) {
                     
                     GUILayout.BeginHorizontal("Box");
+                    GUILayout.Label(robotImg,GUILayout.ExpandWidth(false));
                     GUILayout.Label(robot.name, GUILayout.ExpandWidth(true));
                     if (GUILayout.Button("查看机器人", GUILayout.ExpandWidth(false))) {
                         myRobot = robot;
@@ -54,8 +62,10 @@ namespace UI {
                     for (var i = 0; i < myRobot.equippedComponents.Length; i++) {
                         var component = myRobot.equippedComponents[i];
                         GUILayout.BeginHorizontal("Box");
-                        GUIStyle styleTemp = new GUIStyle(GUI.skin.label);
-                        styleTemp.fontSize = 20;
+                        //GUILayout.Label(getImage(component.template.type),GUILayout.ExpandWidth(false));
+                        var styleTemp = new GUIStyle(GUI.skin.label) {
+                            fontSize = 20
+                        };
                         GUILayout.Label($"{i} - {(component == null ? "空" : component.template.name)}",styleTemp,
                             GUILayout.ExpandWidth(true));
                         if (component != null && GUILayout.Button("拆卸", GUILayout.ExpandWidth(false))) {
@@ -102,7 +112,8 @@ namespace UI {
                 for (var i = 0; i < Summary.team.components.Count; i++) {
                     var component = Summary.team.components[i];
                     GUILayout.BeginHorizontal("Box");
-                    GUILayout.Label(component.template.name, GUILayout.ExpandWidth(true)); //配件名字（或者是贴图）未解决
+                    GUILayout.Label(GetImage(component.template.type),GUILayout.ExpandWidth(false));
+                    GUILayout.Label(component.template.name, GUILayout.ExpandWidth(true)); 
                     if (myRobot != null && GUILayout.Button("装配", GUILayout.ExpandWidth(false))) {
                         var componentType = new List<int>();
                         var firstNull = -1;
@@ -142,6 +153,17 @@ namespace UI {
                 GetComponent<MEMainCameraController>().active = true;
             }
         }
+        private Texture2D GetImage(int tech) {
+            return tech switch {
+                0 => cameraImg,
+                1 => gunImg,
+                2 => lidarImg,
+                3 => inventoryImg,
+                4 => armorImg,
+                5 => engineerImg,
+                _ => null
+            };
+        }
         private void OnGameOver(object[] args) {
             if (args.Length != 0) {
                 this.enabled = false;
@@ -151,6 +173,13 @@ namespace UI {
         public override void OnEnable() {
             base.OnEnable();
             Events.AddListener(Events.F_GAME_OVER, OnGameOver);
+            armorImg = Resources.Load("ShopImage/armor") as Texture2D;
+            cameraImg = Resources.Load("ShopImage/camera") as Texture2D;
+            gunImg = Resources.Load("ShopImage/gun") as Texture2D;
+            inventoryImg = Resources.Load("ShopImage/inventory") as Texture2D;
+            lidarImg = Resources.Load("ShopImage/lidar") as Texture2D;
+            robotImg = Resources.Load("ShopImage/robot") as Texture2D;
+            engineerImg = Resources.Load("ShopImage/engineer") as Texture2D;
         }
 
         public override void OnDisable() {

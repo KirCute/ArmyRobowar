@@ -1,22 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using Photon.Pun;
-using UnityEngine;
 
 namespace Equipment.Sensor.Lidar {
     public class MTMapBuilder : MonoBehaviourPun {
-        private const int MAP_PIXEL_WIDTH = 920;
-        private const int MAP_PIXEL_HEIGHT = 680;
-        private const int MAP_PIXEL_CELL_WIDTH = 20;
-        private const int MAP_PIXEL_CELL_HEIGHT = 20;
-        private const int MAP_CELL_COLUMN_CNT = 46;
-        private const int MAP_CELL_ROW_CNT = 34;
-        private const float MAP_WORLD_HALF_WIDTH = 82.0F;
-        private const float MAP_WORLD_HALF_HEIGHT = 61.0F;
-        private const float MAP_WORLD_CELL_WIDTH = MAP_PIXEL_CELL_WIDTH * MAP_WORLD_HALF_WIDTH * 2.0F / MAP_PIXEL_WIDTH;
-
-        private const float MAP_WORLD_CELL_HEIGHT =
-            MAP_PIXEL_CELL_HEIGHT * MAP_WORLD_HALF_HEIGHT * 2.0F / MAP_PIXEL_HEIGHT;
+        public const int MAP_PIXEL_WIDTH = 920;
+        public const int MAP_PIXEL_HEIGHT = 680;
+        public const int MAP_PIXEL_CELL_WIDTH = 20;
+        public const int MAP_PIXEL_CELL_HEIGHT = 20;
+        public const int MAP_CELL_COLUMN_CNT = 46;
+        public const int MAP_CELL_ROW_CNT = 34;
+        public const float MAP_WORLD_HALF_WIDTH = 82.0F;
+        public const float MAP_WORLD_HALF_HEIGHT = 61.0F;
+        public const float MAP_WORLD_CELL_WIDTH = MAP_PIXEL_CELL_WIDTH * MAP_WORLD_HALF_WIDTH * 2.0F / MAP_PIXEL_WIDTH;
+        public const float MAP_WORLD_CELL_HEIGHT = MAP_PIXEL_CELL_HEIGHT * MAP_WORLD_HALF_HEIGHT * 2.0F / MAP_PIXEL_HEIGHT;
 
         private MEComponentIdentifier identity;
         public int scanLayer = 1;

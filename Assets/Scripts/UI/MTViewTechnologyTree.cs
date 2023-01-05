@@ -8,8 +8,16 @@ namespace UI {
         private const int VIEW_TECH_PAGE_ID = 0;
         private const float VIEW_TECH_PAGE_WIDTH = 0.8F;
         private const float VIEW_TECH_PAGE_HEIGHT = 0.7F;
-        private const string VIEW_TECH_PAGE_TITLE = "";
+        private const string VIEW_TECH_PAGE_TITLE = "科技树";
         private Vector2 scroll = Vector2.zero;
+        private Texture2D armorImg;
+        private Texture2D cameraImg;
+        private Texture2D gunImg;
+        private Texture2D lidarImg;
+        private Texture2D inventoryImg;
+        private Texture2D robotImg;
+        private Texture2D towerImg;
+        private Texture2D engineerImg;
 
         private void OnGUI() {
             var dim = new Rect(
@@ -27,7 +35,9 @@ namespace UI {
                              !Summary.team.achievedTechnics.Contains(tech))) {
                     GUILayout.BeginVertical("Box");
                     GUILayout.BeginHorizontal("Box");
-
+                    GUILayout.Label(GetImage(tech), GUILayout.ExpandWidth(false));
+                    GUILayout.BeginVertical("Box");
+                    GUILayout.BeginHorizontal("Box");
                     GUILayout.Label($"{Constants.TECHNOLOGY[tech].name} ({Constants.TECHNOLOGY[tech].cost:0.00})");
                     if (Constants.TECHNIC_TOPOLOGY[tech].Any(t => !Summary.team.achievedTechnics.Contains(t))) {
                         GUILayout.Label("需先学习前置科技", GUILayout.ExpandWidth(false));
@@ -40,15 +50,22 @@ namespace UI {
                     }
 
                     GUILayout.EndHorizontal();
-                    GUIStyle styleTemp = new GUIStyle(GUI.skin.label);
-                    styleTemp.fontSize = 15;
-                    styleTemp.normal.textColor = Color.yellow;
+                    var styleTemp = new GUIStyle(GUI.skin.label) {
+                        fontSize = 15,
+                        normal = {
+                            textColor = Color.yellow
+                        }
+                    };
                     GUILayout.Label(Constants.TECHNOLOGY[tech].description, styleTemp);
+                    GUILayout.EndVertical();
+                    GUILayout.EndHorizontal();
+
                     GUILayout.EndVertical();
                 }
 
                 foreach (var tech in Summary.team.achievedTechnics) {
                     GUILayout.BeginHorizontal("Box");
+                    GUILayout.Label(GetImage(tech), GUILayout.ExpandWidth(false));
                     GUILayout.Label(Constants.TECHNOLOGY[tech].name);
                     GUILayout.Label("已学习", GUILayout.ExpandWidth(false));
                     GUILayout.EndHorizontal();
@@ -63,6 +80,26 @@ namespace UI {
             }
         }
 
+        private Texture2D GetImage(string tech) {
+            if (Constants.ROBOT_TEMPLATES.ContainsKey(tech)) {
+                return robotImg;
+            }
+
+            if (Constants.SENSOR_TEMPLATES.ContainsKey(tech)) {
+                return Constants.SENSOR_TEMPLATES[tech].type switch {
+                    0 => cameraImg,
+                    1 => gunImg,
+                    2 => lidarImg,
+                    3 => inventoryImg,
+                    4 => armorImg,
+                    5 => engineerImg,
+                    _ => null
+                };
+            }
+
+            return towerImg;
+        }
+
         private void OnGameOver(object[] args) {
             if (args.Length != 0) {
                 this.enabled = false;
@@ -72,6 +109,14 @@ namespace UI {
         public override void OnEnable() {
             base.OnEnable();
             Events.AddListener(Events.F_GAME_OVER, OnGameOver);
+            armorImg = Resources.Load("ShopImage/armor") as Texture2D;
+            cameraImg = Resources.Load("ShopImage/camera") as Texture2D;
+            gunImg = Resources.Load("ShopImage/gun") as Texture2D;
+            inventoryImg = Resources.Load("ShopImage/inventory") as Texture2D;
+            lidarImg = Resources.Load("ShopImage/lidar") as Texture2D;
+            robotImg = Resources.Load("ShopImage/robot") as Texture2D;
+            towerImg = Resources.Load("ShopImage/tower") as Texture2D;
+            engineerImg = Resources.Load("ShopImage/engineer") as Texture2D;
         }
 
         public override void OnDisable() {

@@ -3598,7 +3598,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 475.5, y: 187.5}
+  m_AnchoredPosition: {x: 650, y: 300}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &242092031
@@ -11475,7 +11475,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 520, y: 0}
+  m_AnchoredPosition: {x: 720, y: 0}
   m_SizeDelta: {x: 20, y: 160}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &816380214
@@ -27600,17 +27600,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f94878c05df84b789de163d706cd949c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blackMask: {fileID: 1112484188667574675, guid: 14b856d6e7e157a43963bc1abad55620,
+  blackMask: {fileID: 1818146721656667388, guid: 8b21179bdc3bdbe43a788407cb3e6143,
     type: 3}
   map: {fileID: 5859234938240738562, guid: 0b942136ac0ef7c48a3a5de847f480fa, type: 3}
-  Base0: {fileID: 5620707832179406888, guid: 8d98ff26b3a2bf4409b235e730e42565, type: 3}
-  Base1: {fileID: 7903883428256399903, guid: 8ab6ef7fed78a264aa58bef5e8375225, type: 3}
-  Base2: {fileID: 5185449142714829865, guid: bd44e108ff9c384439dd6f9d01c5b690, type: 3}
-  Base3: {fileID: 6702851707337925230, guid: b333fc2aea61e9d4586520f2a494d3cb, type: 3}
-  Base4: {fileID: 9160744681244948288, guid: 5561972775e3227489230c9f68ad84ca, type: 3}
-  Base5: {fileID: 7484687940103583877, guid: 1d115c995784d454c8f93c884146f8cd, type: 3}
-  NavMark: {fileID: 5925631619938338444, guid: b1536bb584cbe4146a751c99fefcca30, type: 3}
-  selectedText: {fileID: 0}
+  base0Prefab: {fileID: 5620707832179406888, guid: 8d98ff26b3a2bf4409b235e730e42565,
+    type: 3}
+  base1Prefab: {fileID: 7903883428256399903, guid: 8ab6ef7fed78a264aa58bef5e8375225,
+    type: 3}
+  base2Prefab: {fileID: 5185449142714829865, guid: bd44e108ff9c384439dd6f9d01c5b690,
+    type: 3}
+  base3Prefab: {fileID: 6702851707337925230, guid: b333fc2aea61e9d4586520f2a494d3cb,
+    type: 3}
+  base4Prefab: {fileID: 9160744681244948288, guid: 5561972775e3227489230c9f68ad84ca,
+    type: 3}
+  base5Prefab: {fileID: 7484687940103583877, guid: 1d115c995784d454c8f93c884146f8cd,
+    type: 3}
+  navMarkPrefab: {fileID: 5925631619938338444, guid: b1536bb584cbe4146a751c99fefcca30,
+    type: 3}
+  navButtonPrefab: {fileID: 1112484188667574675, guid: 14b856d6e7e157a43963bc1abad55620,
+    type: 3}
 --- !u!114 &1964602110
 MonoBehaviour:
   m_ObjectHideFlags: 0
