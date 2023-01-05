@@ -36,14 +36,14 @@ namespace UI {
             Events.AddListener(Events.F_BASE_DESTROYED, OnBaseDestroyed);
             Events.AddListener(Events.F_GAME_OVER, OnGameOver);
             
-            robotImg = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Scripts/UI/image/robot.png");
-            cameraImg = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Scripts/UI/image/camera.png");
-            gunImg = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Scripts/UI/image/gun.png");
-            lidarImg = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Scripts/UI/image/lidar.png");
-            inventoryImg = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Scripts/UI/image/inventory.png");
-            armorImg = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Scripts/UI/image/armor.png");
-            engineerImg = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Scripts/UI/image/engineer.png");
-            towerImg = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Scripts/UI/image/tower.png");
+            robotImg = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Resources/ShopImage/robot.png");
+            cameraImg = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Resources/ShopImage/camera.png");
+            gunImg = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Resources/ShopImage/gun.png");
+            lidarImg = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Resources/ShopImage/lidar.png");
+            inventoryImg = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Resources/ShopImage/inventory.png");
+            armorImg = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Resources/ShopImage/armor.png");
+            engineerImg = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Resources/ShopImage/engineer.png");
+            towerImg = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Resources/ShopImage/tower.png");
         }
 
         private void OnDisable() {
@@ -114,7 +114,6 @@ namespace UI {
                 }
 
                 foreach (var goods in Summary.team.availableSensorTemplates) {
-                    GUILayout.BeginVertical("Box");
                     GUILayout.BeginHorizontal("Box");
                     GUILayout.Label(getImage(goods),GUILayout.ExpandWidth(false));
                     GUILayout.BeginVertical("Box");
