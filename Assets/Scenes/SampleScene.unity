@@ -27600,7 +27600,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f94878c05df84b789de163d706cd949c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blackMask: {fileID: 1112484188667574675, guid: 14b856d6e7e157a43963bc1abad55620,
+  blackMask: {fileID: 1818146721656667388, guid: 8b21179bdc3bdbe43a788407cb3e6143,
     type: 3}
   map: {fileID: 5859234938240738562, guid: 0b942136ac0ef7c48a3a5de847f480fa, type: 3}
   base0Prefab: {fileID: 5620707832179406888, guid: 8d98ff26b3a2bf4409b235e730e42565,
@@ -27616,6 +27616,8 @@ MonoBehaviour:
   base5Prefab: {fileID: 7484687940103583877, guid: 1d115c995784d454c8f93c884146f8cd,
     type: 3}
   navMarkPrefab: {fileID: 5925631619938338444, guid: b1536bb584cbe4146a751c99fefcca30,
+    type: 3}
+  navButtonPrefab: {fileID: 1112484188667574675, guid: 14b856d6e7e157a43963bc1abad55620,
     type: 3}
 --- !u!114 &1964602110
 MonoBehaviour:

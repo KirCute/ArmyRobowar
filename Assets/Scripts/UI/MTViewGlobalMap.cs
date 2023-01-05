@@ -18,11 +18,17 @@ namespace UI {
         [SerializeField] private GameObject base4Prefab;
         [SerializeField] private GameObject base5Prefab;
         [SerializeField] private GameObject navMarkPrefab;
+        [SerializeField] private GameObject navButtonPrefab;
 
         private const int VIEW_MAP_PAGE_ID = 0;
         private const float VIEW_MAP_PAGE_WIDTH = 0.8F;
         private const float VIEW_MAP_PAGE_HEIGHT = 0.8F;
         private const string VIEW_MAP_PAGE_TITLE = "自主导航路径设置";
+        private static readonly Vector2[] BASE_POSITION = new []
+        {
+            new Vector2(-60.0F,-40.0F),new Vector2(-60.0F,5.0F),new Vector2(-40.0F,45.0F),
+            new Vector2(60.0F,-25.0F),new Vector2(18.0F,-45.0F),new Vector2(43.0F,35.0F),
+        };
 
         private Vector2 robotScroll = Vector2.zero;
         private int selectedRobot = -1;
@@ -39,7 +45,8 @@ namespace UI {
         private GameObject base4;
         private GameObject base5;
         private readonly List<GameObject> navMarkList = new();
-
+        private readonly GameObject[] navButtons =
+            new GameObject[MTMapBuilder.MAP_CELL_COLUMN_CNT * MTMapBuilder.MAP_CELL_ROW_CNT];
 
         private void Awake() {
             mapGameObject = Instantiate(map,
@@ -49,8 +56,10 @@ namespace UI {
             mapGameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(MTMapBuilder.MAP_CELL_COLUMN_CNT * 10,
                 MTMapBuilder.MAP_CELL_ROW_CNT * 10);
             mapGameObject.SetActive(false);
+            
             CreateBase();
             CreateMask();
+            CreateNavButton();
         }
 
         private void OnGUI() {
@@ -73,6 +82,13 @@ namespace UI {
                     }
                 }
 
+                for (var i = 0; i < MTMapBuilder.MAP_CELL_ROW_CNT; i++) {
+                    for (var j = 0; j < MTMapBuilder.MAP_CELL_COLUMN_CNT; j++) {
+                        var temp = i * MTMapBuilder.MAP_CELL_COLUMN_CNT + j;
+                        navButtons[temp].SetActive(false);
+                    }
+                }
+                
                 base0.SetActive(false);
                 base1.SetActive(false);
                 base2.SetActive(false);
@@ -121,8 +137,16 @@ namespace UI {
             for (var i = 0; i < MTMapBuilder.MAP_CELL_ROW_CNT; i++) {
                 for (var j = 0; j < MTMapBuilder.MAP_CELL_COLUMN_CNT; j++) {
                     var temp = (MTMapBuilder.MAP_CELL_ROW_CNT - i - 1) * MTMapBuilder.MAP_CELL_COLUMN_CNT + j; //坐标系不同
-
+                    Debug.Log(Summary.team.teamMap[temp]);
                     blackMasks[temp].SetActive(!Summary.team.teamMap[temp]);
+                }
+            }
+            
+            for (var i = 0; i < MTMapBuilder.MAP_CELL_ROW_CNT; i++) {
+                for (var j = 0; j < MTMapBuilder.MAP_CELL_COLUMN_CNT; j++) {
+                    var temp = (MTMapBuilder.MAP_CELL_ROW_CNT - i - 1) * MTMapBuilder.MAP_CELL_COLUMN_CNT + j; //坐标系不同
+
+                    navButtons[temp].SetActive(true);
                 }
             }
 
@@ -192,10 +216,10 @@ namespace UI {
                     blackMasks[m * MTMapBuilder.MAP_CELL_COLUMN_CNT + n].GetComponent<RectTransform>().sizeDelta =
                         new Vector2(10, 10);
                     blackMasks[m * MTMapBuilder.MAP_CELL_COLUMN_CNT + n].SetActive(false);
-                    AddListener(
+                    /*AddListener(
                         transform.Find("Canvas").Find("Naviga")
                             .Find("blackMask_" + (m * MTMapBuilder.MAP_CELL_COLUMN_CNT + n))
-                            .GetComponent<Button>(), m, n);
+                            .GetComponent<Button>(), m, n);*/
                 }
             }
         }
@@ -203,45 +227,67 @@ namespace UI {
         private void CreateBase() {
             base0 = Instantiate(base0Prefab,
                 transform.Find("Canvas").Find("Naviga").gameObject.GetComponent<RectTransform>());
-            var mapPose = MTGlobalMapPoint.World2Map(-60.0, -40.0);
+            var mapPose = MTGlobalMapPoint.World2Map(BASE_POSITION[0].x, BASE_POSITION[0].y);
             base0.GetComponent<RectTransform>().localPosition =
-                new Vector2((mapPose[0]), mapPose[1]);
+                new Vector2(mapPose[0], mapPose[1]);
             base0.SetActive(false);
 
             base1 = Instantiate(base1Prefab,
                 transform.Find("Canvas").Find("Naviga").gameObject.GetComponent<RectTransform>());
-            mapPose = MTGlobalMapPoint.World2Map(-60.0, 5.0);
+            mapPose = MTGlobalMapPoint.World2Map(BASE_POSITION[1].x, BASE_POSITION[1].y);
             base1.GetComponent<RectTransform>().localPosition =
                 new Vector2(mapPose[0], mapPose[1]);
             base1.SetActive(false);
 
             base2 = Instantiate(base2Prefab,
                 transform.Find("Canvas").Find("Naviga").gameObject.GetComponent<RectTransform>());
-            mapPose = MTGlobalMapPoint.World2Map(-40.0, 45.0);
+            mapPose = MTGlobalMapPoint.World2Map(BASE_POSITION[2].x, BASE_POSITION[2].y);
             base2.GetComponent<RectTransform>().localPosition =
                 new Vector2(mapPose[0], mapPose[1]);
             base2.SetActive(false);
 
             base3 = Instantiate(base3Prefab,
                 transform.Find("Canvas").Find("Naviga").gameObject.GetComponent<RectTransform>());
-            mapPose = MTGlobalMapPoint.World2Map(60.0, -25.0);
+            mapPose = MTGlobalMapPoint.World2Map(BASE_POSITION[3].x, BASE_POSITION[3].y);
             base3.GetComponent<RectTransform>().localPosition =
                 new Vector2(mapPose[0], mapPose[1]);
             base3.SetActive(false);
 
             base4 = Instantiate(base4Prefab,
                 transform.Find("Canvas").Find("Naviga").gameObject.GetComponent<RectTransform>());
-            mapPose = MTGlobalMapPoint.World2Map(18.0, -45.0);
+            mapPose = MTGlobalMapPoint.World2Map(BASE_POSITION[4].x, BASE_POSITION[4].y);
             base4.GetComponent<RectTransform>().localPosition =
                 new Vector2(mapPose[0], mapPose[1]);
             base4.SetActive(false);
 
             base5 = Instantiate(base5Prefab,
                 transform.Find("Canvas").Find("Naviga").gameObject.GetComponent<RectTransform>());
-            mapPose = MTGlobalMapPoint.World2Map(43.0, 35.0);
+            mapPose = MTGlobalMapPoint.World2Map(BASE_POSITION[5].x, BASE_POSITION[5].y);
             base5.GetComponent<RectTransform>().localPosition =
                 new Vector2(mapPose[0], mapPose[1]);
             base5.SetActive(false);
+        }
+
+        private void CreateNavButton()
+        {
+            for (var m = 0; m < MTMapBuilder.MAP_CELL_ROW_CNT; m++) {
+                for (var n = 0; n < MTMapBuilder.MAP_CELL_COLUMN_CNT; n++) {
+                    var temp = Instantiate(navButtonPrefab,
+                        transform.Find("Canvas").Find("Naviga").gameObject.GetComponent<RectTransform>());
+                    navButtons[m * MTMapBuilder.MAP_CELL_COLUMN_CNT + n] = temp;
+                    navButtons[m * MTMapBuilder.MAP_CELL_COLUMN_CNT + n].name =
+                        "navButtonPrefab_" + (m * MTMapBuilder.MAP_CELL_COLUMN_CNT + n);
+                    navButtons[m * MTMapBuilder.MAP_CELL_COLUMN_CNT + n].GetComponent<RectTransform>().localPosition =
+                        new Vector2(-230 + 5 + n * 10, -170 + 5 + m * 10);
+                    navButtons[m * MTMapBuilder.MAP_CELL_COLUMN_CNT + n].GetComponent<RectTransform>().sizeDelta =
+                        new Vector2(10, 10);
+                    navButtons[m * MTMapBuilder.MAP_CELL_COLUMN_CNT + n].SetActive(false);
+                    AddListener(
+                        transform.Find("Canvas").Find("Naviga")
+                            .Find("navButtonPrefab_" + (m * MTMapBuilder.MAP_CELL_COLUMN_CNT + n))
+                            .GetComponent<Button>(), m, n);
+                }
+            }
         }
 
         private void TransformPosition(int m, int n) {

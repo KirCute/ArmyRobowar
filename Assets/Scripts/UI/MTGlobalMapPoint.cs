@@ -68,11 +68,12 @@ namespace UI {
         }
 
         private void DeleteDestroyedEnemy(object[] args) {
+            Debug.Log("callback");
             for (var i = 0; i < enemyList.Count; i++) {
                 var enemy = enemyList[i];
                 if (enemy == (int) args[0]) {
                     enemyList.RemoveAt(i--);
-
+                    Debug.Log("11111");
                     //删除enemyList中的ID时同时删除该ID对应的point（GameObject）及EPList中的key
                     foreach (var ep in enemyPointList.Where(ep => ep.Key == enemy)) {
                         Destroy(ep.Value);
@@ -111,7 +112,7 @@ namespace UI {
                     createdFriends.Add(k);
                 } else if (createdFriends.Contains(k)) {  //已创建后，有信号更新无信号删除
                     switch (Summary.team.robots[k].connection) {
-                        case > 1: {
+                        case > 0: {
                             foreach (var (key, value) in friendPointList) {
                                 if (key == Summary.team.robots[k].id) {
                                     var robotTransform = GameObject.Find($"Robot_{Summary.team.robots[k].id}").transform;
@@ -123,7 +124,7 @@ namespace UI {
 
                             break;
                         }
-                        case <= 1: {
+                        case <= 0: {
                             foreach (var fp in friendPointList.Where(fp => fp.Key == Summary.team.robots[k].id)) {
                                 Destroy(fp.Value);
                                 //删除对应point后置为false
