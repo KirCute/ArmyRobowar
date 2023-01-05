@@ -11,7 +11,7 @@ namespace UI {
         private const int VIEW_REFIT_PAGE_ID = 0;
         private const float VIEW_REFIT_PAGE_WIDTH = 0.8F;
         private const float VIEW_REFIT_PAGE_HEIGHT = 0.8F;
-        private const string VIEW_REFIT_PAGE_TITLE = "";
+        private const string VIEW_REFIT_PAGE_TITLE = "改装";
         private Vector2 robotScroll = Vector2.zero;
         private Vector2 detailScroll = Vector2.zero;
         private Vector2 componentScroll = Vector2.zero;

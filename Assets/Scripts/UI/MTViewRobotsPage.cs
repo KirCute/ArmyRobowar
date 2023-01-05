@@ -10,7 +10,7 @@ namespace UI {
         private const int VIEW_ROBOTS_PAGE_ID = 0;
         private const float VIEW_ROBOTS_PAGE_WIDTH = 0.8F;
         private const float VIEW_ROBOTS_PAGE_HEIGHT = 0.8F;
-        private const string VIEW_ROBOTS_PAGE_TITLE = "";
+        private const string VIEW_ROBOTS_PAGE_TITLE = "机器人概览";
 
         private Vector2 scroll = Vector2.zero;
 

@@ -1,10 +1,9 @@
 ﻿using Equipment.Robot;
 using Equipment.Robot.Body;
-using Equipment.Sensor;
 using Photon.Pun;
 using UnityEngine;
 
-namespace Equiment {
+namespace Equipment.Sensor.Camera {
     /// <summary>
     /// 发布锁敌以及失去锁敌的事件
     /// </summary>

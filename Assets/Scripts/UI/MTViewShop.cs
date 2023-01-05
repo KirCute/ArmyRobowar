@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Photon.Pun;
-using UnityEditor;
 
 namespace UI {
     public class MTViewShop : MonoBehaviourPun {
         private const int VIEW_SHOP_ID = 0;
         private const float VIEW_SHOP_WIDTH = 0.8F;
         private const float VIEW_SHOP_HEIGHT = 0.7F;
-        private const string VIEW_SHOP_TITLE = "";
+        private const string VIEW_SHOP_TITLE = "商店";
         private Vector2 scroll = Vector2.zero;
         private int baseId = 6;
         private readonly Dictionary<string, string> robotNames = new();
@@ -23,8 +22,8 @@ namespace UI {
         private Texture2D armorImg;
         private Texture2D engineerImg;
         private Texture2D towerImg;
-        
-        
+
+
         private void OnEnable() {
             if (baseId == 6 || !Summary.team.bases.Keys.Contains(baseId)) SwitchNextBase();
             var robotNamesKey = robotNames.Keys.ToList();
@@ -33,22 +32,20 @@ namespace UI {
             foreach (var key in robotNameErrorsKey) robotNameErrors[key] = "";
             Events.AddListener(Events.F_BASE_DESTROYED, OnBaseDestroyed);
             Events.AddListener(Events.F_GAME_OVER, OnGameOver);
-            
-            robotImg = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Resources/ShopImage/robot.png");
-            cameraImg = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Resources/ShopImage/camera.png");
-            gunImg = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Resources/ShopImage/gun.png");
-            lidarImg = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Resources/ShopImage/lidar.png");
-            inventoryImg = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Resources/ShopImage/inventory.png");
-            armorImg = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Resources/ShopImage/armor.png");
-            engineerImg = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Resources/ShopImage/engineer.png");
-            towerImg = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Resources/ShopImage/tower.png");
 
+            armorImg = Resources.Load("ShopImage/armor") as Texture2D;
+            cameraImg = Resources.Load("ShopImage/camera") as Texture2D;
+            gunImg = Resources.Load("ShopImage/gun") as Texture2D;
+            inventoryImg = Resources.Load("ShopImage/inventory") as Texture2D;
+            lidarImg = Resources.Load("ShopImage/lidar") as Texture2D;
+            robotImg = Resources.Load("ShopImage/robot") as Texture2D;
+            towerImg = Resources.Load("ShopImage/tower") as Texture2D;
+            engineerImg = Resources.Load("ShopImage/engineer") as Texture2D;
         }
 
         private void OnDisable() {
             Events.RemoveListener(Events.F_BASE_DESTROYED, OnBaseDestroyed);
             Events.RemoveListener(Events.F_GAME_OVER, OnGameOver);
-           // a = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Scripts/UI/image/Lider.png");
         }
 
         private void OnBaseDestroyed(object[] args) {
@@ -75,10 +72,10 @@ namespace UI {
                 scroll = GUILayout.BeginScrollView(scroll, false, false,
                     GUILayout.Height(Screen.height * VIEW_SHOP_HEIGHT));
                 GUILayout.BeginVertical("Box");
-                
+
                 foreach (var goods in Summary.team.availableRobotTemplates) {
                     GUILayout.BeginHorizontal("Box");
-                    GUILayout.Label(getImage(goods),GUILayout.ExpandWidth(false));
+                    GUILayout.Label(GetImage(goods), GUILayout.ExpandWidth(false));
                     GUILayout.BeginVertical("Box");
                     GUILayout.BeginHorizontal();
                     var template = Constants.ROBOT_TEMPLATES[goods];
@@ -94,19 +91,25 @@ namespace UI {
                             robotNames[goods] = "";
                         }
                     }
+
                     GUILayout.EndHorizontal();
                     GUILayout.BeginHorizontal();
                     GUILayout.Label("命名:", GUILayout.ExpandWidth(false));
-                    GUIStyle styleTemp = new GUIStyle(GUI.skin.textField);
-                    styleTemp.fontSize = 30;
-                    robotNames[goods] = GUILayout.TextField(robotNames[goods],9,styleTemp, GUILayout.ExpandWidth(true));
-                    GUILayout.Label($"{robotNameErrors[goods], -16}", GUILayout.ExpandWidth(false));
+                    var styleTemp = new GUIStyle(GUI.skin.textField) {
+                        fontSize = 30
+                    };
+                    robotNames[goods] =
+                        GUILayout.TextField(robotNames[goods], 9, styleTemp, GUILayout.ExpandWidth(true));
+                    GUILayout.Label($"{robotNameErrors[goods],-16}", GUILayout.ExpandWidth(false));
                     GUILayout.EndHorizontal();
                     GUILayout.BeginHorizontal("Box");
-                    GUIStyle styleTempForLabel = new GUIStyle(GUI.skin.label);
-                    styleTempForLabel.normal.textColor = Color.yellow;
-                    styleTempForLabel.fontSize = 15;
-                    GUILayout.Label(Constants.TECHNOLOGY[goods].description,styleTempForLabel);
+                    var styleTempForLabel = new GUIStyle(GUI.skin.label) {
+                        normal = {
+                            textColor = Color.yellow
+                        },
+                        fontSize = 15
+                    };
+                    GUILayout.Label(Constants.TECHNOLOGY[goods].description, styleTempForLabel);
                     GUILayout.EndHorizontal();
                     GUILayout.EndVertical();
                     GUILayout.EndHorizontal();
@@ -114,7 +117,7 @@ namespace UI {
 
                 foreach (var goods in Summary.team.availableSensorTemplates) {
                     GUILayout.BeginHorizontal("Box");
-                    GUILayout.Label(getImage(goods),GUILayout.ExpandWidth(false));
+                    GUILayout.Label(GetImage(goods), GUILayout.ExpandWidth(false));
                     GUILayout.BeginVertical("Box");
                     GUILayout.BeginHorizontal("Box");
                     var template = Constants.SENSOR_TEMPLATES[goods];
@@ -124,10 +127,13 @@ namespace UI {
                     }
 
                     GUILayout.EndHorizontal();
-                    GUIStyle styleTempForLabel = new GUIStyle(GUI.skin.label);
-                    styleTempForLabel.normal.textColor = Color.yellow;
-                    styleTempForLabel.fontSize = 15;
-                    GUILayout.Label(Constants.TECHNOLOGY[goods].description,styleTempForLabel);
+                    var styleTempForLabel = new GUIStyle(GUI.skin.label) {
+                        normal = {
+                            textColor = Color.yellow
+                        },
+                        fontSize = 15
+                    };
+                    GUILayout.Label(Constants.TECHNOLOGY[goods].description, styleTempForLabel);
                     GUILayout.EndVertical();
                     GUILayout.EndHorizontal();
                 }
@@ -151,39 +157,31 @@ namespace UI {
 
             baseId = minBigger == Constants.BASE_COUNT ? min : minBigger;
         }
+
         private void OnGameOver(object[] args) {
             if (args.Length != 0) {
                 this.enabled = false;
             }
         }
-        
-        private Texture2D getImage(string tech) {
+
+        private Texture2D GetImage(string tech) {
             if (Constants.ROBOT_TEMPLATES.ContainsKey(tech)) {
                 return robotImg;
-            } else if (Constants.SENSOR_TEMPLATES.ContainsKey(tech)) {
-                switch (Constants.SENSOR_TEMPLATES[tech].type) {
-                    case 0:
-                        return cameraImg;
-                    case 1:
-                        return gunImg;
-                    case 2:
-                        return lidarImg;
-                    case 3:
-                        return inventoryImg;
-                    case 4:
-                        return armorImg;
-                    case 5:
-                        return engineerImg;
-                    default:
-                        return null;
-                        
+            }
 
-                }
+            if (Constants.SENSOR_TEMPLATES.ContainsKey(tech)) {
+                return Constants.SENSOR_TEMPLATES[tech].type switch {
+                    0 => cameraImg,
+                    1 => gunImg,
+                    2 => lidarImg,
+                    3 => inventoryImg,
+                    4 => armorImg,
+                    5 => engineerImg,
+                    _ => null
+                };
             }
-            else {
-                return towerImg;
-            }
-            
+
+            return towerImg;
         }
     }
 }
