@@ -73,9 +73,6 @@ namespace UI {
                         if (roomNameJoin.Length > 2) {
                             roomExistJoin = "";
                             PhotonNetwork.JoinRoom(roomNameJoin);
-                            if (!myRoomList.ContainsKey(roomNameJoin)) {
-                                roomExistJoin = "不存在此房间";
-                            }
                         }
                     }
 

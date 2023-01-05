@@ -23,7 +23,6 @@ namespace UI {
         private Texture2D lidarImg;
         private Texture2D inventoryImg;
         private Texture2D robotImg;
-        private Texture2D towerImg;
         private Texture2D engineerImg;
 
         private void OnGUI() {
@@ -64,8 +63,9 @@ namespace UI {
                         var component = myRobot.equippedComponents[i];
                         GUILayout.BeginHorizontal("Box");
                         //GUILayout.Label(getImage(component.template.type),GUILayout.ExpandWidth(false));
-                        GUIStyle styleTemp = new GUIStyle(GUI.skin.label);
-                        styleTemp.fontSize = 20;
+                        var styleTemp = new GUIStyle(GUI.skin.label) {
+                            fontSize = 20
+                        };
                         GUILayout.Label($"{i} - {(component == null ? "空" : component.template.name)}",styleTemp,
                             GUILayout.ExpandWidth(true));
                         if (component != null && GUILayout.Button("拆卸", GUILayout.ExpandWidth(false))) {
@@ -112,7 +112,7 @@ namespace UI {
                 for (var i = 0; i < Summary.team.components.Count; i++) {
                     var component = Summary.team.components[i];
                     GUILayout.BeginHorizontal("Box");
-                    GUILayout.Label(getImage(component.template.type),GUILayout.ExpandWidth(false));
+                    GUILayout.Label(GetImage(component.template.type),GUILayout.ExpandWidth(false));
                     GUILayout.Label(component.template.name, GUILayout.ExpandWidth(true)); 
                     if (myRobot != null && GUILayout.Button("装配", GUILayout.ExpandWidth(false))) {
                         var componentType = new List<int>();
@@ -153,24 +153,16 @@ namespace UI {
                 GetComponent<MEMainCameraController>().active = true;
             }
         }
-        private Texture2D getImage(int tech) {
-        switch (tech) {
-                case 0:
-                    return cameraImg;
-                case 1:
-                    return gunImg;
-                case 2:
-                    return lidarImg;
-                case 3:
-                    return inventoryImg;
-                case 4:
-                    return armorImg;
-                case 5:
-                    return engineerImg;
-                default:
-                    return null;
-            }
-           
+        private Texture2D GetImage(int tech) {
+            return tech switch {
+                0 => cameraImg,
+                1 => gunImg,
+                2 => lidarImg,
+                3 => inventoryImg,
+                4 => armorImg,
+                5 => engineerImg,
+                _ => null
+            };
         }
         private void OnGameOver(object[] args) {
             if (args.Length != 0) {
@@ -181,14 +173,13 @@ namespace UI {
         public override void OnEnable() {
             base.OnEnable();
             Events.AddListener(Events.F_GAME_OVER, OnGameOver);
-            armorImg = Resources.Load("image/armor") as Texture2D;
-            cameraImg = Resources.Load("image/camera") as Texture2D;
-            gunImg = Resources.Load("image/gun") as Texture2D;
-            inventoryImg = Resources.Load("image/inventory") as Texture2D;
-            lidarImg = Resources.Load("image/lidar") as Texture2D;
-            robotImg = Resources.Load("image/robot") as Texture2D;
-            towerImg = Resources.Load("image/tower") as Texture2D;
-            engineerImg = Resources.Load("image/engineer") as Texture2D;
+            armorImg = Resources.Load("ShopImage/armor") as Texture2D;
+            cameraImg = Resources.Load("ShopImage/camera") as Texture2D;
+            gunImg = Resources.Load("ShopImage/gun") as Texture2D;
+            inventoryImg = Resources.Load("ShopImage/inventory") as Texture2D;
+            lidarImg = Resources.Load("ShopImage/lidar") as Texture2D;
+            robotImg = Resources.Load("ShopImage/robot") as Texture2D;
+            engineerImg = Resources.Load("ShopImage/engineer") as Texture2D;
         }
 
         public override void OnDisable() {
