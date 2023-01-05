@@ -15,7 +15,7 @@ namespace UI {
         private int baseId = 6;
         private readonly Dictionary<string, string> robotNames = new();
         private readonly Dictionary<string, string> robotNameErrors = new();
-        
+
         private Texture2D robotImg;
         private Texture2D cameraImg;
         private Texture2D gunImg;
@@ -24,9 +24,8 @@ namespace UI {
         private Texture2D armorImg;
         private Texture2D engineerImg;
         private Texture2D towerImg;
-        
-        
-        
+
+
         private void OnEnable() {
             if (baseId == 6 || !Summary.team.bases.Keys.Contains(baseId)) SwitchNextBase();
             var robotNamesKey = robotNames.Keys.ToList();
@@ -35,7 +34,7 @@ namespace UI {
             foreach (var key in robotNameErrorsKey) robotNameErrors[key] = "";
             Events.AddListener(Events.F_BASE_DESTROYED, OnBaseDestroyed);
             Events.AddListener(Events.F_GAME_OVER, OnGameOver);
-            
+
             robotImg = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Resources/ShopImage/robot.png");
             cameraImg = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Resources/ShopImage/camera.png");
             gunImg = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Resources/ShopImage/gun.png");
