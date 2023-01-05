@@ -14,6 +14,7 @@ namespace UI {
         private int baseId = 6;
         private readonly Dictionary<string, string> robotNames = new();
         private readonly Dictionary<string, string> robotNameErrors = new();
+        
         private Texture2D robotImg;
         private Texture2D cameraImg;
         private Texture2D gunImg;
