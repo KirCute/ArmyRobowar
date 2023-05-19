@@ -12,7 +12,7 @@ namespace Model {
     public class Team {
         private const int TEAM_MAP_WIDTH = 46;
         private const int TEAM_MAP_HEIGHT = 34;
-        private const int INIT_COUNT_OF_COINS = 200;
+        private const int INIT_COUNT_OF_COINS = 100000;
         private const double INIT_RESEARCH_POINT = 13.0;
         private const double RESEARCH_POINT_INCREMENT_PER_MIN = 2.5;
 

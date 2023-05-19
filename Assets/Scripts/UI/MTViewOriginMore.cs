@@ -17,17 +17,27 @@ namespace UI {
             GUILayout.Window(VIEW_ORIGIN_MORE_PAGE_ID, new Rect(0,
                 0,
                 Screen.width, Screen.height), _ => {
-                var textStyle = new GUIStyle(GUI.skin.textField);
-                var anotherLabelStyle = new GUIStyle(GUI.skin.label);
-
-                textStyle.normal.textColor = Color.white;
-                textStyle.fontSize = 30;
-
-                anotherLabelStyle.normal.textColor = Color.white;
-                anotherLabelStyle.fontSize = 30;
+                var titleLabelStyle = new GUIStyle(GUI.skin.label) {
+                    normal = {
+                        textColor = Color.white
+                    },
+                    fontSize = 72,
+                    alignment = TextAnchor.MiddleCenter
+                };
+                var textStyle = new GUIStyle(GUI.skin.textField) {
+                    normal = {
+                        textColor = Color.white
+                    },
+                    fontSize = 30
+                };
+                var anotherLabelStyle = new GUIStyle(GUI.skin.label) {
+                    normal = {
+                        textColor = Color.white
+                    },
+                    fontSize = 30
+                };
                 GUILayout.BeginVertical("Box");
-                GUILayout.Label("", GUILayout.ExpandHeight(true));
-                //GUILayout.Label("请输入你的名字:",GUILayout.ExpandHeight(false));
+                GUILayout.Label("Army: Robowar", titleLabelStyle, GUILayout.ExpandHeight(true));
                 GUILayout.BeginHorizontal();
                 GUILayout.Label("请输入你的名字:", anotherLabelStyle);
                 nickname = GUILayout.TextField(nickname, textStyle, GUILayout.ExpandHeight(false),
